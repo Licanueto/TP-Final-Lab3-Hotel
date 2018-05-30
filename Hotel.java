@@ -1,13 +1,13 @@
 
 public class Hotel {
 	
-	 private String nombre;
-	 private String direccion;
-     private String CUIT;
-	 private BaseDeDatos<Concerje> concerjes;
-	 private BaseDeDatos<Habitacion> habitaciones;
-	 private BaseDeDatos<Pasajero> pasajeros;
-     private BaseDeDatos<Reserva> reservas;
+	private String nombre;
+        private String direccion;
+     	private String CUIT;
+        private BaseDeDatos<Concerje> concerjes;
+        private BaseDeDatos<Habitacion> habitaciones;
+        private BaseDeDatos<Pasajero> pasajeros;
+        private BaseDeDatos<Reserva> reservas;
 
      
      public Hotel(String nombre,String direccion,String CUIT){
