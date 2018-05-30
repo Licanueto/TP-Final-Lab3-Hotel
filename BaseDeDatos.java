@@ -20,14 +20,14 @@ public class BaseDeDatos<T> {
 
     }
     
-    public boolean buscar(T elemento) {     //puede tambien ser void,hay que redefinir el equals de las 4 clases
+    public T obtener(T elemento) {     //hay que redefinir el equals de las 4 clases
         boolean encontrado = false;
-        for (int i = 0; i < listado.size() && encontrado == false; i++) {
+        for (int i = 0; i < listado.size() && !encontrado; i++) {
             if (elemento.equals(listado.get(i))) {
                 encontrado = true;
             }
         }
-        return encontrado;
+        return elemento;
     }
     
     public void borrar(T elemento){
