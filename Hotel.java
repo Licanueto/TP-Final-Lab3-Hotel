@@ -13,11 +13,11 @@ public class Hotel {
      public Hotel(String nombre,String direccion,String CUIT){
         this.nombre = nombre;
         this.direccion = direccion;
-	    this.CUIT = CUIT;
+	this.CUIT = CUIT;
         concerjes = new BaseDeDatos<>();
         habitaciones = new BaseDeDatos<>();
-	    pasajeros = new BaseDeDatos<>();
+        pasajeros = new BaseDeDatos<>();
         reservas = new BaseDeDatos<>();
-	    }
+    }
 
 }
