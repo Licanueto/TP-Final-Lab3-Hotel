@@ -55,7 +55,7 @@ public class BaseDeDatos {
         }
         return null;
     }
-    public ArrayList<Habitacion> obtenerLibres(){
+    public ArrayList<Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
         ArrayList<Habitacion> disponibles = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
             if(habitacion.isDisponible() && !habitacion.isOcupada()){
@@ -113,7 +113,8 @@ public class BaseDeDatos {
     public void quitarHabitacion(Habitacion habitacion){
         habitaciones.remove(habitacion);
     }
-
+  //recibir numero de pasajeros y ver si hay disponibilidad.....devolver boolean ...boolean hayCapacidad(byte cantidad){}
+    
     //////////////////////////////////////////////////////////////////////////
     public void agregarPasajero(Pasajero pasajero){
         pasajeros.put(pasajero.getDni(),pasajero);
