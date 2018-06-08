@@ -8,14 +8,18 @@ import net.time4j.range.ValueInterval;
 
 import java.util.*;
 import java.io.*;
-														   //////////////////////////////////////////////////////////////////////////
- 														  /*  Se toma como "Disponible" a la ausencia de intervalo en el periodo  */
-													 	 //////////////////////////////////////////////////////////////////////////
+			  
+			  //////////////////////////////////////////////////////////////////////////
+ 			 /*  Se toma como "Disponible" a la ausencia de intervalo en el periodo  */
+			//////////////////////////////////////////////////////////////////////////
 										
-
-													  //////////////////////////////////////////////////////////////////////////
-													 /*                 A hacer:  Desocupar() && Habilitar()                 */
-													////////////////////////////////////////////////////////////////////////// 
+		  //////////////////////////////////////////////////////////////////////////
+		 /*                 A hacer:  Desocupar() && Habilitar()                 */
+		////////////////////////////////////////////////////////////////////////// 
+												
+	  //////////////////////////////////////////////////////////////////////////
+	 /*                 "Disponible" es equivalente a "ocupable"             */
+	////////////////////////////////////////////////////////////////////////// 
 
 @SuppressWarnings("unused")
 public class Habitacion {
@@ -93,10 +97,7 @@ public class Habitacion {
     }
     
     public String getEstado(PlainDate fecha) {
-    	if(isDisponible(fecha)) {  // Si la coleccion no tiene intervalo con esa fecha implica disponibilidad, sino se itera la coleccion hasta dar con el intervalo que posea la fecha recibida por parametro
-    		return "Disponible";
-    	}
-    	else {
+    	if(!isDisponible(fecha)) {  // Si la coleccion no tiene intervalo con esa fecha implica disponibilidad, sino se itera la coleccion hasta dar con el intervalo que posea la fecha recibida por parametro
     		Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     		while(iterador.hasNext()) {
     			ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
@@ -105,27 +106,28 @@ public class Habitacion {
     				return intervaloCasteado.getValue();
     			}
         	}
-    		System.out.println("Ac· no deberÌa llegar nunca, si llega es que hay algun problema en getEstado(fecha) de la clase HabitaciÛn");
+    		System.out.println("Ac√° no deber√≠a llegar nunca, si llega es que hay algun problema en getEstado(fecha) de la clase Habitaci√≥n");
     	}
+    	return "Disponible";
     }
     	
     /*  // En este metodo estoy comparando los Strings para ver si son ambos "Disponible" cuando en realidad es mejor no usar la palabra Disponible at all y tomar la ausencia de intervalo como disponibilidad
     public boolean isDisponible(PlainDate fecha) { // hay que hacer otro isDisponible para dos fechas (inicio y fin)
-    	if (ColecIntervalosDeFechas.encloses(fecha)){ // Si la colecciÛn posÈe en sÌ misma la fecha, se la recorre
+    	if (ColecIntervalosDeFechas.encloses(fecha)){ // Si la colecci√≥n pos√©e en s√≠ misma la fecha, se la recorre
     		Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     		while(iterador.hasNext()) {
-    			ValueInterval<PlainDate, DateInterval,String> intervalo = (ValueInterval<PlainDate, DateInterval, String>)iterador; //se castea el iterador a ValueInterval ya que la coleccion no sabe quÈ tipo de dato contiene
+    			ValueInterval<PlainDate, DateInterval,String> intervalo = (ValueInterval<PlainDate, DateInterval, String>)iterador; //se castea el iterador a ValueInterval ya que la coleccion no sabe qu√© tipo de dato contiene
 	    		if(intervalo.contains(fecha)) { // Si el iterador se encuentra en el intervalo que posee la fecha
 	    			if(intervalo.getValue().equals("Disponible") || intervalo.getValue().equals("disponible")) {
 	    				return true;
 	    			}else return false;
 	    		}  		
     		}
-	    	System.out.println("La funcion isDisponible() de Habitacion no deberÌa llegar ac·, se retorna false por si acaso");return false;
+	    	System.out.println("La funcion isDisponible() de Habitacion no deber√≠a llegar ac√°, se retorna false por si acaso");return false;
 	    	// Esto nunca se deberia ejecutar ya que implica que encloses diga que el dia se encuentra en la coleccion pero que al recorrerla el intervalo no se encuentra (no entra al if)
     	}else return true; // El dia de hoy no se encuentra en ningun intervalo
     }*/
-    public boolean isDisponible() {
+    public boolean isDisponible() { // Disponible es "Disponible para ser ocupada"
     	return isDisponible(PlainDate.nowInSystemTime());
     }    
     public boolean isDisponible (PlainDate fecha) {
@@ -138,7 +140,7 @@ public class Habitacion {
     		ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
     		DateInterval intervaloAComparar = intervaloCasteado.getBoundaries();
     		if(intervaloRecibido.intersects(intervaloAComparar)) {
-    			return false
+    			return false;
     		}
     	}
     	return true;
@@ -214,5 +216,5 @@ public class Habitacion {
 
         return toString() + "\n" + estaDisponible + "\n" + estaOcupada ;/*
     }
-
+*/
 }
