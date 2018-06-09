@@ -1,19 +1,29 @@
 package Clases;
-
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BaseDeDatos {
+import net.time4j.PlainDate;
 
-    //PARA CREAR LA BASE DE DATOS SERIA: BaseDeDatos baseDeDatosUnica = BaseDeDatos.getSingletonInstance();
-    //
-    //CON EL CONSTRUCTOR PRIVADO, ESTO HACE QUE PUEDA SER INSTANCIADA SOLO UNA VEZ.
 
-    private static BaseDeDatos baseDeDatos;
 
-    private ArrayList<Habitacion> habitaciones;
-    private HashMap<String,Pasajero> pasajeros;
-    private ArrayList<Reserva> reservas;
+public final class BaseDeDatos {
+
+    
+    //CON EL CONSTRUCTOR PRIVADO, ESTO HACE QUE NO PUEDA SER INSTANCIADA 
+
+    //private static BaseDeDatos baseDeDatos;
+
+    private static ArrayList<Habitacion> habitaciones;
+    private static HashMap<String,Pasajero> pasajeros;
+    private static ArrayList<Reserva> reservas;
 
     private BaseDeDatos(){
         habitaciones = new ArrayList<>();
@@ -21,6 +31,7 @@ public class BaseDeDatos {
         reservas = new ArrayList<>();
     }
 
+    /* este bloque volaria , ya no hace falta instanciar la clase
     public static BaseDeDatos getSingletonInstance(){ //se podria tambien lanzar una excepcion  en caso de entrar al else
         if(baseDeDatos == null){
             baseDeDatos = new BaseDeDatos();
@@ -37,14 +48,119 @@ public class BaseDeDatos {
             try {
                 throw new CloneNotSupportedException();
             } catch (CloneNotSupportedException ex) {
-                System.out.println("No se puede clonar un objeto de la clase BaseDeDatos");
+                System.err.println("No se puede clonar un objeto de la clase BaseDeDatos");
             }
             return null;
     }
+    
+    */
+    
+    
+    // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
+    public static void levantarHabitaciones() {
+    	ObjectInputStream lectura = null; 
+    	Habitacion auxiliar;
+    	try {
+    		lectura = new ObjectInputStream(new FileInputStream("habitaciones.dat"));
+			
+    		while(lectura.read() != -1) {
+				auxiliar = (Habitacion) lectura.readObject();
+				agregarHabitacion(auxiliar);
+			}
+		}
+    	catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+    	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	finally {
+				try {
+					lectura.close();
+				}	
+				catch (IOException e) {
+					// TODO: handle exception
+				}
+		}
+    	
+    }
 
+    public static void levantarPasajeros() {
+    	ObjectInputStream lectura = null;
+    	Pasajero auxiliar;
+    	try {
+    		lectura = new ObjectInputStream(new FileInputStream("pasajeros.dat"));
+    		
+    		while(lectura.read() != -1) {
+    			auxiliar = (Pasajero) lectura.readObject();
+    			agregarPasajero(auxiliar);
+    		}
+    	}
+    	catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+    	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	finally {
+				try {
+					lectura.close();
+				}	
+				catch (IOException e) {
+					// TODO: handle exception
+				}
+		}
+    }
+    
+    public static void levantarReservas() {
+    	ObjectInputStream lectura = null;
+    	Reserva auxiliar;
+    	try {
+    		lectura = new ObjectInputStream(new FileInputStream("reservas.dat"));
+    		while (lectura.read() != -1) {
+    			auxiliar = (Reserva) lectura.readObject();
+    			agregarReserva(auxiliar);
+    		}
+    	}
+    	catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+    	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	finally {
+				try {
+					lectura.close();
+				}	
+				catch (IOException e) {
+					// TODO: handle exception
+				}
+		}
+    	
+    }
+    
+    
     /////////// METODOS PARA HABITACIONES //////////////////////////////////////////////////////
 
-    public void agregarHabitacion(Habitacion habitacion){
+    public static void agregarHabitacion(Habitacion habitacion){
         habitaciones.add(habitacion);
     }
     public Habitacion buscarPorNumero(String numHab){
@@ -55,7 +171,7 @@ public class BaseDeDatos {
         }
         return null;
     }
-    public ArrayList<Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
+    public static ArrayList<Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
         ArrayList<Habitacion> disponibles = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
             if(habitacion.isDisponible() && !habitacion.isOcupada()){
@@ -65,7 +181,7 @@ public class BaseDeDatos {
         return disponibles;
     }
 
-    public ArrayList<Habitacion> buscarPorCapacidad(byte numero){
+    public static ArrayList<Habitacion> buscarPorCapacidad(byte numero){
         ArrayList<Habitacion> capacidadBuscada = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
             if(habitacion.getCapacidad() == numero){
@@ -74,7 +190,7 @@ public class BaseDeDatos {
         }
         return capacidadBuscada;
     }
-    public ArrayList<Habitacion> buscarPorTipo(String tipoHab){
+    public static ArrayList<Habitacion> buscarPorTipo(String tipoHab){
         ArrayList<Habitacion> tipoBuscado = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
             if(habitacion.getTipo().equalsIgnoreCase(tipoHab)){
@@ -83,7 +199,7 @@ public class BaseDeDatos {
         }
         return tipoBuscado;
     }
-    public ArrayList<Habitacion> buscarPrecioMenorA(double precioMax){
+    public static ArrayList<Habitacion> buscarPrecioMenorA(double precioMax){
         ArrayList<Habitacion> precioBuscado = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
             if(habitacion.getPrecioDiario() <= precioMax){
@@ -92,7 +208,7 @@ public class BaseDeDatos {
         }
         return precioBuscado;
     }
-    public ArrayList<String> listarHabitaciones(){
+    public static ArrayList<String> listarHabitaciones(){
         ArrayList<String> listaHabitaciones = new ArrayList<>();
         for(Habitacion habitacion : habitaciones){
             listaHabitaciones.add(habitacion.mostrarHabitacion());
@@ -100,7 +216,7 @@ public class BaseDeDatos {
         return listaHabitaciones;
     }
 
-    public void quitarHabitacion(String numero){
+    public static void quitarHabitacion(String numero){
         for(int i = 0; i < habitaciones.size(); i++){
             if(habitaciones.get(i).getNumHabitacion().equalsIgnoreCase(numero)){
                 habitaciones.remove(habitaciones.get(i));
@@ -110,34 +226,82 @@ public class BaseDeDatos {
             }
         }
     }
-    public void quitarHabitacion(Habitacion habitacion){
+    public static void quitarHabitacion(Habitacion habitacion){
         habitaciones.remove(habitacion);
     }
-  //recibir numero de pasajeros y ver si hay disponibilidad.....devolver boolean ...boolean hayCapacidad(byte cantidad){}
     
-    //////////////////////////////////////////////////////////////////////////
-    public void agregarPasajero(Pasajero pasajero){
+    public static double obtenerTarifa(String numHabitacion) {
+    	for(int i = 0; i < habitaciones.size(); i++) {
+    		if(habitaciones.get(i).getNumHabitacion().equals(numHabitacion)) {
+    			return habitaciones.get(i).getPrecioDiario();
+    		}
+    	}
+    	return -1;
+    }
+    
+    public static double obtenerSaldoFrigobar(String numHabitacion) {
+    	for(int i = 0; i < habitaciones.size(); i++) {
+    		if(habitaciones.get(i).getNumHabitacion().equals(numHabitacion)) {
+    			return habitaciones.get(i).getFrigobar().getSaldo();
+    		}
+    	}
+    	return -1;
+    }
+    public static boolean hayCapacidad(int cantPasajeros) {
+    	int capacidadTotal = 0;
+    	for(int i = 0; i < habitaciones.size(); i++) {
+    		capacidadTotal += habitaciones.get(i).getCapacidad();
+    	}
+    	if(capacidadTotal > cantPasajeros) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public static ArrayList<Habitacion> buscarAptas(PlainDate ingreso,PlainDate egreso){
+    	ArrayList<Habitacion> aptas = new ArrayList<>();
+    	for(int i = 0; i < habitaciones.size(); i++) {
+    		if(habitaciones.get(i).isDisponible(ingreso,egreso) && !habitaciones.get(i).isOcupada(ingreso,egreso)) {
+    			aptas.add(habitaciones.get(i));
+    		}
+    	}
+    	return aptas;
+    }
+    
+    
+    
+ 
+    
+    ///////////         METODOS DE PASAJEROS       ////////////////////////////////////////
+    public static void agregarPasajero(Pasajero pasajero){
         pasajeros.put(pasajero.getDni(),pasajero);
+      
     }
 
-    public void quitarPasajero(String numDoc){
+    public static  void quitarPasajero(String numDoc){
             pasajeros.remove(numDoc);
     }
 
-    public Pasajero buscaPasajeroDni(String dniPasajero){
+    public static Pasajero buscaPasajeroDni(String dniPasajero){
         Pasajero buscado = pasajeros.get(dniPasajero);
         return buscado;
     }
 
-    public String buscaNombreYapellido(String dniPasajero){
+    public static String buscaNombreYapellido(String dniPasajero){
         String ApellidoYnombre = pasajeros.get(dniPasajero).getApellido() + " " +  pasajeros.get(dniPasajero).getNombre();
         return ApellidoYnombre;
 
     }
 
-    public String buscaTelefonoPorDni(String dniPasajero){
+    public static String buscaTelefonoPorDni(String dniPasajero){
         String telefono = pasajeros.get(dniPasajero).getTelefonoMovil();
         return telefono;
     }
-}
+
+//////////////        METODOS DE RESERVAS   ////////////////////////////
+
+	public static  void agregarReserva(Reserva elemento) {
+		reservas.add(elemento);
+	}
+
 //FALTA TERMINAR.............
