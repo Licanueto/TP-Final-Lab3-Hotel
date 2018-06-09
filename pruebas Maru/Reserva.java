@@ -114,6 +114,25 @@ public class Reserva {
 		
 		
 	}
+	public double calcularMonto() //OTRA VERSION FIJATE QUE SE ESTABA MULTIPLICANDO FRIGOBAR POR LOS DIAS....
+	{
+		double tarifa = 0;
+		double frigo = 0;
+		
+		for(int i = 0; i < numerosHabitaciones.size(); i++)
+		{
+			//obtener tarifa y obtenersaldo son metodos estaticos para poder acceder por fuera sin referencias....
+			tarifa += BaseDeDatos.obtenerTarifa(numerosHabitaciones.get(i)); //ACUMULA LAS TARIFAS DIARIAS DE TODAS LAS HABITACIONES
+			frigo += BaseDeDatos.obtenerSaldoFrigobar(numerosHabitaciones.get(i)); //ACUMULA TODOS LOS TOTALES DE FRIGOBARES
+		}
+		monto = tarifa * cantidadDias;  //MULTIPLICA ACUMULADO DE TARIFAS DIARIAS POR CANT DE DIAS
+		monto += frigo;  // SUMAMOS TOTAL DE FRIGOBARES A LO ANTERIOR
+		
+		return monto;
+		
+		
+	}
+	
 	public void descontarSaldo(double importe)
 	{
 		saldo = monto - importe;
