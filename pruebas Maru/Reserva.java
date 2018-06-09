@@ -10,7 +10,7 @@ public class Reserva {
 	private String dniPasajero;
 	private PlainDate fechaIngreso;
 	private PlainDate fechaEgreso;
-	private ArrayList<String> numerosHabitaciones; //fijarse porque en el uml figuara Array<numeroHabitaciones> y me parece que no iria así
+	private ArrayList<String> numerosHabitaciones; //fijarse porque en el uml figuara Array<numeroHabitaciones> y me parece que no iria asÃ­
 	private double saldo;
 	private double monto;
 	private boolean seHizoEfectiva;
@@ -72,7 +72,7 @@ public class Reserva {
 		return seHizoEfectiva;
 	}
 	
-	//Metodo que devuelve en un string si se hizo efectiva la reserva, es decir si se realizó el check in
+	//Metodo que devuelve en un string si se hizo efectiva la reserva, es decir si se realizÃ³ el check in
 	
 	public String mostrarEfectiva()
 	{
@@ -94,6 +94,29 @@ public class Reserva {
 	public double calcularMonto()
 	{
 		monto = 
+	}
+	
+	public double calcularMonto()
+	{
+		
+		BaseDeDatos aux;
+		double tarifa = 0;
+		double frigo = 0;
+		double parcial = 0;
+		for(i = 0; i < numerosHabitaciones.size(); i++)
+		{
+			tarifa = aux.obtenerTarifa(numerosHabitaciones[i]);
+			frigo = aux.obtenerSaldoFrigobar(numerosHabitaciones[i]);
+			parcial += tarifa + frigo;
+		}
+		monto = parcial * cantidadDias;
+		return monto;
+		
+		
+	}
+	public void descontarSaldo(double importe)
+	{
+		saldo = monto - importe;
 	}
 	
 	
