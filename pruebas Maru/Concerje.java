@@ -1,94 +1,77 @@
 package Clases;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
+import java.util.List;
 
-public class Concerje implements Serializable{
+import net.time4j.PlainDate;
+
+public class Concerje extends Usuario {
 	
-	public Concerje()
+	public Concerje(String dni, String nombre, String apellido)
 	{
-		
+		super(dni, nombre, apellido);
 	}
-	public int reservar(String dni, int cantidadDias) //ArrayList<Habitacion> habitaciones)
+	
+	@Override
+	public String toString() {
+		
+		return super.toString();
+	}
+	
+	ArrayList<String> asignarHabitaciones(PlainDate fechaIngreso, PlainDate fechaEgreso, int cantPasajeros)
 	{
-		int numeroReserva = generarNumeroReserva();
-		ObjectInputStream entrada;
-		ObjectOutputStream salida;
-		Reserva reser = new Reserva(dni, cantidadDias, numeroReserva);
-		
-		
-		try
-		{
-			entrada = new ObjectInputStream(new FileInputStream("reservas.dat"));
+		ArrayList<String>numerosHabitaciones = new ArrayList<String>();
+		try {
+			boolean disponibilidad = verificarDisponibilidad();
 			
-			Hotel reservorio = (Hotel) entrada.readObject();
+			int i = 0,j = 0;
+			ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(fechaIngreso, fechaEgreso);
+			Collections.sort((List) libres);
+			Collections.reverse(libres);
+			while(cantPasajeros > 0)
+			{
+				while(i < libres.size())
+				{
+					if(cantPasajeros >= libres.get(i).getCapacidad())
+					{
+						cantPasajeros = cantPasajeros - libres.get(i).getCapacidad();
+						numerosHabitaciones.get(j) = libres.get(i).getNumeroHabitacion();
+						j++;
+					}
+					i++;
+				}
+				if(cantPasajeros > 0)
+				{
+					i = libres.size()-1;
+					numerosHabitaciones.get(j) = libres.get(i).getNumeroHabitacion();
+					cantPasajeros = 0;
+				}
+			}
+			return numerosHabitaciones;
 			
 			
-			entrada.close();
+		}catch(FaltaDisponibilidadException e){
 			
-			reservorio.agregarReserva(reser);
+			e.getMessage();
 			
-			salida = new ObjectOutputStream(new FileOutputStream("reservas.dat"));
-			salida.writeObject(reservorio);
+		}catch(RuntimeException e) {
 			
-			
-			
-			salida.close();
-			
-			
-		}catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}catch(IOException io)
-		{
-			io.printStackTrace();
-		}catch(ClassNotFoundException cl)
-		{
-			cl.printStackTrace();
+			e.getMessage();
 		}
-		
-		return numeroReserva;
+	}
+	public boolean verificarDisponibilidad()throws FaltaDisponibilidadException
+	{
+		boolean verifica;
+		if (verifica = BaseDeDatos.hayCapacidad(cantPasajeros) == false)
+			throw new FaltaDisponibilidadException("No alcanza la capacidad del hotel para hospedar a los pasajeros");
+		return verifica;
+			
 	}
 	
-	public int generarNumeroReserva()
-	{
-		int numeroReserva = 0;
-		ObjectInputStream entrada;
-		try 
-		{
-		       entrada = new ObjectInputStream(new FileInputStream("reservas.dat"));
-		       Hotel reser = (Hotel) entrada.readObject();
-		       numeroReserva = reser.getSize();
-		       entrada.close();
-		       
-		       
-		       
-		}catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-			numeroReserva = 100;
-			
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-			numeroReserva = 200;
-	    }finally {
-	    	//System.out.println(numeroReserva);
-	    	return numeroReserva;
-	    }
-		
-		
-		
-	}
-			
+	public int Reservar()
+	
 	
 
+	
 }
