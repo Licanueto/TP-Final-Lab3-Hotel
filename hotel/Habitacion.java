@@ -1,10 +1,11 @@
-package hotel;
+package clases;
 
 import net.time4j.*;
 import net.time4j.range.ChronoInterval;
 import net.time4j.range.DateInterval;
 import net.time4j.range.IntervalCollection;
 import net.time4j.range.ValueInterval;
+import net.time4j.CalendarUnit;
 
 import java.util.*;
 import java.io.*;
@@ -14,15 +15,30 @@ import java.io.*;
 			//////////////////////////////////////////////////////////////////////////
 										
 		  //////////////////////////////////////////////////////////////////////////
-		 /*                 A hacer:  Desocupar() && Habilitar()                 */
-		////////////////////////////////////////////////////////////////////////// 
+		 /*						 A hacer: frigobar  						     */
+	    ////////////////////////////////////////////////////////////////////////// 
 												
 	  //////////////////////////////////////////////////////////////////////////
 	 /*                 "Disponible" es equivalente a "ocupable"             */
-	////////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////////////// 
+
+	// El implements comparable y el compareTo() no están funcionando;
+	// Estaría bueno que al crear la habitación se verifique que el numero de habitación no haya sido ya asignado a otra hab
+
+	// Casos desabilitar() L-Limpieza D-Desinfeccion R-Reparacion
 
 @SuppressWarnings("unused")
-public class Habitacion {
+public class Habitacion {//implements Comparable<Habitacion>{ 
+	
+	// prueba javadoc (no funca)
+	/**
+	 * Este objeto representa la Habitación de un Hotel
+	 * @param razon L-Limpieza D-Desinfeccion R-Reparacion
+	 * @param tipo Expresa el nivel de comfort de la habitación
+	 * @param capacidad cantidad de pasajeros que puede albergar la habitación
+	 * */
+	
+	
 	
 	private String numHabitacion;
     private byte capacidad;
@@ -30,13 +46,8 @@ public class Habitacion {
     private double precioDiario;
     private Frigobar frigobar;
     private IntervalCollection<PlainDate> ColecIntervalosDeFechas;
-    /*
-    private String estado;
-    private boolean disponible;
-    private boolean ocupada;
-    */
     
-    public Habitacion(String numHabitacion,byte capacidad,String tipo,double precioDiario,String estado){
+    public Habitacion(String numHabitacion,byte capacidad,String tipo,double precioDiario){
         this.numHabitacion = numHabitacion;
         this.capacidad = capacidad;
         this.tipo = tipo;
@@ -92,15 +103,90 @@ public class Habitacion {
     	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo); 
     }
     
-    public String getEstado() {
-    	return getEstado(PlainDate.nowInSystemTime());
+    public void deshabilitar() {
+    	char razon = 'z';
+    	deshabilitar(razon);
+    }
+    public void deshabilitar(char razon) {
+    	//prueba javadoc
+    	/**
+    	 * Deshabilita la habitacion
+    	 * @param razon L-Limpieza D-Desinfeccion R-Reparacion
+    	 * */
+    	switch(razon) {
+    		case 'r' : 
+    		case 'R' : setEstado("Deshabilitada: Reparación");
+						break;
+    		case 'd' : 
+    		case 'D' : setEstado("Deshabilitada: Desinfección");
+						break;
+    		case 'l' : 
+    		case 'L' : setEstado("Deshabilitada: Limpieza");
+						break;
+    		default: setEstado("Deshabilitada");
+    		}
+    }
+    public void deshabilitar(PlainDate fecha) {
+    	setEstado("Deshabilitada");
+    }
+    public void deshabilitar(PlainDate fecha, char razon) {
+    	switch(razon) {
+		case 'r' : 
+		case 'R' : setEstado(fecha,"Deshabilitada: Reparación");
+					break;
+		case 'd' : 
+		case 'D' : setEstado(fecha,"Deshabilitada: Desinfección");
+					break;
+		case 'l' : 
+		case 'L' : setEstado(fecha,"Deshabilitada: Limpieza");
+					break;
+		default: setEstado(fecha,"Deshabilitada");
+	}
+    }
+    public void deshabilitar(PlainDate inicio, PlainDate fin) {
+    	setEstado(inicio,fin,"Deshabilitada");
+    }
+    public void deshabilitar(PlainDate inicio, PlainDate fin, char razon) {
+    	switch(razon) {
+			case 'r' : 
+			case 'R' : setEstado(inicio,fin,"Deshabilitada: Reparación");
+						break;
+			case 'd' : 
+			case 'D' : setEstado(inicio,fin,"Deshabilitada: Desinfección");
+						break;
+			case 'l' : 
+			case 'L' : setEstado(inicio,fin,"Deshabilitada: Limpieza");
+						break;
+			default: setEstado(inicio,fin,"Deshabilitada");
+		}
+    }
+    public void deshabilitarIndefinidamente(PlainDate fechaAPartirDeLaCual,char razon){
+    	DateInterval intervaloSinValor = DateInterval.since(fechaAPartirDeLaCual); // Crea un intervalo común "Sin valor"
+    	ValueInterval<PlainDate, DateInterval, String> intervalo;	// Crea un intervalo con valor pero no lo inicia
+    	switch(razon) {	// Inicia el intervalo con valor usando el intervalo sin valor + el valor del String segun el case (razón)
+		case 'r' : 
+		case 'R' : intervalo = intervaloSinValor.withValue("Deshabilitada: Reparación");
+					break;
+		case 'd' : 
+		case 'D' : intervalo = intervaloSinValor.withValue("Deshabilitada: Desinfección");
+					break;
+		case 'l' : 
+		case 'L' : intervalo = intervaloSinValor.withValue("Deshabilitada: Limpieza");
+					break;
+		default: intervalo = intervaloSinValor.withValue("Deshabilitada");
+		}
+    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo);	// Agrega el intervalo a la colección;
     }
     
+    public String getEstado() {
+    	return getEstado(PlainDate.nowInSystemTime());
+    }  
     public String getEstado(PlainDate fecha) {
     	if(!isDisponible(fecha)) {  // Si la coleccion no tiene intervalo con esa fecha implica disponibilidad, sino se itera la coleccion hasta dar con el intervalo que posea la fecha recibida por parametro
     		Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     		while(iterador.hasNext()) {
-    			ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
+    			@SuppressWarnings("unchecked")
+				ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
     			DateInterval intervaloCasteadoAgain = intervaloCasteado.getBoundaries();
     			if(intervaloCasteadoAgain.contains(fecha)) {
     				return intervaloCasteado.getValue();
@@ -134,10 +220,12 @@ public class Habitacion {
     	return isDisponible(fecha, fecha);
     }
     public boolean isDisponible (PlainDate inicio,PlainDate fin) {
-    	DateInterval intervaloRecibido = DateInterval.between(inicio, fin);
+    	PlainDate finReal = fin.minus(1,CalendarUnit.DAYS);
+    	DateInterval intervaloRecibido = DateInterval.between(inicio, finReal);
     	Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     	while(iterador.hasNext()) {
-    		ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
+    		@SuppressWarnings("unchecked")
+			ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
     		DateInterval intervaloAComparar = intervaloCasteado.getBoundaries();
     		if(intervaloRecibido.intersects(intervaloAComparar)) {
     			return false;
@@ -147,7 +235,6 @@ public class Habitacion {
     }
     
     public boolean isOcupada() {//provisionalmente.. o no
-
         return !isDisponible();
     }
     public boolean isOcupada(PlainDate fecha) {
@@ -164,57 +251,64 @@ public class Habitacion {
     	setEstado(fecha,"Ocupada");
     }
     public void ocupar(PlainDate inicio,PlainDate fin) {
-    	setEstado(inicio,fin,"Ocupada");
+    	PlainDate finReal = fin.minus(1,CalendarUnit.DAYS);
+    	setEstado(inicio,finReal,"Ocupada");
     }
     
     public void desocupar(){
-        // TO DO
+    	desocupar(PlainDate.nowInSystemTime());
     }
+    public void desocupar(PlainDate fecha) {
+    	desocupar(fecha, fecha);;
+    }
+    public void desocupar(PlainDate inicio, PlainDate fin){
+    	PlainDate finReal =fin.minus(1, CalendarUnit.DAYS);
+    	DateInterval intervalo = DateInterval.between(inicio, finReal);
+    	ColecIntervalosDeFechas.minus(intervalo);
+	 }
     
     
-    public void deshabilitar() {
-    	deshabilitar(PlainDate.nowInSystemTime(),"Deshabilitada");
-    }
-    public void deshabilitar(String estado) {
-    	deshabilitar(PlainDate.nowInSystemTime(), estado);
-    }
-    public void deshabilitar(PlainDate fechaAPartirDeLaCual,String estado){
-    	DateInterval intervaloSinValor = DateInterval.since(fechaAPartirDeLaCual);
-    	ValueInterval<PlainDate, DateInterval, String> intervalo = intervaloSinValor.withValue(estado);
-    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo);
-    }
-    public void deshabilitar(PlainDate inicio, PlainDate fin, String estado) {
-    	DateInterval intervaloSinValor = DateInterval.between(inicio, fin);
-    	ValueInterval<PlainDate, DateInterval, String> intervalo = intervaloSinValor.withValue(estado);
-    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo);
-    }
+    
     
     public void habilitar(){
-    	// TO DO
+    	habilitar(PlainDate.nowInSystemTime());
     }
+    public void habilitar(PlainDate fecha) {
+    	habilitar(fecha,fecha);
+    }
+    public void habilitar(PlainDate inicio,PlainDate fin) {
+    	PlainDate finReal =fin.minus(1, CalendarUnit.DAYS);
+    	DateInterval intervalo = DateInterval.between(inicio, finReal);
+    	ColecIntervalosDeFechas.minus(intervalo);
+	 }    
+    
+    public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) {
+    	DateInterval intervalo = DateInterval.between(inicio, fin);
+    	int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo día
+    	return cantidadDeDias;
+    }
+
+    public void mostrarHabitacion() {
+    	System.out.println(toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
+    }
+    
     @Override
      public String toString() {
-        return "\nNumero de habitacion: " + numHabitacion + "\nCapacidad: " + capacidad + " pasajeros" + "\nTipo: " +
-                tipo + "\nPrecio diario: " + precioDiario + " pesos/n";
+        return "\n Numero de habitacion: " + numHabitacion + "\n Capacidad: " + capacidad + " asajeros" + "\n Tipo: " +
+                tipo + "\n Precio diario: $" + precioDiario + "/n";
     }
-/*
-    public String mostrarHabitacion(){
-        String estado;
-        
-        if(ocupada){
-            estaOcupada = "Ocupada";
-        }
-        else{
-            estaOcupada = "Libre";
-        }
-        if(disponible){
-            estaDisponible = "Disponible";
-        }
-        else {
-            estaDisponible = "No disponible";
-        }
-
-        return toString() + "\n" + estaDisponible + "\n" + estaOcupada ;/*
-    }
-*/
+    
+    /*@Override
+	public int compareTo(Object o) {
+		if(o instanceof Habitacion) {
+			Habitacion hab = (Habitacion)o;
+			if(capacidad > hab.getCapacidad()) {
+				return 1;
+			}
+				else if(capacidad < hab.getCapacidad()) {
+					return -1;
+				}
+			}
+		return 0;
+	}*/
 }
