@@ -24,11 +24,13 @@ public final class BaseDeDatos {
     private static ArrayList<Habitacion> habitaciones;
     private static HashMap<String,Pasajero> pasajeros;
     private static ArrayList<Reserva> reservas;
+    private static HashMap<String,Concerje> concerjes;
 
     private BaseDeDatos(){
         habitaciones = new ArrayList<>();
         pasajeros = new HashMap<>();
         reservas = new ArrayList<>();
+        concerjes = new HashMap<>();
     }
 
     /* este bloque volaria , ya no hace falta instanciar la clase
@@ -163,7 +165,7 @@ public final class BaseDeDatos {
     public static void agregarHabitacion(Habitacion habitacion){
         habitaciones.add(habitacion);
     }
-    public Habitacion buscarPorNumero(String numHab){
+    public static Habitacion buscarPorNumero(String numHab){
         for(Habitacion habitacion: habitaciones){
             if(habitacion.getNumHabitacion().equals(numHab)){
                return  habitacion;
@@ -171,6 +173,11 @@ public final class BaseDeDatos {
         }
         return null;
     }
+    
+    public static ArrayList<Habitacion> obtenerHabitaciones(){
+    	return habitaciones;
+    }
+    
     public static ArrayList<Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
         ArrayList<Habitacion> disponibles = new ArrayList<>();
         for(Habitacion habitacion: habitaciones){
@@ -277,6 +284,10 @@ public final class BaseDeDatos {
         pasajeros.put(pasajero.getDni(),pasajero);
       
     }
+    
+    public static HashMap<String,Pasajero> obtenerPasajeros(){
+    	return pasajeros;
+    }
 
     public static  void quitarPasajero(String numDoc){
             pasajeros.remove(numDoc);
@@ -300,8 +311,32 @@ public final class BaseDeDatos {
 
 //////////////        METODOS DE RESERVAS   ////////////////////////////
 
-	public static  void agregarReserva(Reserva elemento) {
+	public static void agregarReserva(Reserva elemento) {
 		reservas.add(elemento);
 	}
+	
+	public static ArrayList<Reserva> obtenerReservas(){
+		return reservas;
+	}
+	
+	public static int obtenerUltimaReserva() {
+		return reservas.get(reservas.size() - 1).getNumeroReserva();
+	}
 
+	
+/////////// METODOS DE coNCERJES ////////////////////////
+	
+	public static void agregarConcerje(Concerje concerje) {
+		concerjes.put(concerje.getDni(),concerje);
+	}
+	
+	public static HashMap<String,Concerje> obtenerConcerjes(){
+		return concerjes;
+	}
+	
+	
+	
+	
+	
 //FALTA TERMINAR.............
+}
