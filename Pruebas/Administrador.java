@@ -128,8 +128,8 @@ public void serializarReservas () {
 			serializarPasajeros();
 			serializarReservas();
 			serializarConcerjes();
-			
 		}
+		scanner.close();
 	}
 	
 	
@@ -158,6 +158,8 @@ public void serializarReservas () {
 					           "\nDNI: " + dniConcerje + "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
 			correcto = scanner.next().charAt(0);
 		}
+		scanner.close();
+		
 		if(contador == 0) {
 			concerje1 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje);
 			BaseDeDatos.agregarConcerje(concerje1);
@@ -180,7 +182,7 @@ public void serializarReservas () {
 	
 	@Override
 	public void darDeBajaUsuario() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }
