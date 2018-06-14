@@ -142,8 +142,6 @@ public void serializarReservas () {
 		String dniConcerje = "";
 		char correcto = 'n';
 		Concerje concerje1;
-		Concerje concerje2;
-		Concerje concerje3;
 		int contador = 0;
 		
 		while(correcto == 'n' || correcto == 'N') {
@@ -160,25 +158,10 @@ public void serializarReservas () {
 		}
 		scanner.close();
 		
-		if(contador == 0) {
+	
 			concerje1 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje);
-			BaseDeDatos.agregarConcerje(concerje1);
-			contador++;
+			BaseDeDatos.agregarConcerje(concerje1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
 		}
-		if(contador == 1) {
-			concerje2 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje);
-			BaseDeDatos.agregarConcerje(concerje2);
-			contador++;
-		}
-		if(contador == 2) {
-			concerje3 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje);
-			BaseDeDatos.agregarConcerje(concerje3);
-			contador++;
-		}
-		
-		
-			
-	}
 	
 	@Override
 	public void darDeBajaUsuario() {
