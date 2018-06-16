@@ -64,11 +64,11 @@ public class Concerje extends Usuario {
 	{
 		//una sugerencia nomas... por ahi quedafria mas limpio hacer:
 		//boolean verifica = BaseDeDatos.hayCapacidad(cantPasajeros);
-		//if(verifica){ 
+		//if(!verifica){ 
 		//etc....
 	        //}
 		//
-		//return true;
+		//return verifica;
 		//
 		boolean verifica;
 		if (verifica = BaseDeDatos.hayCapacidad(cantPasajeros) == false)
