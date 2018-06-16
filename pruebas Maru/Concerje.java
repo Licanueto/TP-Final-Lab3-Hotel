@@ -77,7 +77,20 @@ public class Concerje extends Usuario {
 			
 	}
 	
-	public int Reservar()
+	public int Reservar(String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
+	{
+		int numeroReserva = BaseDeDatos.obtenerUltimaReserva();
+		Reserva nuevaReserva = new Reserva(numeroReserva, dni, fechaIngreso, fechaEgreso, numerosHabitaciones);
+		
+		for(int i = 0; i < numerosHabitaciones.size(); i++)
+		{
+			Habitacion auxiliar = BaseDeDatos.buscarPorNumero(numerosHabitaciones.get(i));
+			auxiliar.ocupar(fechaIngreso, fechaEgreso);
+		}
+		return numeroReserva;
+				
+	}
+	
 	
 	
 
