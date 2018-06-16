@@ -319,6 +319,16 @@ public final class BaseDeDatos {
 		return reservas;
 	}
 	
+	public static Reserva obtenerReserva(int numero) {
+		for(Reserva reserva: reservas){
+			if(reserva.getNumeroReserva() == numero) {
+				return reserva;
+			}
+		}
+		return null;//capturar un nullpointerexception mas arriba, en el metodo que quiera modificar el retorno
+		//o bien una excepcion custom lanzada desde este metodo
+	}
+	
 	public static int obtenerUltimaReserva() {
 		return reservas.get(reservas.size() - 1).getNumeroReserva();
 	}
@@ -334,8 +344,10 @@ public final class BaseDeDatos {
 		return concerjes;
 	}
 	
-	
-	
+	public static Concerje obtenerUnConcerje(String dni) {
+		Concerje aux = concerjes.get(dni);
+		return aux;
+	}
 	
 	
 //FALTA TERMINAR.............
