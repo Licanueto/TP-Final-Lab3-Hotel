@@ -285,12 +285,6 @@ public class Habitacion {//implements Comparable<Habitacion>{
     	ColecIntervalosDeFechas.minus(intervalo);
 	 }    
     
-    public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) {
-    	DateInterval intervalo = DateInterval.between(inicio, fin);
-    	int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo día
-    	return cantidadDeDias;
-    }
-
     public void mostrarHabitacion() {
     	System.out.println(toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
     }
