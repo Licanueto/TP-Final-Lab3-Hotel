@@ -1,4 +1,9 @@
-package Clases;
+ppackage Clases;
+
+import java.util.ArrayList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Pasajero extends Usuario{
 	
@@ -6,7 +11,7 @@ public class Pasajero extends Usuario{
 	private String email;
 	private String ciudadDeOrigen;
 	private String domicilioOrigen;
-	//private ArrayList<Reserva>historial;
+	private ArrayList<Reserva>historial;
 	private boolean checkIn;
 	
 	public Pasajero()
@@ -16,11 +21,11 @@ public class Pasajero extends Usuario{
 		email = " ";
 		ciudadDeOrigen = " ";
 		domicilioOrigen = " ";
-		//historial = new ArrayList<Reserva>();
+		historial = new ArrayList<Reserva>();
 		checkIn = false;
 	}
 	
-	//el ArrayList y checkIn no creo que deban pasarse por parametro.
+	
 	public Pasajero(String dni, String nombre, String apellido, String telefonoMovil, String email, String ciudadDeOrigen, String domicilioOrigen)
 	{
 		super(dni, nombre, apellido);
@@ -28,10 +33,10 @@ public class Pasajero extends Usuario{
 		this.email= email;
 		this.ciudadDeOrigen = ciudadDeOrigen;
 		this.domicilioOrigen = domicilioOrigen;
-		//historial = new ArrayList<Reserva>();
+		historial = new ArrayList<Reserva>();
 		checkIn = false;
 	}
-	//opcion suponiendo que no tenemos el nombre porque no quizo darlo y no tiene email porque es una persona mayor. El resto de los datos deberia tenerlos. 
+	 
 	
 	public Pasajero(String dni, String apellido, String telefonoMovil, String ciudadDeOrigen, String domicilioOrigen)
 	{
@@ -39,11 +44,11 @@ public class Pasajero extends Usuario{
 		this.telefonoMovil = telefonoMovil;
 		this.ciudadDeOrigen = ciudadDeOrigen;
 		this.domicilioOrigen = domicilioOrigen;
-		//historial = new ArrayList<Reserva>();
+		historial = new ArrayList<Reserva>();
 		checkIn = false;
 	}
 	
-	// Tenemos su dni, no tenemos ni su nombre ni apellido ni email pero igual podemos identificarlo y contactarlo.
+	
 	
 	public Pasajero(String dni, String telefonoMovil, String ciudadDeOrigen, String domicilioOrigen)
 	{
@@ -51,7 +56,7 @@ public class Pasajero extends Usuario{
 		this.telefonoMovil = telefonoMovil;
 		this.ciudadDeOrigen = ciudadDeOrigen;
 		this.domicilioOrigen = domicilioOrigen;
-		//historial = new ArrayList<Reserva>();
+		historial = new ArrayList<Reserva>();
 		checkIn = false;
 	}
 	
@@ -83,14 +88,30 @@ public class Pasajero extends Usuario{
 	{
 		this.domicilioOrigen = domicilioOrigen;
 	}
-	/*public ArrayList<Reserva> getHistorial()
+	public String getDomicilioOrigen()
+	{
+		return domicilioOrigen;
+	}
+	public ArrayList<Reserva> getHistorial()
 	{
 		return historial;
 	}
-	*/
+	
 	public boolean getChekIn()
 	{
-		return checkIn; //retorna el estado de checkIn.
+		return checkIn; 
+	}
+	
+	public String obtenerEstadoCheckIn()
+	{
+		String respuesta;
+		if (checkIn == true)
+			respuesta = "Check In realizado";
+		else
+			respuesta = "Check In sin realizar";
+		return respuesta;
+			
+			
 	}
 	
 	
@@ -98,23 +119,51 @@ public class Pasajero extends Usuario{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString() + "\nTelefono: " + telefonoMovil + "\nE-mail: " + email + "\nCiudad de Origen: " + ciudadDeOrigen +
-				"\nDomicilio de Origen: " + domicilioOrigen + "\nEstado de Check In: " + checkIn;
+				"\nDomicilio de Origen: " + domicilioOrigen + "\nEstado de Check In: " + obtenerEstadoCheckIn();
+	}
+	
+	//El siguiente método nos devuelve en un String el historial del pasajero
+	String obtenerHistorial()
+	{
+		int longitud = historial.size();
+		StringBuffer historia = new StringBuffer();
+		for(int i = 0; i < longitud; i++)
+		{
+			historia.append(historial.get(i).toString());
+		}
+		String historialPasajero =  historia.toString();
+		
+		
+		return historialPasajero;
+		
+	}
+	
+	//El siguiente método agrega una reserva al historial del pasajero si es que éste hizo efectiva la reserva, es decir realizó el chek in
+	
+	public void agregarReservaAlHistorial(Reserva reser)
+	{
+		if (checkIn == true)
+		{
+			historial.add(reser);
+		}
+	}
+	
+	JSONObject getJson() throws JSONException 
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("nombre", getNombre());
+		obj.put("apellido", getApellido());
+		obj.put("dni", getDni());
+		obj.put("telefonoMovil", getTelefonoMovil());
+		obj.put("email", getEmail());
+		obj.put("ciudadDeOrigen", getCiudadDeOrigen());
+		obj.put("domicilioOrigen", getDomicilioOrigen());
+		
+		return obj;
+		
+			
 	}
 	
 	
-	/////////////////////////////////////////////ATENCION ///////////////////////////////////////////////////////////
-	//
-	//HABRIA QUE EVALUAR LA POSIBILIDAD DE QUE MUESTRE SU HISTORIAL
-	//
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	//public void agregarReserva(Reserva reserva)
-	//public JSON listar()
-	//public void buscar(int numeroReserva)
-	//public int reservar()
-	
-	
-	
-	
-
 }

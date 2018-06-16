@@ -1,58 +1,40 @@
 package Clases;
 
-import java.util.Date;
+import java.util.ArrayList;
+
+import net.time4j.PlainDate;
 
 public class Reserva {
 	
 	private int numeroReserva;
 	private String dniPasajero;
-	private Date fechaIngreso;
-	private Date fechaEgreso;
-	private int [] numerosHabitaciones; //fijarse porque en el uml figuara Array<numeroHabitaciones> y me parece que no iria as�
+	private PlainDate fechaIngreso;
+	private PlainDate fechaEgreso;
+	private ArrayList<String> numerosHabitaciones; //fijarse porque en el uml figuara Array<numeroHabitaciones> y me parece que no iria así
 	private double saldo;
 	private double monto;
 	private boolean seHizoEfectiva;
+	private int cantidadDias;
+	private boolean pagoRealizado;
 	
-	//saldo, monto y seHizoEfectiva se cargan despues, ahora van por defecto pero seria el resultado de otros metodos
-	
-	//preguntar este tema de los constructores vacios
-	
-	public Reserva()
-	{
-		numeroReserva = -1;
-		dniPasajero = " ";
-		fechaIngreso = new Date();
-		fechaEgreso = new Date();
-		numerosHabitaciones = null;
-		saldo = 0;
-		monto = 0;
-		seHizoEfectiva = false;
-		
-	}
-	
-	public Reserva(int numeroReserva, String dniPasajero, Date fechaIngreso, Date fechaEgreso, int [] numeroHabitaciones)
+	public Reserva(int numeroReserva, String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
 	{
 		this.numeroReserva = numeroReserva;
 		this.dniPasajero = dniPasajero;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
-		this.numerosHabitaciones = numeroHabitaciones;
+		this.numerosHabitaciones = numerosHabitaciones;
 		saldo = 0;
 		monto = 0;
-		seHizoEfectiva = false;
-		
-		
-	}
-	
-	public void setNumeroReserva(int numeroReserva)
-	{
-		this.numeroReserva = numeroReserva;
+		seHizoEfectiva = false; //se hace efectiva cuando se realiza el check in.
+		pagoRealizado = false;
+		//cantidadDeDias = obtenerCantidadDias(fechaIngreso, fechaEgreso);
 	}
 	public int getNumeroReserva()
 	{
 		return numeroReserva;
 	}
-	public void setDniPasajero(String dniPasajero)
+	public void setDni(String dniPasajero)
 	{
 		this.dniPasajero = dniPasajero;
 	}
@@ -60,27 +42,15 @@ public class Reserva {
 	{
 		return dniPasajero;
 	}
-	public void setFechaIngreso(Date fechaIngreso)
-	{
-		this.fechaIngreso = fechaIngreso;
-	}
-	public Date getFechaIngreso()
+	public PlainDate getFechaIngreso()
 	{
 		return fechaIngreso;
 	}
-	public void setFechaEgreso(Date fechaEgreso)
-	{
-		this.fechaEgreso = fechaEgreso;
-	}
-	public Date getFechaEgreso()
+	public PlainDate getFechaEgreso()
 	{
 		return fechaEgreso;
 	}
-	public void setNumerosHabitaciones(int [] numerosHabitaciones)
-	{
-		this.numerosHabitaciones = numerosHabitaciones;
-	}
-	public int [] getNumerosHabitaciones()
+	public ArrayList<String> getNumerosHabitaciones()
 	{
 		return numerosHabitaciones;
 	}
@@ -94,31 +64,80 @@ public class Reserva {
 	}
 	public void setMonto(double monto)
 	{
-		this.monto = monto; 
+		
+		this.monto = monto;
 	}
 	public double getMonto()
 	{
 		return monto;
 	}
-	//Respecto de si se hizo efectiva creo que solo necesita get
+	public void hacerEfectiva()
+	{
+		if (!seHizoEfectiva)
+			seHizoEfectiva = true;
+		
+	}
 	
 	public boolean getSeHizoEfectiva()
 	{
 		return seHizoEfectiva;
 	}
 	
+	//Metodo que devuelve en un string si se hizo efectiva la reserva, es decir si se realizó el check in
 	
-	//Ver como mostrar el arreglo de habitaciones porque por ahi habria que escribir un metodo
+	public String mostrarEfectiva()
+	{
+		String respuesta;
+		if (seHizoEfectiva == true)
+			respuesta = "Reserva efectiva";
+		else
+			respuesta = "Reserva no efectiva";
+		return respuesta;
+	}
 	
 	@Override
 	public String toString() {
 		
-		return "\nNumero de Reserva: " + numeroReserva + "\nDni Pasajero: " + dniPasajero + 
-				"\nFecha de Ingreso: " + fechaIngreso + "\nnFecha de Egreso: " + fechaEgreso +
-				"\nSaldo: " + saldo + "\nMonto: " + monto + "\nEstado de Reserva: " + seHizoEfectiva;
+		return "\nNumero de reserva: " + numeroReserva + "\nDni pasajero: " + dniPasajero + "\nFecha Ingreso: " + fechaIngreso 
+				+ "\nFecha Egreso: " + fechaEgreso + "\nSaldo: " + saldo + "\nMonto: " + monto + mostrarEfectiva();
 	}
 	
-	//public double calcularMonto()
-	//public void descontarSaldo(double importe)
-
+	public double calcularMonto()
+	{
+		
+		double tarifa = 0;
+		double frigo = 0;
+		
+		for(int i = 0; i < numerosHabitaciones.size(); i++)
+		{
+			
+			tarifa += BaseDeDatos.obtenerTarifa(numerosHabitaciones.get(i)); 
+			frigo += BaseDeDatos.obtenerSaldoFrigobar(numerosHabitaciones.get(i));
+		}
+		monto = tarifa * cantidadDias;  //MULTIPLICA ACUMULADO DE TARIFAS DIARIAS POR CANT DE DIAS
+		monto += frigo;  // SUMAMOS TOTAL DE FRIGOBARES A LO ANTERIOR
+		
+		return monto;
+		
+	}
+	public void descontarSaldo(double importe)
+	{
+		saldo = monto - importe;
+	}
+	
+	public void confirmarPago()
+	{
+		pagoRealizado = true;
+	}
+	
+	public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) { // Calcula la cantidad de días en un intervalo tomando un día menos, es decir de lunes a miercoles va a contar dos dias (que son los que se cobran en un hotel)
+-    		DateInterval intervalo = DateInterval.between(inicio, fin);
+-    		int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo día
+-    		return cantidadDeDias;
+-    	}
+	
+	
+	
+	
 }
+
