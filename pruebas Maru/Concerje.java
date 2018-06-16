@@ -62,6 +62,14 @@ public class Concerje extends Usuario {
 	}
 	public boolean verificarDisponibilidad()throws FaltaDisponibilidadException
 	{
+		//una sugerencia nomas... por ahi quedafria mas limpio hacer:
+		//boolean verifica = BaseDeDatos.hayCapacidad(cantPasajeros);
+		//if(verifica){ 
+		//etc....
+	        //}
+		//
+		//return true;
+		//
 		boolean verifica;
 		if (verifica = BaseDeDatos.hayCapacidad(cantPasajeros) == false)
 			throw new FaltaDisponibilidadException("No alcanza la capacidad del hotel para hospedar a los pasajeros");
