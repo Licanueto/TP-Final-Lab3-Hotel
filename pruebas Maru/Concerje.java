@@ -95,14 +95,29 @@ public class Concerje extends Usuario {
 	{
 		BaseDeDatos.obtenerReserva(numeroReserva).hacerEfectiva();
 	}
-	public void realizarChekOut(int numeroReserva)
+	public void realizarChekOut(int numeroReserva, double importe) //importe que ingresa en dinero el cliente
 	{
+		cobrar(BaseDeDatos.obtenerReserva(numeroReserva), importe);
 		for(int i = 0; i < BaseDeDatos.obtenerReserva(numeroReserva).getNumerosHabitaciones().size(); i++)
 		{
 			BaseDeDatos.buscarPorNumero(BaseDeDatos.obtenerReserva(numeroReserva).getNumerosHabitaciones().get(i)).getFrigobar().cancelarSaldo();
 		}
 		
 	}
+	public void cobrar(Reserva reserva, double importe) //recibimos el importe que paga y chekeamos si cancelamos
+	{
+
+         if(importe == reserva.calcularMonto())
+         {
+        	 reserva.confirmarPago();
+         }else if(importe < reserva.calcularMonto())
+         {
+        	 reserva.descontarSaldo(importe);
+         }
+		
+		
+	}
+
 	
 	
 	
