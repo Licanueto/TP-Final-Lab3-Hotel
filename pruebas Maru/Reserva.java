@@ -130,6 +130,12 @@ public class Reserva {
 		pagoRealizado = true;
 	}
 	
+	public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) { // Calcula la cantidad de días en un intervalo tomando un día menos, es decir de lunes a miercoles va a contar dos dias (que son los que se cobran en un hotel)
+-    		DateInterval intervalo = DateInterval.between(inicio, fin);
+-    		int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo día
+-    		return cantidadDeDias;
+-    	}
+	
 	
 	
 	
