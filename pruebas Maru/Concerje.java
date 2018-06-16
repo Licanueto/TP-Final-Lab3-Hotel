@@ -118,7 +118,14 @@ public class Concerje extends Usuario {
 		
 	}
 
-	
+	public void cancelarReserva(int numeroReserva)
+	{
+		for(int i = 0; i < BaseDeDatos.obtenerReserva(numeroReserva).getNumerosHabitaciones().size(); i++)
+		{
+			BaseDeDatos.buscarPorNumero
+			(BaseDeDatos.obtenerReserva(numeroReserva).getNumerosHabitaciones().get(i)).desocupar(BaseDeDatos.obtenerReserva(numeroReserva).getFechaIngreso(), 
+			 BaseDeDatos.obtenerReserva(numeroReserva).getFechaEgreso());
+		}
 	
 	
 
