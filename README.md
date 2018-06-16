@@ -1,3 +1,1 @@
-# ______________________________________________________
-# | Laboratorio de Computación III - TP Final  Hotel |
-# -------------------------------------------------------
+#  Laboratorio de Computación III  |  TP Final  Hotel
