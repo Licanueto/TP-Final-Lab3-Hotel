@@ -90,6 +90,9 @@ public class Habitacion {//implements Comparable<Habitacion>{
 
         return precioDiario;
     }
+    public Frigobar getFrigobar(){
+	    return frigobar;
+    }
     
     public void setEstado(String estado) {
     	setEstado(PlainDate.nowInSystemTime(), PlainDate.nowInSystemTime(), estado);
