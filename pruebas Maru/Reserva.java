@@ -14,6 +14,8 @@ public class Reserva {
 	private double saldo;
 	private double monto;
 	private boolean seHizoEfectiva;
+	private int cantidadDias;
+	private boolean pagoRealizado;
 	
 	public Reserva(int numeroReserva, String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
 	{
@@ -25,6 +27,8 @@ public class Reserva {
 		saldo = 0;
 		monto = 0;
 		seHizoEfectiva = false; //se hace efectiva cuando se realiza el check in.
+		pagoRealizado = false;
+		//cantidadDeDias = obtenerCantidadDias(fechaIngreso, fechaEgreso);
 	}
 	public int getNumeroReserva()
 	{
@@ -67,6 +71,13 @@ public class Reserva {
 	{
 		return monto;
 	}
+	public void hacerEfectiva()
+	{
+		if (!seHizoEfectiva)
+			seHizoEfectiva = true;
+		
+	}
+	
 	public boolean getSeHizoEfectiva()
 	{
 		return seHizoEfectiva;
@@ -93,56 +104,33 @@ public class Reserva {
 	
 	public double calcularMonto()
 	{
-		monto = 
-	}
-	
-	public double calcularMonto()
-	{
 		
-		BaseDeDatos aux;
-		double tarifa = 0;
-		double frigo = 0;
-		double parcial = 0;
-		for(i = 0; i < numerosHabitaciones.size(); i++)
-		{
-			tarifa = aux.obtenerTarifa(numerosHabitaciones[i]);
-			frigo = aux.obtenerSaldoFrigobar(numerosHabitaciones[i]);
-			parcial += tarifa + frigo;
-		}
-		monto = parcial * cantidadDias;
-		return monto;
-		
-		
-	}
-	public double calcularMonto() //OTRA VERSION FIJATE QUE SE ESTABA MULTIPLICANDO FRIGOBAR POR LOS DIAS....
-	{
 		double tarifa = 0;
 		double frigo = 0;
 		
 		for(int i = 0; i < numerosHabitaciones.size(); i++)
 		{
-			//obtener tarifa y obtenersaldo son metodos estaticos para poder acceder por fuera sin referencias....
-			tarifa += BaseDeDatos.obtenerTarifa(numerosHabitaciones.get(i)); //ACUMULA LAS TARIFAS DIARIAS DE TODAS LAS HABITACIONES
-			frigo += BaseDeDatos.obtenerSaldoFrigobar(numerosHabitaciones.get(i)); //ACUMULA TODOS LOS TOTALES DE FRIGOBARES
+			
+			tarifa += BaseDeDatos.obtenerTarifa(numerosHabitaciones.get(i)); 
+			frigo += BaseDeDatos.obtenerSaldoFrigobar(numerosHabitaciones.get(i));
 		}
 		monto = tarifa * cantidadDias;  //MULTIPLICA ACUMULADO DE TARIFAS DIARIAS POR CANT DE DIAS
 		monto += frigo;  // SUMAMOS TOTAL DE FRIGOBARES A LO ANTERIOR
 		
 		return monto;
 		
-		
 	}
-	
 	public void descontarSaldo(double importe)
 	{
 		saldo = monto - importe;
 	}
 	
-	public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) { // Calcula la cantidad de días en un intervalo tomando un día menos, es decir de lunes a miercoles va a contar dos dias (que son los que se cobran en un hotel)
-    		DateInterval intervalo = DateInterval.between(inicio, fin);
-    		int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo día
-    		return cantidadDeDias;
-    	}
+	public void confirmarPago()
+	{
+		pagoRealizado = true;
+	}
+	
+	
 	
 	
 }
