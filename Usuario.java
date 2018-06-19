@@ -58,6 +58,12 @@ public abstract class  Usuario {
 	{
 		return apellido;
 	}
+	public void ponerEnBaja(){
+		if(estadoDeAlta){
+			estadoDeAlta = false;
+		}
+		//else.... avisar o lanzar excepcion....
+	}
 	
 	@Override
 	public String toString() {
