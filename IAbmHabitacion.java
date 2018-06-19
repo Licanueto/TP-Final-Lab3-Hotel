@@ -1,5 +1,5 @@
 
-public interface IabmHabitacion {
+public interface IAbmHabitacion {
 	public void darDeAltaHab();
 	public void dardeBajaHab();
 }
