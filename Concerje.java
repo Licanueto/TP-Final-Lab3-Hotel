@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.time4j.PlainDate;
 
-public class Concerje extends Usuario {
+public class Concerje extends Usuario implements IAbmUsuario{
 	
 	public Concerje(String dni, String nombre, String apellido)
 	{
@@ -126,6 +126,52 @@ public class Concerje extends Usuario {
 			(BaseDeDatos.obtenerReserva(numeroReserva).getNumerosHabitaciones().get(i)).desocupar(BaseDeDatos.obtenerReserva(numeroReserva).getFechaIngreso(), 
 			 BaseDeDatos.obtenerReserva(numeroReserva).getFechaEgreso());
 		}
+	}
+	@Override
+	public void darDeAltaUsuario() {
+		Scanner scanner = new Scanner(System.in);
+		String nombrePasajero = "";
+		String apellidoPasajero = "";
+		String dniPasajero = "";
+		String celular = "";
+		String eMail = "";
+		String ciudadOrigen = "";
+		String domicilio = "";
+		char correcto = 'n';
+		Concerje concerje1;
+		int contador = 0;
+		
+		while(correcto == 'n' || correcto == 'N') {
+			System.out.println("**Alta de nuevo concerje**");
+			System.out.println("Ingrese nombre(s): ");
+			nombreConcerje = scanner.next();
+			System.out.println("Ingrese Apellido(s)");
+			apellidoConcerje = scanner.next();
+			System.out.println("Ingrese DNI");
+			dniConcerje = scanner.next();
+			System.out.println("Ingrese numero de telefono");
+			celular = scanner.next();
+			System.out.println("Ingrese e-mail");
+			eMail = scanner.next();
+			System.out.println("Ingrese ciudad de origen");
+			ciudadOrigen = scanner.next();
+			System.out.println("Ingrese domicilio");
+			domicilio = scanner.next();
+			System.out.println("Los datos ingresados son: \nNombre: " + nombrePasajero + "\nApellido: " + apellidoPasajero +
+					           "\nDNI: " + dniPAsajero + "\nCelular: " + celular + "\nE-Mail: " + eMail +
+					           "Ciudad de origen: " + ciudadOrigen + "\nDomicilio: " + domicilio +
+					           "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
+			correcto = scanner.next().charAt(0);
+		}
+		scanner.close();
+		
+	
+			concerje1 = new Concerje(nombrePasajero,apellidoPasajero,dniPasajero,celular,eMail,ciudadOrigen,domicilio);
+			BaseDeDatos.agregarConcerje(concerje1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
+		
+		
+	}
+
 	
 	
 
