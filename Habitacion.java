@@ -285,8 +285,10 @@ public class Habitacion {//implements Comparable<Habitacion>{
     	ColecIntervalosDeFechas.minus(intervalo);
 	 }    
     
-    public void mostrarHabitacion() {
-    	System.out.println(toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
+    public String mostrarHabitacion() {
+    	String eString = (toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
+    	System.out.println(eString);
+    	return eString;
     }
     
     @Override
