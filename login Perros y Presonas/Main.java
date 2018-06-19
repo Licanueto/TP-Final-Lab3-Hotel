@@ -45,8 +45,8 @@ public class Main {
                             }
                         }
                         catch (ClaveIncorrectaException e){
-                            System.out.println("Le quedan " + contador + " intentos mas.");
                             e.printStackTrace();
+                            System.out.println("Le quedan " + contador + " intentos mas.");
                         }
                     }while(contador > 0);
 
