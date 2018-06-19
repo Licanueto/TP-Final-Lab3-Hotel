@@ -5,6 +5,7 @@ public abstract class  Usuario {
 	private String dni;
 	private String nombre;
 	private String apellido;
+	private boolean estadoDeAlta;
 	
 	public Usuario()
 	{
@@ -30,6 +31,7 @@ public abstract class  Usuario {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.estadoDeAlta = true;
 		
 	}
 	public void setDni(String dni)
