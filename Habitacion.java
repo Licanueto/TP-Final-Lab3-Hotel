@@ -1,4 +1,4 @@
-package clases;
+package Clases;
 
 import net.time4j.*;
 import net.time4j.range.ChronoInterval;
