@@ -17,7 +17,7 @@ public final class BaseDeDatos {
 
     //private static BaseDeDatos baseDeDatos;
 
-    private static ArrayList<clases.Habitacion> habitaciones;
+    private static ArrayList<Habitacion> habitaciones;
     private static HashMap<String,Pasajero> pasajeros;
     private static ArrayList<Reserva> reservas;
     private static HashMap<String,Concerje> concerjes;
@@ -57,12 +57,12 @@ public final class BaseDeDatos {
     // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
     public static void levantarHabitaciones() {
         ObjectInputStream lectura = null;
-        clases.Habitacion auxiliar;
+        Habitacion auxiliar;
         try {
             lectura = new ObjectInputStream(new FileInputStream("habitaciones.dat"));
 
             while(lectura.read() != -1) {
-                auxiliar = (clases.Habitacion) lectura.readObject();
+                auxiliar = (Habitacion) lectura.readObject();
                 agregarHabitacion(auxiliar);
             }
         }
@@ -158,11 +158,11 @@ public final class BaseDeDatos {
 
     /////////// METODOS PARA HABITACIONES //////////////////////////////////////////////////////
 
-    public static void agregarHabitacion(clases.Habitacion habitacion){
+    public static void agregarHabitacion(Habitacion habitacion){
         habitaciones.add(habitacion);
     }
-    public static clases.Habitacion buscarPorNumero(String numHab){
-        for(clases.Habitacion habitacion: habitaciones){
+    public static Habitacion buscarPorNumero(String numHab){
+        for(Habitacion habitacion: habitaciones){
             if(habitacion.getNumHabitacion().equals(numHab)){
                 return  habitacion;
             }
@@ -170,13 +170,13 @@ public final class BaseDeDatos {
         return null;
     }
 
-    public static ArrayList<clases.Habitacion> obtenerHabitaciones(){
+    public static ArrayList<Habitacion> obtenerHabitaciones(){
         return habitaciones;
     }
 
-    public static ArrayList<clases.Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
-        ArrayList<clases.Habitacion> disponibles = new ArrayList<>();
-        for(clases.Habitacion habitacion: habitaciones){
+    public static ArrayList<Habitacion> obtenerLibres(){   //devolver arraylist de string con las libres
+        ArrayList<Habitacion> disponibles = new ArrayList<>();
+        for(Habitacion habitacion: habitaciones){
             if(habitacion.isDisponible() && !habitacion.isOcupada()){
                 disponibles.add(habitacion);
             }
@@ -184,27 +184,27 @@ public final class BaseDeDatos {
         return disponibles;
     }
 
-    public static ArrayList<clases.Habitacion> buscarPorCapacidad(byte numero){
-        ArrayList<clases.Habitacion> capacidadBuscada = new ArrayList<>();
-        for(clases.Habitacion habitacion: habitaciones){
+    public static ArrayList<Habitacion> buscarPorCapacidad(byte numero){
+        ArrayList<Habitacion> capacidadBuscada = new ArrayList<>();
+        for(Habitacion habitacion: habitaciones){
             if(habitacion.getCapacidad() == numero){
                 capacidadBuscada.add(habitacion);
             }
         }
         return capacidadBuscada;
     }
-    public static ArrayList<clases.Habitacion> buscarPorTipo(String tipoHab){
-        ArrayList<clases.Habitacion> tipoBuscado = new ArrayList<>();
-        for(clases.Habitacion habitacion: habitaciones){
+    public static ArrayList<Habitacion> buscarPorTipo(String tipoHab){
+        ArrayList<Habitacion> tipoBuscado = new ArrayList<>();
+        for(Habitacion habitacion: habitaciones){
             if(habitacion.getTipo().equalsIgnoreCase(tipoHab)){
                 tipoBuscado.add(habitacion);
             }
         }
         return tipoBuscado;
     }
-    public static ArrayList<clases.Habitacion> buscarPrecioMenorA(double precioMax){
-        ArrayList<clases.Habitacion> precioBuscado = new ArrayList<>();
-        for(clases.Habitacion habitacion: habitaciones){
+    public static ArrayList<Habitacion> buscarPrecioMenorA(double precioMax){
+        ArrayList<Habitacion> precioBuscado = new ArrayList<>();
+        for(Habitacion habitacion: habitaciones){
             if(habitacion.getPrecioDiario() <= precioMax){
                 precioBuscado.add(habitacion);
             }
@@ -213,7 +213,7 @@ public final class BaseDeDatos {
     }
     public static ArrayList<String> listarHabitaciones(){
         ArrayList<String> listaHabitaciones = new ArrayList<>();
-        for(clases.Habitacion habitacion : habitaciones){
+        for(Habitacion habitacion : habitaciones){
             listaHabitaciones.add(habitacion.mostrarHabitacion());
         }
         return listaHabitaciones;
@@ -229,7 +229,7 @@ public final class BaseDeDatos {
             }
         }
     }
-    public static void quitarHabitacion(clases.Habitacion habitacion){
+    public static void quitarHabitacion(Habitacion habitacion){
         habitaciones.remove(habitacion);
     }
 
@@ -261,8 +261,8 @@ public final class BaseDeDatos {
         return false;
     }
 
-    public static ArrayList<clases.Habitacion> buscarAptas(PlainDate ingreso, PlainDate egreso){
-        ArrayList<clases.Habitacion> aptas = new ArrayList<>();
+    public static ArrayList<Habitacion> buscarAptas(PlainDate ingreso, PlainDate egreso){
+        ArrayList<Habitacion> aptas = new ArrayList<>();
         for(int i = 0; i < habitaciones.size(); i++) {
             if(habitaciones.get(i).isDisponible(ingreso,egreso) && !habitaciones.get(i).isOcupada(ingreso,egreso)) {
                 aptas.add(habitaciones.get(i));
@@ -270,7 +270,18 @@ public final class BaseDeDatos {
         }
         return aptas;
     }
-
+    public static int obtenerIndiceHabitacion(String numeroHab){
+        int index = -1;
+        for(int i = 0; i < habitaciones.size(); i++){
+            if(numeroHab.equals(habitaciones.get(i).getNumHabitacion())){
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static void agregarHabitacionAlIndice(Habitacion habitacion,int indice){
+        habitaciones.add(indice,habitacion );
+    }
 
 
 
@@ -289,7 +300,7 @@ public final class BaseDeDatos {
         pasajeros.remove(numDoc);
     }
 
-    public static Pasajero buscaPasajeroDni(String dniPasajero){
+    public static Pasajero buscaPasajeroporDni(String dniPasajero){
         Pasajero buscado = pasajeros.get(dniPasajero);
         return buscado;
     }
