@@ -28,7 +28,7 @@ import java.io.*;
 	// Casos desabilitar() L-Limpieza D-Desinfeccion R-Reparacion
 
 @SuppressWarnings("unused")
-public class Habitacion {//implements Comparable<Habitacion>{ 
+public class Habitacion implements Comparable<Habitacion>{ 
 	
 	// prueba javadoc (no funca)
 	/**
@@ -297,17 +297,16 @@ public class Habitacion {//implements Comparable<Habitacion>{
                 tipo + "\n Precio diario: $" + precioDiario + "/n";
     }
     
-    /*@Override
-	public int compareTo(Object o) {
-		if(o instanceof Habitacion) {
-			Habitacion hab = (Habitacion)o;
+    @Override
+	public int compareTo(Habitacion hab) {
+		
 			if(capacidad > hab.getCapacidad()) {
 				return 1;
 			}
 				else if(capacidad < hab.getCapacidad()) {
 					return -1;
 				}
-			}
+			
 		return 0;
-	}*/
+	}
 }
