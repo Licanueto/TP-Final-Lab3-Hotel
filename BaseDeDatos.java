@@ -28,6 +28,7 @@ public final class BaseDeDatos {
         pasajeros = new HashMap<>();
         reservas = new ArrayList<>();
         concerjes = new HashMap<>();
+        administradores = new HashMap<>();
     }
 
     /* este bloque volaria , ya no hace falta instanciar la clase
@@ -338,6 +339,18 @@ public final class BaseDeDatos {
 
     public static int obtenerUltimaReserva() {
         return reservas.get(reservas.size() - 1).getNumeroReserva();
+    }
+    public static int obtenerIndiceReserva(int numeroReserva){
+        int index = -1;
+        for(int i = 0; i < reservas.size(); i++){
+            if(numeroReserva == reservas.get(i).getNumeroReserva()){
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static void agragarReservaAlIndice(int indice,Reserva reserva){
+        reservas.add(indice,reserva );
     }
 
 
