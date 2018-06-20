@@ -97,22 +97,29 @@ public class LoginMenu {
 
     //ACA SEGUN EL TIPO DE INSTANCIA QUE TENGAMOS LE DAMOS ACCESO A DIFERENTES MENUS
     // EN ESTE METODO IRIAN ANIDADOS LOS 3 MENUS ADMIN, CONCERJE Y PASAJERO
-    static void accesoAlSistema(Object cosa){
+    public void accesoAlSistema(Object cosa){
         if(cosa instanceof Pasajero){
+            eliminarMapa();
             Pasajero ingresa = (Pasajero) cosa;
             System.out.println("ACCESO AL MENU DE PASAJEROS " + ingresa.getApellido() + " " +
             ingresa.getNombre());
         }
         if(cosa instanceof Concerje){
+            eliminarMapa();
             Concerje ingresa = (Concerje) cosa;
             System.out.println("ACCESO AL MENU DE CONCERJES " + ingresa.getApellido() + " " +
                     ingresa.getNombre());
         }
         if(cosa instanceof  Administrador){
+            eliminarMapa();
             Administrador ingresa = (Administrador) cosa;
             System.out.println("ACCESO AL MENU DE CONCERJES " + ingresa.getApellido() + " " +
                     ingresa.getNombre());
         }
     }
+    public void eliminarMapa(){
+        logueo.clear();
+    }
+
 
 }
