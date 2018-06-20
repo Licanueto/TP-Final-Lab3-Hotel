@@ -265,7 +265,7 @@ public final class BaseDeDatos {
     public static ArrayList<Habitacion> buscarAptas(PlainDate ingreso, PlainDate egreso){
         ArrayList<Habitacion> aptas = new ArrayList<>();
         for(int i = 0; i < habitaciones.size(); i++) {
-            if(habitaciones.get(i).isDisponible(ingreso,egreso) && !habitaciones.get(i).isOcupada(ingreso,egreso)) {
+            if(habitaciones.get(i).isDisponible(ingreso,egreso) ) {
                 aptas.add(habitaciones.get(i));
             }
         }
@@ -275,7 +275,7 @@ public final class BaseDeDatos {
     public static ArrayList<String> buscarNumerosDeDisponibles(){
         ArrayList<String> lista = new ArrayList<>();
         for(int i = 0; i < habitaciones.size();i++){
-            if(habitaciones.get(i).isDisponible() && !habitaciones.get(i).isOcupada()){
+            if(habitaciones.get(i).isDisponible() ){
                 lista.add(habitaciones.get(i).getNumHabitacion());
             }
         }
@@ -285,7 +285,7 @@ public final class BaseDeDatos {
     public static ArrayList<String> buscarNumerosDeNoDisponibles(){
         ArrayList<String> lista = new ArrayList<>();
         for(int i = 0; i < habitaciones.size(); i++){
-            if(habitaciones.get(i).isOcupada() || !habitaciones.get(i).isDisponible()){
+            if(!habitaciones.get(i).isDisponible()){
                 lista.add(habitaciones.get(i).getNumHabitacion());
             }
         }
