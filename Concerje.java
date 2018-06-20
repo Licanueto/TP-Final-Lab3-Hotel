@@ -28,7 +28,7 @@ public class Concerje extends Usuario implements IAbmUsuario{
 			
 			int i = 0,j = 0;
 			ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(fechaIngreso, fechaEgreso);
-			Collections.sort((List) libres);
+			Collections.sort(libres);
 			Collections.reverse(libres);
 			while(cantPasajeros > 0)
 			{
