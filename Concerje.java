@@ -23,10 +23,11 @@ public class Concerje extends Usuario implements IAbmUsuario{
 	ArrayList<String> asignarHabitaciones(PlainDate fechaIngreso, PlainDate fechaEgreso, int cantPasajeros)
 	{
 		ArrayList<String>numerosHabitaciones = new ArrayList<String>();
+		String aux = "";
 		try {
-			boolean disponibilidad = verificarDisponibilidad();
+			verificarDisponibilidad(cantPasajeros);
 			
-			int i = 0,j = 0;
+			int i = 0;
 			ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(fechaIngreso, fechaEgreso);
 			Collections.sort(libres);
 			Collections.reverse(libres);
@@ -37,19 +38,23 @@ public class Concerje extends Usuario implements IAbmUsuario{
 					if(cantPasajeros >= libres.get(i).getCapacidad())
 					{
 						cantPasajeros = cantPasajeros - libres.get(i).getCapacidad();
-						numerosHabitaciones.get(j) = libres.get(i).getNumeroHabitacion();
-						j++;
+						aux = libres.get(i).getNumHabitacion();
+						numerosHabitaciones.add(aux);
+						
 					}
 					i++;
 				}
 				if(cantPasajeros > 0)
 				{
 					i = libres.size()-1;
-					numerosHabitaciones.get(j) = libres.get(i).getNumeroHabitacion();
+					aux = libres.get(i).getNumHabitacion();
+					numerosHabitaciones.add(aux);
+					
+					
 					cantPasajeros = 0;
 				}
 			}
-			return numerosHabitaciones;
+			
 			
 			
 		}catch(FaltaDisponibilidadException e){
@@ -59,20 +64,14 @@ public class Concerje extends Usuario implements IAbmUsuario{
 		}catch(RuntimeException e) {
 			
 			e.getMessage();
+		}finally {
+			return numerosHabitaciones;
 		}
 	}
-	public boolean verificarDisponibilidad()throws FaltaDisponibilidadException
+	public boolean verificarDisponibilidad(int cantPasajeros)throws FaltaDisponibilidadException
 	{
-		//una sugerencia nomas... por ahi quedafria mas limpio hacer:
-		//boolean verifica = BaseDeDatos.hayCapacidad(cantPasajeros);
-		//if(!verifica){ 
-		//etc....
-	        //}
-		//
-		//return verifica;
-		//
-		boolean verifica;
-		if (verifica = BaseDeDatos.hayCapacidad(cantPasajeros) == false)
+		boolean verifica = BaseDeDatos.hayCapacidad(cantPasajeros);
+		if (verifica  == false)
 			throw new FaltaDisponibilidadException("No alcanza la capacidad del hotel para hospedar a los pasajeros");
 		return verifica;
 			
