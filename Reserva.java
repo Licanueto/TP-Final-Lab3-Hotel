@@ -3,6 +3,7 @@ package Clases;
 import java.util.ArrayList;
 
 import net.time4j.PlainDate;
+import net.time4j.range.DateInterval;
 
 public class Reserva {
 	
