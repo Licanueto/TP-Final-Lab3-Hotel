@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="lib/json.org/java-json.jar"/>
+	<classpathentry kind="lib" path="lib/time4J/jar/time4j-core-4.38.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/hotelAgain/lib/time4J/javadoc/time4j-core-4.38-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/time4J/jar/time4j-i18n-4.38.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/hotelAgain/lib/time4J/jar/time4j-i18n-4.38.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/time4J/jar/time4j-olson-4.38.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/hotelAgain/lib/time4J/javadoc/time4j-olson-4.38-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/time4J/jar/time4j-range-4.38.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/hotelAgain/lib/time4J/javadoc/time4j-range-4.38-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path=""/>
+</classpath>
