@@ -1,3 +1,4 @@
+package Clases;
 
 public interface IAbmUsuario {
 	public void darDeAltaUsuario();
