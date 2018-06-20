@@ -1,6 +1,6 @@
 package Clases;
 
 public interface IAbmHabitacion {
-	public void darDeAltaHab();
-	public void dardeBajaHab();
+	public void darAltaHab(String numeroHab);
+	public void darBajaHab(String numeroHab);
 }
