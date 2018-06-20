@@ -145,11 +145,11 @@ public class Concerje extends Usuario implements IAbmUsuario{
 		while(correcto == 'n' || correcto == 'N') {
 			System.out.println("**Alta de nuevo concerje**");
 			System.out.println("Ingrese nombre(s): ");
-			nombreConcerje = scanner.next();
+			nombrePasajero = scanner.next();
 			System.out.println("Ingrese Apellido(s)");
-			apellidoConcerje = scanner.next();
+			apellidoPasajero = scanner.next();
 			System.out.println("Ingrese DNI");
-			dniConcerje = scanner.next();
+			dniPasajero = scanner.next();
 			System.out.println("Ingrese numero de telefono");
 			celular = scanner.next();
 			System.out.println("Ingrese e-mail");
