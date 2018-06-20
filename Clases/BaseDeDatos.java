@@ -271,6 +271,26 @@ public final class BaseDeDatos {
         }
         return aptas;
     }
+   
+    public static ArrayList<String> buscarNumerosDeDisponibles(){
+        ArrayList<String> lista = new ArrayList<>();
+        for(int i = 0; i < habitaciones.size();i++){
+            if(habitaciones.get(i).isDisponible() && !habitaciones.get(i).isOcupada()){
+                lista.add(habitaciones.get(i).getNumHabitacion());
+            }
+        }
+        return lista;
+    }
+    
+    public static ArrayList<String> buscarNumerosDeNoDisponibles(){
+        ArrayList<String> lista = new ArrayList<>();
+        for(int i = 0; i < habitaciones.size(); i++){
+            if(habitaciones.get(i).isOcupada() || !habitaciones.get(i).isDisponible()){
+                lista.add(habitaciones.get(i).getNumHabitacion());
+            }
+        }
+        return lista;
+    }
     public static int obtenerIndiceHabitacion(String numeroHab){
         int index = -1;
         for(int i = 0; i < habitaciones.size(); i++){
