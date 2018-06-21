@@ -194,6 +194,49 @@ try {
 		 }
 		
 	}
+	
+	
+	 public void gestionarReserva(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese DNI del pasajero");
+        String dniAux = scanner.next();
+        Pasajero auxPass = BaseDeDatos.buscaPasajeroporDni(dniAux);
+        if(auxPass != null){
+            System.out.println("Ingrese anio de llegada");
+            int anyo = scanner.nextInt();
+            System.out.println("Ingrese mes de llegada");
+            int mes = scanner.nextInt();
+            System.out.println("Ingrese dia de llegada");
+            int dia = scanner.nextInt();
+            PlainDate aux = PlainDate.of(anyo,mes ,dia );
+
+            System.out.println("Ingrese anio de salida");
+            int anyosalida = scanner.nextInt();
+            System.out.println("Ingrese mes de salida");
+            int mesSalida = scanner.nextInt();
+            System.out.println("Ingrese dia de salida");
+            int diaSalida = scanner.nextInt();
+            PlainDate aux2 = PlainDate.of(anyosalida,mesSalida ,diaSalida);
+
+            System.out.println("Ingrese cantidad de pasajeros");
+            int cantPasajeros = scanner.nextInt();
+            ArrayList<String> arregloHabitaciones;
+            try {
+                arregloHabitaciones = asignarHabitaciones(aux, aux2, cantPasajeros);
+                reservar(dniAux,aux ,aux2 ,arregloHabitaciones );
+            }
+
+            catch (FaltaDisponibilidadException e){
+                e.printStackTrace();
+            }
+            catch (RuntimeException e){
+                e.printStackTrace();
+            }
+        }
+        else
+            darDeAltaUsuario();
+    }
 	 /**
 	  * Cuando un pasajero desea realizar una reserva lo primero que se hace es consultar si 
 	  * en los dias que el pasajero desea hay habitaciones disponibles para la cantidad de personas
