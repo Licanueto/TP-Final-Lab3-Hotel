@@ -209,7 +209,7 @@ public class Pasajero extends Usuario{
 		}
 	}
 	
-	JSONObject getJson() throws JSONException 
+	public JSONObject getJson() throws JSONException 
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("nombre", getNombre());
