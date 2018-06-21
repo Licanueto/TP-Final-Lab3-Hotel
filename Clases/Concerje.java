@@ -237,6 +237,31 @@ try {
         else
             darDeAltaUsuario();
     }
+	
+	  public void consultarTelefonicamente(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese anio de llegada");
+        int anyo = scanner.nextInt();
+        System.out.println("Ingrese mes de llegada");
+        int mes = scanner.nextInt();
+        System.out.println("Ingrese dia de llegada");
+        int dia = scanner.nextInt();
+        PlainDate aux = PlainDate.of(anyo,mes ,dia );
+
+        System.out.println("Ingrese anio de salida");
+        int anyosalida = scanner.nextInt();
+        System.out.println("Ingrese mes de salida");
+        int mesSalida = scanner.nextInt();
+        System.out.println("Ingrese dia de salida");
+        int diaSalida = scanner.nextInt();
+        PlainDate aux2 = PlainDate.of(anyosalida,mesSalida,diaSalida);
+        ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(aux,aux2 );
+        for(Habitacion habitacion: libres){
+            System.out.println("------------------");
+            habitacion.mostrarHabitacionPorPantalla();
+            System.out.println("------------------");
+        }
+    }
 	 /**
 	  * Cuando un pasajero desea realizar una reserva lo primero que se hace es consultar si 
 	  * en los dias que el pasajero desea hay habitaciones disponibles para la cantidad de personas
