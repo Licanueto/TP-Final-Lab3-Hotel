@@ -1,6 +1,7 @@
 package Clases;
 
 import net.time4j.*;
+
 import net.time4j.range.ChronoInterval;
 import net.time4j.range.DateInterval;
 import net.time4j.range.IntervalCollection;
@@ -18,20 +19,24 @@ import java.io.*;
          /*                 "Disponible" es equivalente a "ocupable"             */
         ////////////////////////////////////////////////////////////////////////// 
 
-/* ideas para exceptions: 	Que al crear una habitaciÛn se chequee que no haya una con el mismo n˙mero en la base de datos.
+/* BUGS: una vez seteado un estado para una fecha no te deja modificarlo, el primero seteado es el que queda. Quizas tenga que ver con
+ * 		 la inmutabilidad de los String y haya que eliminar ese intervalo para recien despu√©s crear uno nuevo o uasr StringBuilder o algo as√≠.
+ * 		
+ * 
+ * ideas para exceptions: 	Que al crear una habitaci√≥n se chequee que no haya una con el mismo n√∫mero en la base de datos.
  * 							Que no deje poner una fecha de "inicio" posterior a una de "fin".
- * 							QuÈ pasa si se carga un producto al frigobar que no exista?
+ * 							Qu√© pasa si se carga un producto al frigobar que no exista?
 */
 /**
- * Esta clase define los comportamientos b·sicos de la representaciÛn de una habitaciÛn de hotel promedio.
- * Cabe notar que el objeto generado por esta clase posee otro de la clase Frigobar y que se utilizan librerÌas externas para el manejo de fechas e intervalos temporales.
+ * Esta clase define los comportamientos b√°sicos de la representaci√≥n de una habitaci√≥n de hotel promedio.
+ * Cabe notar que el objeto generado por esta clase posee otro de la clase Frigobar y que se utilizan librer√≠as externas para el manejo de fechas e intervalos temporales.
  * 
- * @param numHabitacion Es el n˙mero de la habitaciÛn dentro del hotel, usualmente de 3 Û 4 cifras donde las dÛs ultimas determinan el n˙mero de habitaciÛn en el piso y la o las primeras el n˙mero de piso.
- * @param capacidad Determina la cantidad m·xima de personas que la habitaciÛn puede albergar.
- * @param tipo DescripciÛn del tipo de habitaciÛn que se trata.
- * @param precioDiario Es el costo diario por alquilar la habitaciÛn.
- * @param frigobar Es un objeto de la clase frigobar que representa al frigobar que cada habitaciÛn posee.
- * @param ColecIntervalosDeFechas Es una colecciÛn que posee intervalos de fechas en los que la habitaciÛn por alguna razÛn no se encuentra disponible para ser ocupada por un huesped.
+ * @param numHabitacion Es el n√∫mero de la habitaci√≥n dentro del hotel, usualmente de 3 √≥ 4 cifras donde las d√≥s ultimas determinan el n√∫mero de habitaci√≥n en el piso y la o las primeras el n√∫mero de piso.
+ * @param capacidad Determina la cantidad m√°xima de personas que la habitaci√≥n puede albergar.
+ * @param tipo Descripci√≥n del tipo de habitaci√≥n que se trata.
+ * @param precioDiario Es el costo diario por alquilar la habitaci√≥n.
+ * @param frigobar Es un objeto de la clase frigobar que representa al frigobar que cada habitaci√≥n posee.
+ * @param ColecIntervalosDeFechas Es una colecci√≥n que posee intervalos de fechas en los que la habitaci√≥n por alguna raz√≥n no se encuentra disponible para ser ocupada por un huesped.
  * 
  */
 
@@ -46,10 +51,10 @@ public class Habitacion implements Comparable<Habitacion>{
     private IntervalCollection<PlainDate> ColecIntervalosDeFechas;
     
     /**
-	 * @param numHabitacion Es el n˙mero de la habitaciÛn dentro del hotel, usualmente de 3 Û 4 cifras donde las dÛs ultimas determinan el n˙mero de habitaciÛn en el piso y la o las primeras el n˙mero de piso.
-	 * @param capacidad Determina la cantidad m·xima de personas que la habitaciÛn puede albergar.
-	 * @param tipo DescripciÛn del tipo de habitaciÛn que se trata, puede expresar el nivel de comfort de la misma.
-	 * @param precioDiario Es el costo diario por alquilar la habitaciÛn.
+	 * @param numHabitacion Es el n√∫mero de la habitaci√≥n dentro del hotel, usualmente de 3 √≥ 4 cifras donde las d√≥s ultimas determinan el n√∫mero de habitaci√≥n en el piso y la o las primeras el n√∫mero de piso.
+	 * @param capacidad Determina la cantidad m√°xima de personas que la habitaci√≥n puede albergar.
+	 * @param tipo Descripci√≥n del tipo de habitaci√≥n que se trata, puede expresar el nivel de comfort de la misma.
+	 * @param precioDiario Es el costo diario por alquilar la habitaci√≥n.
 	 * @return Objeto de tipo Habitacion.
      */
     public Habitacion(String numHabitacion,byte capacidad,String tipo,double precioDiario){
@@ -61,49 +66,49 @@ public class Habitacion implements Comparable<Habitacion>{
         ColecIntervalosDeFechas = IntervalCollection.onDateAxis();
     }
     /**
-	 * @param capacidad Determina la cantidad m·xima de personas que la habitaciÛn puede albergar.
+	 * @param capacidad Determina la cantidad m√°xima de personas que la habitaci√≥n puede albergar.
      */
     public void setCapacidad(byte capacidad) {
 
         this.capacidad = capacidad;
     }
 	/**
-	 * @param tipo DescripciÛn del tipo de habitaciÛn que se trata.
+	 * @param tipo Descripci√≥n del tipo de habitaci√≥n que se trata.
 	 */
     public void setTipo(String tipo) {
 
         this.tipo = tipo;
     }
     /**
-    * @param precioDiario Es el costo diario por alquilar la habitaciÛn.
+    * @param precioDiario Es el costo diario por alquilar la habitaci√≥n.
     */
     public void setPrecioDiario(double precioDiario) {
 
         this.precioDiario = precioDiario;
     }
     /**
-     * @return El n˙mero de la habitaciÛn dentro del hotel, usualmente de 3 Û 4 cifras donde las dÛs ultimas determinan el n˙mero de habitaciÛn en el piso y la o las primeras el n˙mero de piso.
+     * @return El n√∫mero de la habitaci√≥n dentro del hotel, usualmente de 3 √≥ 4 cifras donde las d√≥s ultimas determinan el n√∫mero de habitaci√≥n en el piso y la o las primeras el n√∫mero de piso.
      */
     public String getNumHabitacion() {
 
         return numHabitacion;
     }
     /**
-     * @return La cantidad m·xima de personas que la habitaciÛn puede albergar.
+     * @return La cantidad m√°xima de personas que la habitaci√≥n puede albergar.
      */
     public byte getCapacidad() {
 
         return capacidad;
     }
     /**
-     * @return DescripciÛn del tipo de habitaciÛn que se trata. Puede expresar el nivel de comfort de la misma.
+     * @return Descripci√≥n del tipo de habitaci√≥n que se trata. Puede expresar el nivel de comfort de la misma.
      */
     public String getTipo() {
 
         return tipo;
     }
     /**
-     * @return Costo diario por alquilar la habitaciÛn.
+     * @return Costo diario por alquilar la habitaci√≥n.
 	 */
     public double getPrecioDiario() {
 
@@ -116,54 +121,54 @@ public class Habitacion implements Comparable<Habitacion>{
 	    return frigobar;
     }
     /**
-     * @return Estado de la habitaciÛn para la fecha actual.
+     * @return Estado de la habitaci√≥n para la fecha actual.
      */
     public String getEstado() {
     	return getEstado(PlainDate.nowInSystemTime());
     }
     /**
      * @param fecha Fecha para la cual se desea saber el estado
-     * @return Estado de la habitaciÛn para la fecha ingresada.
+     * @return Estado de la habitaci√≥n para la fecha ingresada.
      */
     public String getEstado(PlainDate fecha) {
     	if(!isDisponible(fecha)) {  // Si la coleccion no tiene intervalo con esa fecha implica disponibilidad, sino se itera la coleccion hasta dar con el intervalo que posea la fecha recibida por parametro
     		Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     		while(iterador.hasNext()) {
     			@SuppressWarnings("unchecked")
-				ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
+				ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador.next();
     			DateInterval intervaloCasteadoAgain = intervaloCasteado.getBoundaries();
     			if(intervaloCasteadoAgain.contains(fecha)) {
     				return intervaloCasteado.getValue();
     			}
         	}
-    		System.out.println("Ac· no deberÌa llegar nunca, si llega es que hay alg˙n problema en getEstado(fecha) de la clase HabitaciÛn");
+    		System.out.println("Ac√° no deber√≠a llegar nunca, si llega es que hay alg√∫n problema en getEstado(fecha) de la clase Habitaci√≥n");
     	}
     	return "Disponible";
     }
     
     /**
-     * Cambia el estado en el que la habitaciÛn se encuentra el dÌa actual, este es la razÛn por la cual la habitaciÛn no se encuentra libre.
-     * Si se quiere utilizar un estado predefinido se debe utilizar el mÈtodo deshabilitar().
-     * @param estado DescripciÛn del estado en el que se encuentra la habitaciÛn hoy.
+     * Cambia el estado en el que la habitaci√≥n se encuentra el d√≠a actual, este es la raz√≥n por la cual la habitaci√≥n no se encuentra libre.
+     * Si se quiere utilizar un estado predefinido se debe utilizar el m√©todo deshabilitar().
+     * @param estado Descripci√≥n del estado en el que se encuentra la habitaci√≥n hoy.
      */
     public void setEstado(String estado) {
     	setEstado(PlainDate.nowInSystemTime(), PlainDate.nowInSystemTime(), estado);
     }
     /**
-     * Cambia el estado en el que la habitaciÛn se encuentra en determinada fecha, este es la razÛn por la cual la habitaciÛn no se encuentra libre.
-     * ADVERTENCIA: Con este mÈtodo se "pisa" el estado anterior, debe realizarse un chequeo previo si dada la lÛgica del programa este fuera un caso factible.
+     * Cambia el estado en el que la habitaci√≥n se encuentra en determinada fecha, este es la raz√≥n por la cual la habitaci√≥n no se encuentra libre.
+     * ADVERTENCIA: Con este m√©todo se "pisa" el estado anterior, debe realizarse un chequeo previo si dada la l√≥gica del programa este fuera un caso factible.
      * @param fecha Fecha para la cual se desea modificar el estado.
-     * @param estado DescripciÛn del estado en el que se encuentra la habitaciÛn en la fecha.
+     * @param estado Descripci√≥n del estado en el que se encuentra la habitaci√≥n en la fecha.
      */
     public void setEstado(PlainDate fecha, String estado) {
     	setEstado(fecha, fecha, estado);
     }
     /**
-     * Cambia el estado en el que la habitaciÛn se encuentra en un determinado perÌodo, este (el estado) es la razÛn por la cual la habitaciÛn no se encuentra libre.
-     * ADVERTENCIA: Con este mÈtodo se pueden "pisar" otros intervalos inadvertidamente, debe realizarse un chequeo previo si dada la lÛgica del programa este fuera un caso factible.
-     * @param inicio Fecha de inicio del intervalo para el cual aplicar· el estado.
-     * @param fin Fecha de finalizaciÛn del intervalo para el cual aplicar· el estado.
-     * @param estado DescripciÛn del estado en el que se encuentra la habitaciÛn en el perÌodo.
+     * Cambia el estado en el que la habitaci√≥n se encuentra en un determinado per√≠odo, este (el estado) es la raz√≥n por la cual la habitaci√≥n no se encuentra libre.
+     * ADVERTENCIA: Con este m√©todo se pueden "pisar" otros intervalos inadvertidamente, debe realizarse un chequeo previo si dada la l√≥gica del programa este fuera un caso factible.
+     * @param inicio Fecha de inicio del intervalo para el cual aplicar√° el estado.
+     * @param fin Fecha de finalizaci√≥n del intervalo para el cual aplicar√° el estado.
+     * @param estado Descripci√≥n del estado en el que se encuentra la habitaci√≥n en el per√≠odo.
      */
     public void setEstado(PlainDate inicio, PlainDate fin, String estado) {
     	DateInterval intervaloSinValor = DateInterval.between(inicio, fin); 
@@ -171,53 +176,53 @@ public class Habitacion implements Comparable<Habitacion>{
     	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo); 
     }
     /**
-     * Deshabilita una habitaciÛn el dÌa de la fecha pasando su estado a ser el de "Deshabilitada"
+     * Deshabilita una habitaci√≥n el d√≠a de la fecha pasando su estado a ser el de "Deshabilitada"
      */
     public void deshabilitar() {
     	char razon = 'z';
     	deshabilitar(razon);
     }
     /**
-     * Deshabilita una habitaciÛn el dÌa de la fecha actual pasando su estado a ser el determinado por la razÛn ingresada.
-     * @param razon RazÛn por la cual la habitaciÛn se est· deshabilitando.  L-Limpieza D-Desinfeccion R-ReparaciÛn 
-     * 	 Nota: 	Cualquier otro caracter pondr· a la habitaciÛn en "Deshabilitada".
-     * 			Si desea especificar alg˙n caso en particular no contemplado por este mÈtodo utilize setEstado().
+     * Deshabilita una habitaci√≥n el d√≠a de la fecha actual pasando su estado a ser el determinado por la raz√≥n ingresada.
+     * @param razon Raz√≥n por la cual la habitaci√≥n se est√° deshabilitando.  L-Limpieza D-Desinfeccion R-Reparaci√≥n 
+     * 	 Nota: 	Cualquier otro caracter pondr√° a la habitaci√≥n en "Deshabilitada".
+     * 			Si desea especificar alg√∫n caso en particular no contemplado por este m√©todo utilize setEstado().
      */
     public void deshabilitar(char razon) {
     	switch(razon) {
     		case 'r' : 
-    		case 'R' : setEstado("Deshabilitada: ReparaciÛn");
+    		case 'R' : setEstado("Deshabilitada por Reparaci√≥n");
 						break;
     		case 'd' : 
-    		case 'D' : setEstado("Deshabilitada: DesinfecciÛn");
+    		case 'D' : setEstado("Deshabilitada por Desinfecci√≥n");
 						break;
     		case 'l' : 
-    		case 'L' : setEstado("Deshabilitada: Limpieza");
+    		case 'L' : setEstado("Deshabilitada por Limpieza");
 						break;
     		default: setEstado("Deshabilitada");
     		}
     }
     /**
-     * Deshabilita una habitaciÛn el dÌa de la fecha recibida por par·metro pasando su estado a ser el de "Deshabilitada".
-     * @param fecha Fecha para la cual se desea deshabilitar la habitaciÛn.
+     * Deshabilita una habitaci√≥n el d√≠a de la fecha recibida por par√°metro pasando su estado a ser el de "Deshabilitada".
+     * @param fecha Fecha para la cual se desea deshabilitar la habitaci√≥n.
      */
     public void deshabilitar(PlainDate fecha) {
     	setEstado("Deshabilitada");
     }
     /**
-     * Deshabilita una habitaciÛn el dÌa de la fecha recibida por par·metro pasando su estado a ser el determinado por la razÛn ingresada.
-     * @param fecha Fecha para la cual se desea deshabilitar la habitaciÛn.
-     * @param razon RazÛn por la cual la habitaciÛn se est· deshabilitando.  L-Limpieza D-Desinfeccion R-ReparaciÛn 
-     * 	 Nota: 	Cualquier otro caracter pondr· a la habitaciÛn en "Deshabilitada".
-     * 			Si desea especificar alg˙n caso en particular no contemplado por este mÈtodo utilize setEstado().
+     * Deshabilita una habitaci√≥n el d√≠a de la fecha recibida por par√°metro pasando su estado a ser el determinado por la raz√≥n ingresada.
+     * @param fecha Fecha para la cual se desea deshabilitar la habitaci√≥n.
+     * @param razon Raz√≥n por la cual la habitaci√≥n se est√° deshabilitando.  L-Limpieza D-Desinfeccion R-Reparaci√≥n 
+     * 	 Nota: 	Cualquier otro caracter pondr√° a la habitaci√≥n en "Deshabilitada".
+     * 			Si desea especificar alg√∫n caso en particular no contemplado por este m√©todo utilize setEstado().
      */    
     public void deshabilitar(PlainDate fecha, char razon) {
     	switch(razon) {
 		case 'r' : 
-		case 'R' : setEstado(fecha,"Deshabilitada: ReparaciÛn");
+		case 'R' : setEstado(fecha,"Deshabilitada: Reparaci√≥n");
 					break;
 		case 'd' : 
-		case 'D' : setEstado(fecha,"Deshabilitada: DesinfecciÛn");
+		case 'D' : setEstado(fecha,"Deshabilitada: Desinfecci√≥n");
 					break;
 		case 'l' : 
 		case 'L' : setEstado(fecha,"Deshabilitada: Limpieza");
@@ -226,28 +231,28 @@ public class Habitacion implements Comparable<Habitacion>{
     	}
     }
     /**
-     * Deshabilita una habitaciÛn en el intervalo entre las fechas recibidas por par·metro pasando su estado a ser el de "Deshabilitada".
-     * @param inicio Fecha desde la cual se dehabilitar· la habitaciÛn.
-     * @param fin Fecha hasta la cual se dehabilitar· la habitaciÛn.
+     * Deshabilita una habitaci√≥n en el intervalo entre las fechas recibidas por par√°metro pasando su estado a ser el de "Deshabilitada".
+     * @param inicio Fecha desde la cual se dehabilitar√° la habitaci√≥n.
+     * @param fin Fecha hasta la cual se dehabilitar√° la habitaci√≥n.
      */
     public void deshabilitar(PlainDate inicio, PlainDate fin) {
     	setEstado(inicio,fin,"Deshabilitada");
     }
     /**
-     * Deshabilita una habitaciÛn en el intervalo entre las fechas recibidas por par·metro pasando su estado a ser el determinado por la razÛn ingresada.
-     * @param inicio Fecha desde la cual se dehabilitar· la habitaciÛn.
-     * @param fin Fecha hasta la cual se dehabilitar· la habitaciÛn.
-     * @param razon RazÛn por la cual la habitaciÛn se est· deshabilitando.  L-Limpieza D-Desinfeccion R-ReparaciÛn 
-     * 	 Nota: 	Cualquier otro caracter pondr· a la habitaciÛn en "Deshabilitada".
-     * 			Si desea especificar alg˙n caso en particular no contemplado por este mÈtodo utilize setEstado().
+     * Deshabilita una habitaci√≥n en el intervalo entre las fechas recibidas por par√°metro pasando su estado a ser el determinado por la raz√≥n ingresada.
+     * @param inicio Fecha desde la cual se dehabilitar√° la habitaci√≥n.
+     * @param fin Fecha hasta la cual se dehabilitar√° la habitaci√≥n.
+     * @param razon Raz√≥n por la cual la habitaci√≥n se est√° deshabilitando.  L-Limpieza D-Desinfeccion R-Reparaci√≥n 
+     * 	 Nota: 	Cualquier otro caracter pondr√° a la habitaci√≥n en "Deshabilitada".
+     * 			Si desea especificar alg√∫n caso en particular no contemplado por este m√©todo utilize setEstado().
      */
     public void deshabilitar(PlainDate inicio, PlainDate fin, char razon) {
     	switch(razon) {
 			case 'r' : 
-			case 'R' : setEstado(inicio,fin,"Deshabilitada: Reparaci√≥n");
+			case 'R' : setEstado(inicio,fin,"Deshabilitada: Reparaci√É¬≥n");
 						break;
 			case 'd' : 
-			case 'D' : setEstado(inicio,fin,"Deshabilitada: Desinfecci√≥n");
+			case 'D' : setEstado(inicio,fin,"Deshabilitada: Desinfecci√É¬≥n");
 						break;
 			case 'l' : 
 			case 'L' : setEstado(inicio,fin,"Deshabilitada: Limpieza");
@@ -256,76 +261,77 @@ public class Habitacion implements Comparable<Habitacion>{
 		}
     }
     /**
-     * Deshabilita una habitaciÛn de manera indefinida a partir de la fecha recibida por par·metro pasando su estado a ser el determinado por la razÛn ingresada.
-     * ADVERTENCIA: Este mÈtodo "Pisar·" cualquier intervalo posterior a la fecha recibida quedando a cargo de quien decida usar el mÈtodo la responsabilidad de chequear que esto no produzca una pÈrdida de informacion ni atente contra el buen funcionamiento del programa.
-     * @param fechaAPartirDeLaCual Fecha a partir de la cual desea deshabilitar la habitaciÛn.
-     * @param razon RazÛn por la cual la habitaciÛn se est· deshabilitando.  L-Limpieza D-Desinfeccion R-ReparaciÛn 
-     * 	 Nota: 	Cualquier otro caracter pondr· a la habitaciÛn en "Deshabilitada".
-     * 			Si desea especificar alg˙n caso en particular no contemplado por este mÈtodo utilize setEstado().
+     * Deshabilita una habitaci√≥n de manera indefinida a partir de la fecha recibida por par√°metro pasando su estado a ser el determinado por la raz√≥n ingresada.
+     * ADVERTENCIA: Este m√©todo "Pisar√°" cualquier intervalo posterior a la fecha recibida quedando a cargo de quien decida usar el m√©todo la responsabilidad de chequear que esto no produzca una p√©rdida de informacion ni atente contra el buen funcionamiento del programa.
+     * @param fechaAPartirDeLaCual Fecha a partir de la cual desea deshabilitar la habitaci√≥n.
+     * @param razon Raz√≥n por la cual la habitaci√≥n se est√° deshabilitando.  L-Limpieza D-Desinfeccion R-Reparaci√≥n 
+     * 	 Nota: 	Cualquier otro caracter pondr√° a la habitaci√≥n en "Deshabilitada".
+     * 			Si desea especificar alg√∫n caso en particular no contemplado por este m√©todo utilize setEstado().
      */
     public void deshabilitarIndefinidamente(PlainDate fechaAPartirDeLaCual,char razon){
-    	DateInterval intervaloSinValor = DateInterval.since(fechaAPartirDeLaCual); // Crea un intervalo com√∫n "Sin valor"
+    	DateInterval intervaloSinValor = DateInterval.since(fechaAPartirDeLaCual); // Crea un intervalo com√É¬∫n "Sin valor"
     	ValueInterval<PlainDate, DateInterval, String> intervalo;	// Crea un intervalo con valor pero no lo inicia
-    	switch(razon) {	// Inicia el intervalo con valor usando el intervalo sin valor + el valor del String segun el case (raz√≥n)
+    	switch(razon) {	// Inicia el intervalo con valor usando el intervalo sin valor + el valor del String segun el case (raz√É¬≥n)
 		case 'r' : 
-		case 'R' : intervalo = intervaloSinValor.withValue("Deshabilitada: Reparaci√≥n");
+		case 'R' : intervalo = intervaloSinValor.withValue("Deshabilitada: Reparaci√É¬≥n");
 					break;
 		case 'd' : 
-		case 'D' : intervalo = intervaloSinValor.withValue("Deshabilitada: Desinfecci√≥n");
+		case 'D' : intervalo = intervaloSinValor.withValue("Deshabilitada: Desinfecci√É¬≥n");
 					break;
 		case 'l' : 
 		case 'L' : intervalo = intervaloSinValor.withValue("Deshabilitada: Limpieza");
 					break;
 		default: intervalo = intervaloSinValor.withValue("Deshabilitada");
 		}
-    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo);	// Agrega el intervalo a la colecci√≥n;
+    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo);	// Agrega el intervalo a la colecci√É¬≥n;
     }
     
     	
     /*  // En este metodo estoy comparando los Strings para ver si son ambos "Disponible" cuando en realidad es mejor no usar la palabra Disponible at all y tomar la ausencia de intervalo como disponibilidad
     public boolean isDisponible(PlainDate fecha) { // hay que hacer otro isDisponible para dos fechas (inicio y fin)
-    	if (ColecIntervalosDeFechas.encloses(fecha)){ // Si la colecci√≥n pos√©e en s√≠ misma la fecha, se la recorre
+    	if (ColecIntervalosDeFechas.encloses(fecha)){ // Si la colecci√É¬≥n pos√É¬©e en s√É¬≠ misma la fecha, se la recorre
     		Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     		while(iterador.hasNext()) {
-    			ValueInterval<PlainDate, DateInterval,String> intervalo = (ValueInterval<PlainDate, DateInterval, String>)iterador; //se castea el iterador a ValueInterval ya que la coleccion no sabe qu√© tipo de dato contiene
+    			ValueInterval<PlainDate, DateInterval,String> intervalo = (ValueInterval<PlainDate, DateInterval, String>)iterador; //se castea el iterador a ValueInterval ya que la coleccion no sabe qu√É¬© tipo de dato contiene
 	    		if(intervalo.contains(fecha)) { // Si el iterador se encuentra en el intervalo que posee la fecha
 	    			if(intervalo.getValue().equals("Disponible") || intervalo.getValue().equals("disponible")) {
 	    				return true;
 	    			}else return false;
 	    		}  		
     		}
-	    	System.out.println("La funcion isDisponible() de Habitacion no deber√≠a llegar ac√°, se retorna false por si acaso");return false;
+	    	System.out.println("La funcion isDisponible() de Habitacion no deber√É¬≠a llegar ac√É¬°, se retorna false por si acaso");return false;
 	    	// Esto nunca se deberia ejecutar ya que implica que encloses diga que el dia se encuentra en la coleccion pero que al recorrerla el intervalo no se encuentra (no entra al if)
     	}else return true; // El dia de hoy no se encuentra en ningun intervalo
     }*/
     /**
-     * Determina si en el dÌa de la fecha actual la habitaciÛn se encuentra disponible para ser ocupada por un pasajero.
-     * @return TRUE si est· disponible, FALSE si no lo est·.
+     * Determina si en el d√≠a de la fecha actual la habitaci√≥n se encuentra disponible para ser ocupada por un pasajero.
+     * @return TRUE si est√° disponible, FALSE si no lo est√°.
      */
     public boolean isDisponible() { // Disponible es "Disponible para ser ocupada"
     	return isDisponible(PlainDate.nowInSystemTime());
     }    
     /**
-     * Determina si en el dÌa de la fecha recibida la habitaciÛn se encuentra disponible para ser ocupada por un pasajero.
-     * @param fecha Fecha por la cual se est· consultando la disponibilidad.
-     * @return TRUE si est· disponible, FALSE si no lo est·.
+     * Determina si en el d√≠a de la fecha recibida la habitaci√≥n se encuentra disponible para ser ocupada por un pasajero.
+     * @param fecha Fecha por la cual se est√° consultando la disponibilidad.
+     * @return TRUE si est√° disponible, FALSE si no lo est√°.
      */
     public boolean isDisponible (PlainDate fecha) {
-    	return isDisponible(fecha, fecha);
+    	PlainDate fechaMasUno = fecha.plus(1, CalendarUnit.DAYS);// Sino despu√©s isDisponible(inicio,fin) tiene que restar un dia a la fecha y se arma quilombo
+    	return isDisponible(fecha, fechaMasUno);
     }
     /**
-     * Determina si en la totalidad del intervalo recibido la habitaciÛn se encuentra disponible para ser ocupada por un pasajero.
-     * @param inicio Fecha desde la cual se est· consultando la disponibilidad.
-     * @param fin Fecha hasta la cual se est· consultando la disponibilidad.
-     * @return TRUE si est· disponible, FALSE si no lo est·.
+     * Determina si en la totalidad del intervalo recibido la habitaci√≥n se encuentra disponible para ser ocupada por un pasajero.
+     * @param inicio Fecha desde la cual se est√° consultando la disponibilidad.
+     * @param fin Fecha hasta la cual se est√° consultando la disponibilidad.
+     * @return TRUE si est√° disponible, FALSE si no lo est√°.
      */
     public boolean isDisponible (PlainDate inicio,PlainDate fin) {
     	PlainDate finReal = fin.minus(1,CalendarUnit.DAYS);
     	DateInterval intervaloRecibido = DateInterval.between(inicio, finReal);
     	Iterator<ChronoInterval<PlainDate>> iterador = ColecIntervalosDeFechas.iterator();
     	while(iterador.hasNext()) {
-    		@SuppressWarnings("unchecked")
-			ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador;
+//    		@SuppressWarnings("unchecked")
+			ValueInterval<PlainDate, DateInterval, String> intervaloCasteado = (ValueInterval<PlainDate, DateInterval, String>)iterador.next();
     		DateInterval intervaloAComparar = intervaloCasteado.getBoundaries();
     		if(intervaloRecibido.intersects(intervaloAComparar)) {
     			return false;
@@ -335,69 +341,69 @@ public class Habitacion implements Comparable<Habitacion>{
     }
     
     /**
-     * Determina si en el dÌa de la fecha actual la habitaciÛn se encuentra ocupada por un pasajero.
-     * @return TRUE si est· ocupada, FALSE si no lo est·.
+     * Determina si en el d√≠a de la fecha actual la habitaci√≥n se encuentra ocupada por un pasajero.
+     * @return TRUE si est√° ocupada, FALSE si no lo est√°.
      */
     public boolean isOcupada() {//provisionalmente.. o no
         return !isDisponible();
     }
     /**
-     * Determina si en el dÌa de la fecha recibida la habitaciÛn se encuentra ocupada por un pasajero.
-     * @param fecha Fecha por la cual se est· consultando.
-     * @return TRUE si est· ocupada, FALSE si no lo est·.
+     * Determina si en el d√≠a de la fecha recibida la habitaci√≥n se encuentra ocupada por un pasajero.
+     * @param fecha Fecha por la cual se est√° consultando.
+     * @return TRUE si est√° ocupada, FALSE si no lo est√°.
      */
     public boolean isOcupada(PlainDate fecha) {
     	return !isDisponible(fecha);
     }
     /**
-     * Determina si en alg˙n dÌa del intervalo recibido la habitaciÛn se encuentra ocupada por un pasajero.
-     * @param inicio Fecha desde la cual se est· consultando.
-     * @param fin Fecha hasta la cual se est· consultando.
-     * @return TRUE si est· ocupada, FALSE si no lo est·.
+     * Determina si en alg√∫n d√≠a del intervalo recibido la habitaci√≥n se encuentra ocupada por un pasajero.
+     * @param inicio Fecha desde la cual se est√° consultando.
+     * @param fin Fecha hasta la cual se est√° consultando.
+     * @return TRUE si est√° ocupada, FALSE si no lo est√°.
      */
     public boolean isOcupada(PlainDate inicio,PlainDate fin) {
     	return !isDisponible(inicio, fin);
     }
     /**
-     * Ocupa una habitaciÛn para la fecha actual ("hoy" de cuando se ejecute el mÈtodo).
+     * Ocupa una habitaci√≥n para la fecha actual ("hoy" de cuando se ejecute el m√©todo).
      */
     public void ocupar(){
         setEstado(PlainDate.nowInSystemTime(),"Ocupada");
     }
     /**
-     * Ocupa una habitaciÛn para la fecha recibida. Notese que ocupa la habitaciÛn solo por ese dia.
-     * @param fecha Fecha para la cual se desea ocupar la habitaciÛn.
+     * Ocupa una habitaci√≥n para la fecha recibida. Notese que ocupa la habitaci√≥n solo por ese dia.
+     * @param fecha Fecha para la cual se desea ocupar la habitaci√≥n.
      */
     public void ocupar(PlainDate fecha) {
     	setEstado(fecha,"Ocupada");
     }
     /**
-     * Ocupa una habitaciÛn durante el intervalo recibido.
-     * @param inicio Fecha a partir de la cual se desea ocupar la habitaciÛn.
-     * @param fin Fecha hasta la cual se desea ocupar la habitaciÛn.
+     * Ocupa una habitaci√≥n durante el intervalo recibido.
+     * @param inicio Fecha a partir de la cual se desea ocupar la habitaci√≥n.
+     * @param fin Fecha hasta la cual se desea ocupar la habitaci√≥n.
      */
     public void ocupar(PlainDate inicio,PlainDate fin) {
     	PlainDate finReal = fin.minus(1,CalendarUnit.DAYS);
     	setEstado(inicio,finReal,"Ocupada");
     }
     /**
-     * Desocupa una habitaciÛn el dia de hoy.
+     * Desocupa una habitaci√≥n el dia de hoy.
      */
     public void desocupar(){
     	desocupar(PlainDate.nowInSystemTime());
     }
     /**
-     * Desocupa una habitaciÛn en una fecha determinada. 
-     * Notese que probablemente estÈ queriendo usar la versiÛn de este mÈtodo que desocupa en un intervalo ya que en este caso se desocupar· solo en la fecha recibida, es decir si por ejemplo se encontrara ocupada de lunes a miercoles y se la desocupa el martes tanto el lunes como el miercoles se mantendr·n ocupados.
-     * @param fecha Fecha para la cual se desea desocupar la habitaciÛn.
+     * Desocupa una habitaci√≥n en una fecha determinada. 
+     * Notese que probablemente est√© queriendo usar la versi√≥n de este m√©todo que desocupa en un intervalo ya que en este caso se desocupar√° solo en la fecha recibida, es decir si por ejemplo se encontrara ocupada de lunes a miercoles y se la desocupa el martes tanto el lunes como el miercoles se mantendr√°n ocupados.
+     * @param fecha Fecha para la cual se desea desocupar la habitaci√≥n.
      */
     public void desocupar(PlainDate fecha) {
     	desocupar(fecha, fecha);;
     }
     /**
-     * Desocupa una habitaciÛn en un intervalo determinado.
-     * @param inicio Fecha a partir de la cual se desea ocupar la habitaciÛn.
-     * @param fin Fecha hasta la cual se desea ocupar la habitaciÛn.
+     * Desocupa una habitaci√≥n en un intervalo determinado.
+     * @param inicio Fecha a partir de la cual se desea ocupar la habitaci√≥n.
+     * @param fin Fecha hasta la cual se desea ocupar la habitaci√≥n.
      */
     public void desocupar(PlainDate inicio, PlainDate fin){
     	PlainDate finReal =fin.minus(1, CalendarUnit.DAYS);
@@ -406,24 +412,25 @@ public class Habitacion implements Comparable<Habitacion>{
 	 }
     
     /**
-     * Habilita una habitaciÛn para ser utilizada el dia de hoy
+     * Habilita una habitaci√≥n para ser utilizada el dia de hoy
      */
     public void habilitar(){
     	habilitar(PlainDate.nowInSystemTime());
     }
     /**
-     * Habilita una habitaciÛn para ser utilizada en una fecha determinada. 
-     * Notese que probablemente estÈ queriendo usar la versiÛn de este mÈtodo que habilita en un intervalo ya que en este caso se habilitar· solo para la fecha recibida, es decir si por ejemplo se encontrara deshabilitada de lunes a miercoles y se la habilita el martes tanto el lunes como el miercoles se mantendr·n deshabilitadas.
-     * @param fecha Fecha para la cual se desea desocupar la habitaciÛn.
+     * Habilita una habitaci√≥n para ser utilizada en una fecha determinada. 
+     * Notese que probablemente est√© queriendo usar la versi√≥n de este m√©todo que habilita en un intervalo ya que en este caso se habilitar√° solo para la fecha recibida, es decir si por ejemplo se encontrara deshabilitada de lunes a miercoles y se la habilita el martes tanto el lunes como el miercoles se mantendr√°n deshabilitadas.
+     * @param fecha Fecha para la cual se desea desocupar la habitaci√≥n.
      */    
     public void habilitar(PlainDate fecha) {
-    	habilitar(fecha,fecha);
+    	PlainDate fechaMasUno = fecha.plus(1, CalendarUnit.DAYS);// Sino despu√©s habilitar(inicio,fin) tiene que restar un dia a la fecha y se arma quilombo
+    	habilitar(fecha,fechaMasUno);
     }
     /**
-     * Habilita una habitaciÛn para ser utilizada en un intervalo determinado.
-     * Notese que quiz·s la habitaciÛn se encuentre deshabilitada indefinidamente, en ese caso debe utilizarse habilitarIndefinidamente().
-     * @param inicio Fecha a partir de la cual se desea habilitar la habitaciÛn.
-     * @param fin Fecha hasta la cual se desea habilitar la habitaciÛn.
+     * Habilita una habitaci√≥n para ser utilizada en un intervalo determinado.
+     * Notese que quiz√°s la habitaci√≥n se encuentre deshabilitada indefinidamente, en ese caso debe utilizarse habilitarIndefinidamente().
+     * @param inicio Fecha a partir de la cual se desea habilitar la habitaci√≥n.
+     * @param fin Fecha hasta la cual se desea habilitar la habitaci√≥n.
      */
     public void habilitar(PlainDate inicio,PlainDate fin) {
     	PlainDate finReal =fin.minus(1, CalendarUnit.DAYS);
@@ -431,35 +438,42 @@ public class Habitacion implements Comparable<Habitacion>{
     	ColecIntervalosDeFechas.minus(intervalo);
 	 }    
     /**
-     * Habilita una habitaciÛn para ser utilizada en un intervalo infinito a partir de la fecha ingresada.
-     * Nota: Este mÈtodo "Pisar·" todos los intervalos posteriores a la fecha ingresada, es responsabilidad del usuario del mÈtodo chequear que esto no sea un problema.
-     * @param fechaAPartirDeLaCual Fecha a partir de la cual se desea habilitar indefinidamente una habitaciÛn.
+     * Habilita una habitaci√≥n para ser utilizada en un intervalo infinito a partir de la fecha ingresada.
+     * Nota: Este m√©todo "Pisar√°" todos los intervalos posteriores a la fecha ingresada, es responsabilidad del usuario del m√©todo chequear que esto no sea un problema.
+     * @param fechaAPartirDeLaCual Fecha a partir de la cual se desea habilitar indefinidamente una habitaci√≥n.
      */
     public void habilitarIndefinidamente(PlainDate fechaAPartirDeLaCual) {
     	DateInterval intervalo = DateInterval.since(fechaAPartirDeLaCual);
     	ColecIntervalosDeFechas.minus(intervalo);
 	 }
     /**
-     * Devuelve una habitaciÛn en forma de String.
-     * @return Objeto de tipo HabitaciÛn
+     * Devuelve una habitaci√≥n en forma de String.
+     * @return Objeto de tipo Habitaci√≥n
      */
     public String mostrarHabitacion() {
     	String eString = (toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
     	return eString;
     }
     /**
-     * Muestra el estado de una habitaciÛn por pantalla.
-     * @return Objeto de tipo HabitaciÛn
+     * Muestra el estado de una habitaci√≥n por pantalla.
+     * @return Objeto de tipo Habitaci√≥n
      */
     public void mostrarHabitacionPorPantalla() {
-    	System.out.println(toString()+"\n Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
-    }
-    @Override
-     public String toString() {
-    	return "\n Numero de habitacion: " + numHabitacion + "\n Capacidad: " + capacidad + " personas" + "\n Tipo: " +
-                tipo + "\n Precio diario: $" + precioDiario + "/n";
+    	System.out.println(toString());
+    	PlainTime ahora = PlainTime.nowInSystemTime();
+    	PlainTime inicioLimpieza = PlainTime.of(10, 30);
+    	PlainTime finLimpieza = PlainTime.of(15,0);
+    	if(getEstado().equals("Disponible") && ahora.isAfter(inicioLimpieza) && ahora.isBefore(finLimpieza)) {
+    		System.out.print(" Estado Actual: "+getEstado(PlainDate.nowInSystemTime())+" - En Limpieza (Hasta las 15:00 hs.)");
+    	}
+    	else System.out.println(" Estado Actual: "+getEstado(PlainDate.nowInSystemTime()));
     }
     
+    @Override
+    public String toString() {
+    	return "\n Numero de Habitacion: " + numHabitacion + "\n Capacidad: " + capacidad + " personas" + "\n Tipo: " +
+               tipo + "\n Precio diario: $" + precioDiario;
+    }    
     @Override
 	public int compareTo(Habitacion hab) {
 		if(capacidad > hab.getCapacidad()) {
