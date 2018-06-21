@@ -19,10 +19,7 @@ import java.io.*;
          /*                 "Disponible" es equivalente a "ocupable"             */
         ////////////////////////////////////////////////////////////////////////// 
 
-/* BUGS: una vez seteado un estado para una fecha no te deja modificarlo, el primero seteado es el que queda. Quizas tenga que ver con
- * 		 la inmutabilidad de los String y haya que eliminar ese intervalo para recien después crear uno nuevo o uasr StringBuilder o algo así.
- * 		
- * 
+/*  
  * ideas para exceptions: 	Que al crear una habitación se chequee que no haya una con el mismo número en la base de datos.
  * 							Que no deje poner una fecha de "inicio" posterior a una de "fin".
  * 							Qué pasa si se carga un producto al frigobar que no exista?
@@ -171,7 +168,8 @@ public class Habitacion implements Comparable<Habitacion>{
      * @param estado Descripción del estado en el que se encuentra la habitación en el período.
      */
     public void setEstado(PlainDate inicio, PlainDate fin, String estado) {
-    	DateInterval intervaloSinValor = DateInterval.between(inicio, fin); 
+    	DateInterval intervaloSinValor = DateInterval.between(inicio, fin);
+    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.minus(intervaloSinValor); // Primero se deberá eliminar el estado anterior para no queden los dos guardados..ni que me hubiera llevado un par de dias darme cuenta de esto..no..eso definitivamente nunca ocurrió
     	ValueInterval<PlainDate, DateInterval, String> intervalo = intervaloSinValor.withValue(estado); 
     	ColecIntervalosDeFechas = ColecIntervalosDeFechas.plus(intervalo); 
     }
@@ -435,7 +433,7 @@ public class Habitacion implements Comparable<Habitacion>{
     public void habilitar(PlainDate inicio,PlainDate fin) {
     	PlainDate finReal =fin.minus(1, CalendarUnit.DAYS);
     	DateInterval intervalo = DateInterval.between(inicio, finReal);
-    	ColecIntervalosDeFechas.minus(intervalo);
+    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.minus(intervalo);
 	 }    
     /**
      * Habilita una habitación para ser utilizada en un intervalo infinito a partir de la fecha ingresada.
@@ -444,7 +442,7 @@ public class Habitacion implements Comparable<Habitacion>{
      */
     public void habilitarIndefinidamente(PlainDate fechaAPartirDeLaCual) {
     	DateInterval intervalo = DateInterval.since(fechaAPartirDeLaCual);
-    	ColecIntervalosDeFechas.minus(intervalo);
+    	ColecIntervalosDeFechas = ColecIntervalosDeFechas.minus(intervalo);
 	 }
     /**
      * Devuelve una habitación en forma de String.
