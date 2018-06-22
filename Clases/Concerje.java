@@ -349,7 +349,7 @@ try {
 	 * @param numerosHabitaciones - ArrayList con el numero de habitaciones que debe ocupar para ese rango de fechas.
 	 * @return
 	 */
-	public int Reservar(String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
+	public void reservar(String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
 	{
 		int numeroReserva = BaseDeDatos.obtenerUltimaReserva() + 1;
 		Reserva nuevaReserva = new Reserva(numeroReserva, dni, fechaIngreso, fechaEgreso, numerosHabitaciones);
@@ -365,6 +365,7 @@ try {
 				BaseDeDatos.agregarHabitacionAlIndice(hab, i);
 				
 			}
+			BaseDeDatos.buscaPasajeroporDni(dni).agregarReservaAlHistorial(nuevaReserva);
 		}catch(HabitacionNulaException h)
 		{
 			h.getLocalizedMessage();
@@ -372,10 +373,6 @@ try {
 		{
 			r.getMessage();
 		}
-		
-		return numeroReserva;
-				
-	}
 	/**
 	 * Cuando el pasajero llega al hotel, realiza el Check in. El método comprueba si ese número de reserva
 	 * existe. Hace efectiva la reserva, atributo de la clase Reserva. Y luego la incorpora a Base de Datos.
