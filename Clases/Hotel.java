@@ -2,7 +2,7 @@ package Clases;
 
 /**
  * Para poder instanciar la clase hotel hay que declararlo de la siguiente forma:
- * Hotel hotel = Hotel.getSingletonInstance();
+ * Hotel hotel = Hotel.getSingletonInstance(parametros);
  */
 public class Hotel {
 
