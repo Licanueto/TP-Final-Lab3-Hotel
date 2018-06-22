@@ -31,28 +31,7 @@ public final class BaseDeDatos {
         administradores = new HashMap<>();
     }
 
-    /* este bloque volaria , ya no hace falta instanciar la clase
-    public static BaseDeDatos getSingletonInstance(){ //se podria tambien lanzar una excepcion  en caso de entrar al else
-        if(baseDeDatos == null){
-            baseDeDatos = new BaseDeDatos();
-        }
-        else{
-            System.out.println("No se puede crear mas de una base de datos");
-        }
-        return baseDeDatos;
-    }
-    //PREVIENE QUE LA BASE DE DATOS SEA CLONADA
-    @Override
-    protected Object clone(){
-            try {
-                throw new CloneNotSupportedException();
-            } catch (CloneNotSupportedException ex) {
-                System.err.println("No se puede clonar un objeto de la clase BaseDeDatos");
-            }
-            return null;
-    }
-
-    */
+    
 
 
     // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
