@@ -287,5 +287,285 @@ public class LoginMenu {
             }
         }while(opcion < 5);
     }
+    public void menuConcerje(String dni)
+    {
+    	String doc = dni;
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("OPCIONES DE CONCERJE");
+    		System.out.println("----------------------");
+    		System.out.println("1- Pasajero ABM");
+    		System.out.println("2- Gestion de reservas.");
+    		System.out.println("3- Consultas");
+    		System.out.println("4- Gestion de Habitaciones");
+    		System.out.println("0- Volver atras");
+    		System.out.println("----------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			subMenuABMPasajeros(doc);
+    			break;
+    		case 2:
+    			subMenuReservas(doc);
+    			break;
+    			
+    		case 3:
+    			subMenuEstadiaPasajero(doc);
+    			break;
+    		case 4:
+    			subMenuGestionHabitaciones(doc);
+    			break;
+    			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 5 && opcion > -1);
+    	
+    	
+    }
+    public void subMenuABMPasajeros(String doc)
+    {
+    	Concerje concerje = BaseDeDatos.obtenerUnConcerje(doc);
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("OPCIONES DE ABM PASAJEROS");
+    		System.out.println("----------------------");
+    		System.out.println("1- Dar de Alta a un Pasajero por primera vez.");
+    		System.out.println("2- Dar de Alta que ha sido dado de baja.");
+    		System.out.println("3- Dar de Baja a un Pasajero.");
+    		System.out.println("0- Volver atras");
+    		System.out.println("----------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			concerje.darDeAltaUsuario();
+    			break;
+    		case 2:
+    			System.out.println("Ingrese por favor el dni: ");
+    			String documento = scanner.next();
+    			concerje.darDeAltaUsuario(documento);
+    			break;
+    		case 3:
+    			System.out.println("Ingrese por favor el dni: ");
+    			String docu = scanner.next();
+    			concerje.darDeBajaUsuario(docu);
+    			
+    			break;
+    		    		  			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 4 && opcion > -1);
+    	scanner.close();
+    	
+    }
+    
+    public void subMenuReservas(String dni)
+    {
+    	Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("OPCIONES DE GESTION DE RESERVAS");
+    		System.out.println("---------------------------------");
+    		System.out.println("1- Reservar.");
+    		System.out.println("2- Cancelar Reserva.");
+    		System.out.println("3- Gestionar Estadía Pasajero.");
+    		System.out.println("4- Hacer Check In");
+    		System.out.println("5- Hacer Check Out");
+    		System.out.println("0- Volver atras");
+    		System.out.println("---------------------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			concerje.gestionarReserva();
+    			break;
+    		case 2:
+    			System.out.println("Por favor, introduzca numero de reserva");
+    			int numeroReserva = scanner.nextInt();
+    			concerje.cancelarReserva(numeroReserva);
+    			break;
+    			
+    		case 3:
+    			subMenuEstadiaPasajero(dni);
+    			break;
+    		case 4:
+    			System.out.println("Por favor, introduzca numero de reserva");
+    			numeroReserva = scanner.nextInt();
+    			concerje.realizarCheckIn(numeroReserva);
+    			break;
+    		case 5:
+    			System.out.println("Por favor, introduzca numero de reserva");
+    			numeroReserva = scanner.nextInt();
+    			Reserva reserva = BaseDeDatos.obtenerReserva(numeroReserva);
+    			System.out.println("Monto a pagar: " + reserva.calcularMonto());
+    			System.out.println("Por favor, introduzca importe a pagar");
+    			double importe = scanner.nextDouble();
+    			concerje.realizarChekOut(numeroReserva, importe);
+    			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 6 && opcion > -1);
+    	
+    }
+    public void subMenuEstadiaPasajero(String dni)
+    {
+    	Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("OPCIONES DE ESTADIA DE PASAJERO");
+    		System.out.println("----------------------");
+    		System.out.println("1- Cargar Consumo Frigobar.");
+    		System.out.println("2- Realizar Pago Parcial.");
+    		System.out.println("0- Volver atras");
+    		System.out.println("----------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			System.out.println("Por favor, introduzca numero de habitacion");
+    			String numHabitacion = scanner.next();
+    			Habitacion hab = BaseDeDatos.buscarPorNumero(numHabitacion);
+    			int indice = BaseDeDatos.obtenerIndiceHabitacion(numHabitacion);
+    			System.out.println("Introduzca un producto:");
+    			String producto = scanner.next();
+    			System.out.println("Introduzca la cantidad:");
+    			byte cantidad = scanner.nextByte();
+    			hab.getFrigobar().consumirProduto(producto, cantidad);
+    			break;
+    		case 2:
+    			System.out.println("Por favor, introduzca numero de reserva");
+    			int numeroReserva = scanner.nextInt();
+    			Reserva reserva = BaseDeDatos.obtenerReserva(numeroReserva);
+    			int index = BaseDeDatos.obtenerIndiceReserva(numeroReserva);
+    			System.out.println("Introduzca el importe que desea pagar por adelantado");
+    			double importe = scanner.nextDouble();
+    			reserva.descontarSaldo(importe);
+    			break;
+    		    		  			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 3 && opcion > -1);
+    	scanner.close();
+    }
+    public void subMenuConsultas(String dni)
+    {
+    	Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("MENU DE CONSULTAS.");
+    		System.out.println("---------------------------------");
+    		System.out.println("1- Consultar Disponibilidad.");
+    		System.out.println("2- Ver todas las habitaciones disponibles.");
+    		System.out.println("3- Ver todas las habitaciones ocupadas.");
+    		System.out.println("4- Consultar por habitación en particular.");
+    		System.out.println("0- Volver atras");
+    		System.out.println("---------------------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			concerje.consultarTelefonicamente();
+    			break;
+    		case 2:
+    			System.out.println(concerje.verDisponibles());
+    			
+    			break;
+    			
+    		case 3:
+    			System.out.println(concerje.verOcupadas());
+    			break;
+    		case 4:
+    			System.out.println("Ingrese el numero de habitacion");
+    			String numeroHab = scanner.next();
+    			concerje.consultarHabitacion(numeroHab);
+    			break;
+    		case 5:
+    			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 5 && opcion > -1);
+    	
+    }
+    public void subMenuGestionHabitaciones(String dni)
+    {
+    	Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
+    	Scanner scanner = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    		System.out.println("GESTION DE HABITACIONES.");
+    		System.out.println("---------------------------------");
+    		System.out.println("1- Dar de alta habitacion..");
+    		System.out.println("2- Dar de baja habitación.");
+    		System.out.println("0- Volver atras");
+    		System.out.println("---------------------------------");
+    		opcion = scanner.nextInt();
+    		switch(opcion) {
+    		case 1: 
+    			System.out.println("Ingrese el numero de habitacion");
+    			String numeroHab = scanner.next();
+    			concerje.darAltaHab(numeroHab);
+    			break;
+    		case 2:
+    			System.out.println("Ingrese el numero de habitacion");
+    			String numHab = scanner.next();
+    			concerje.darBajaHab(numHab);
+    			break;
+    			
+    		   			
+    		case 0:
+    			
+    			return;
+    		default:				
+    			
+    			
+    		
+    		} 
+    	    	  	 		
+    		
+    	}while(opcion < 3 && opcion > -1);
+    	scanner.close();
+    	
+    }
 
 }
