@@ -156,6 +156,18 @@ public final class BaseDeDatos {
     public static void agregarHabitacion(Habitacion habitacion){
         habitaciones.add(habitacion);
     }
+     
+    public static void eliminarHabitacion(String numero){
+        int index;
+        for(int i = 0; i < habitaciones.size(); i++){
+            if(habitaciones.get(i).getNumHabitacion().equals(numero)){
+                index = i;
+                habitaciones.remove(i);
+                return;
+            }
+        } 
+    }
+    
     /**
      * Busca y devuelve una habitación en la base de datos por número.
      * @param numHab Número de la habitación a buscar.
