@@ -564,7 +564,11 @@ try {
 		ArrayList<String> habitaciones = BaseDeDatos.buscarNumerosDeNoDisponibles();
 		return habitaciones;
 	}
-	
+	/**
+	 * Consulta a la base de datos el estado de una habitación y lo devuelve en forma de String
+	 * @param numeroDeHab Número de la habitación a consultar.
+	 * @return String con el estado de la habitación.
+	 */
 	public String consultarHabitacion(String numeroDeHab) {
 		Habitacion hab = BaseDeDatos.buscarPorNumero(numeroDeHab);
 		if(hab != null) {
