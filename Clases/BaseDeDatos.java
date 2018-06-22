@@ -232,6 +232,16 @@ public final class BaseDeDatos {
         }
         return precioBuscado;
     }
+    
+    public static boolean existeHabitacion(String numero){
+        boolean estaOno = false;
+        for(int i = 0; i < habitaciones.size(); i++){
+            if(habitaciones.get(i).getNumHabitacion().equals(numero)){
+                estaOno = true;
+            }
+        }
+        return estaOno;
+    }
     /**
      * Produce una lista del estado actual de todas las habitaciones del hote.
      * @return Lista en forma de ArrayList de Strings del estado de cada habitacion.
