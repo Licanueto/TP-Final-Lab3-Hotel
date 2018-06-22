@@ -18,6 +18,7 @@ import java.util.Scanner;
  *
  */
 public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
+    private Scanner scanner;
 
     /**
      * Constructor de Concerje que recibe los atributos por parámetro y que serán
@@ -28,11 +29,12 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
      */
     private String turno;
 
-    public Concerje(String dni, String nombre, String apellido,String turno)
+    public Concerje(String dni, String nombre, String apellido,String password)
 
     {
-        super(dni, nombre, apellido);
+        super(dni, nombre, apellido,password);
         this.turno = "Rotativo";
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -63,7 +65,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
 
     @Override
     public void darDeAltaUsuario() {
-        Scanner scanner = new Scanner(System.in);
+
         String nombrePasajero = "";
         String apellidoPasajero = "";
         String dniPasajero = "";
@@ -72,6 +74,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
         String ciudadOrigen = "";
         String domicilio = "";
         char correcto = 'n';
+        String pass = "";
         Pasajero pasajero1;
         int contador = 0;
 
@@ -91,16 +94,18 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
             ciudadOrigen = scanner.next();
             System.out.println("Ingrese domicilio");
             domicilio = scanner.next();
+            System.out.println("Ingrese password");
+            pass = scanner.next();
             System.out.println("Los datos ingresados son: \nNombre: " + nombrePasajero + "\nApellido: " + apellidoPasajero +
                     "\nDNI: " + dniPasajero + "\nCelular: " + celular + "\nE-Mail: " + eMail +
                     "Ciudad de origen: " + ciudadOrigen + "\nDomicilio: " + domicilio +
                     "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
             correcto = scanner.next().charAt(0);
         }
-        scanner.close();
 
 
-        pasajero1 = new Pasajero(nombrePasajero,apellidoPasajero,dniPasajero,celular,eMail,ciudadOrigen,domicilio);
+
+        pasajero1 = new Pasajero(nombrePasajero,apellidoPasajero,dniPasajero,celular,eMail,ciudadOrigen,domicilio,pass);
         BaseDeDatos.agregarPasajero(pasajero1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
 
 

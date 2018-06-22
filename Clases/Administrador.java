@@ -18,9 +18,11 @@ import java.util.Scanner;
  */
 
 public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion{
+    private Scanner scanner;
 
-    public Administrador(String dni,String nombre,String apellido) {
-        super(dni,nombre,apellido);
+    public Administrador(String dni,String nombre,String apellido,String password) {
+        super(dni,nombre,apellido,password);
+        scanner = new Scanner(System.in);
     }
 
 
@@ -127,7 +129,7 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
     public void backUp() {
 
         char seguir;
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Desea realizar un Back Up de la informacion del sistema? s/n");
         seguir = scanner.next().charAt(0);
         if(seguir == 's' || seguir == 'S') {
@@ -137,19 +139,20 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             serializarReservas();
             serializarConcerjes();
         }
-        scanner.close();
+
     }
 
 
     @Override
     public void darDeAltaUsuario() {
 
-        Scanner scanner = new Scanner(System.in);
+
         String nombreConcerje = "";
         String apellidoConcerje = "";
         String dniConcerje = "";
         char correcto = 'n';
         Concerje concerje1;
+        String pass = "";
         int contador = 0;
 
         while(correcto == 'n' || correcto == 'N') {
@@ -160,14 +163,16 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             apellidoConcerje = scanner.next();
             System.out.println("Ingrese DNI");
             dniConcerje = scanner.next();
+            System.out.println("Ingrese password");
+            pass = scanner.next();
             System.out.println("Los datos ingresados son: \nNombre: " + nombreConcerje + "\nApellido: " + apellidoConcerje +
                     "\nDNI: " + dniConcerje + "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
             correcto = scanner.next().charAt(0);
         }
-        scanner.close();
 
 
-        concerje1 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje);
+
+        concerje1 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje,pass);
         BaseDeDatos.agregarConcerje(concerje1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
     }
 
@@ -199,9 +204,8 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
 
     @Override
     public void darAltaHab(String numeroHab) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese numero para una nueva habitacion");
-        String numero = scanner.next();
+
+
         System.out.println("Ingrese la capacidad de la habitacion");
         byte capacity = scanner.nextByte();
         System.out.println("Ingrese el tipo de habitacion (descripcion)");
@@ -209,19 +213,19 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
         System.out.println("Ingrese precio diario para la habitacion");
         double price = scanner.nextDouble();
 
-        if(!BaseDeDatos.existeHabitacion(numero)) {
-            Habitacion habitacion = new Habitacion(numero,capacity,type,price);
+        if(!BaseDeDatos.existeHabitacion(numeroHab)) {
+            Habitacion habitacion = new Habitacion(numeroHab,capacity,type,price);
             BaseDeDatos.agregarHabitacion(habitacion);
         }
         else {
             System.out.println("Esa habitacion ya existe, la nueva no fue creada");
         }
-        scanner.close();
+
     }
 
     @Override
     public void darBajaHab(String numeroHab) {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Ingrese numero de la habitacion a eliminar");
         String numero = scanner.next();
         if(BaseDeDatos.existeHabitacion(numero)){
