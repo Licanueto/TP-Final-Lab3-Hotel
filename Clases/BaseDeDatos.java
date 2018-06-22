@@ -10,16 +10,16 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * FALTA LA DESCRIPCION DE LA CLASE !!!, los métodos ya están todos.
- * @author Li
- *
+ * Clase que almacena toda la informacion acerca de los usuarios del sistema, habitaciones y reservas en distintas colecciones.
+ * La funcionalidad de la clase es agregar, almacenar, buscar segun distintos parametros y retornar diferentes datos, segun lo soliciten
+ * los usuarios.
+ * La clase es final, su constructor privado y sus atributos y metodos son estaticos.
+ * Al momento de comenzar el programa la informacion se levanta desde los archivos correspondientes.
  */
 public final class BaseDeDatos {
 
 
     //CON EL CONSTRUCTOR PRIVADO, ESTO HACE QUE NO PUEDA SER INSTANCIADA
-
-    //private static BaseDeDatos baseDeDatos;
 
     private static ArrayList<Habitacion> habitaciones;
     private static HashMap<String,Pasajero> pasajeros;
