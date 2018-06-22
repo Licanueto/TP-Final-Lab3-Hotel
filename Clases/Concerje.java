@@ -107,10 +107,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
 			 
 		 }catch(PasajeroNullException p)
 		 {
-			 p.getMessage();
+			 p.printStackTrace();;
 		 }catch(RuntimeException r)
 		 {
-			 r.getMessage();
+			 r.printStackTrace();
 		 }
 		
 		
@@ -129,10 +129,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
 			 
 		 }catch(PasajeroNullException p)
 		 {
-			 p.getMessage();
+			 p.printStackTrace();
 		 }catch(RuntimeException r)
 		 {
-			 r.getMessage();
+			 r.printStackTrace();
 		 }
 	}
 	 /**
@@ -165,10 +165,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
 			 BaseDeDatos.agregarHabitacionAlIndice(hab, indice);
 		 }catch(HabitacionNulaException h)
 		 { 
-			 h.getMessage();
+			 h.printStackTrace();
 		 }catch(RuntimeException r)
 		 {
-			 r.getMessage();
+			 r.printStackTrace();
 		 }
 		
 	}
@@ -187,81 +187,13 @@ try {
 			 BaseDeDatos.agregarHabitacionAlIndice(hab, indice);
 		 }catch(HabitacionNulaException h)
 		 { 
-			 h.getMessage();
+			 h.printStackTrace();
 		 }catch(RuntimeException r)
 		 {
-			 r.getMessage();
+			 r.printStackTrace();
 		 }
 		
 	}
-	
-	
-	 public void gestionarReserva(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Ingrese DNI del pasajero");
-        String dniAux = scanner.next();
-        Pasajero auxPass = BaseDeDatos.buscaPasajeroporDni(dniAux);
-        if(auxPass != null){
-            System.out.println("Ingrese anio de llegada");
-            int anyo = scanner.nextInt();
-            System.out.println("Ingrese mes de llegada");
-            int mes = scanner.nextInt();
-            System.out.println("Ingrese dia de llegada");
-            int dia = scanner.nextInt();
-            PlainDate aux = PlainDate.of(anyo,mes ,dia );
-
-            System.out.println("Ingrese anio de salida");
-            int anyosalida = scanner.nextInt();
-            System.out.println("Ingrese mes de salida");
-            int mesSalida = scanner.nextInt();
-            System.out.println("Ingrese dia de salida");
-            int diaSalida = scanner.nextInt();
-            PlainDate aux2 = PlainDate.of(anyosalida,mesSalida ,diaSalida);
-
-            System.out.println("Ingrese cantidad de pasajeros");
-            int cantPasajeros = scanner.nextInt();
-            ArrayList<String> arregloHabitaciones;
-            try {
-                arregloHabitaciones = asignarHabitaciones(aux, aux2, cantPasajeros);
-                reservar(dniAux,aux ,aux2 ,arregloHabitaciones );
-            }
-
-            catch (FaltaDisponibilidadException e){
-                e.printStackTrace();
-            }
-            catch (RuntimeException e){
-                e.printStackTrace();
-            }
-        }
-        else
-            darDeAltaUsuario();
-    }
-	
-	  public void consultarTelefonicamente(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese anio de llegada");
-        int anyo = scanner.nextInt();
-        System.out.println("Ingrese mes de llegada");
-        int mes = scanner.nextInt();
-        System.out.println("Ingrese dia de llegada");
-        int dia = scanner.nextInt();
-        PlainDate aux = PlainDate.of(anyo,mes ,dia );
-
-        System.out.println("Ingrese anio de salida");
-        int anyosalida = scanner.nextInt();
-        System.out.println("Ingrese mes de salida");
-        int mesSalida = scanner.nextInt();
-        System.out.println("Ingrese dia de salida");
-        int diaSalida = scanner.nextInt();
-        PlainDate aux2 = PlainDate.of(anyosalida,mesSalida,diaSalida);
-        ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(aux,aux2 );
-        for(Habitacion habitacion: libres){
-            System.out.println("------------------");
-            habitacion.mostrarHabitacionPorPantalla();
-            System.out.println("------------------");
-        }
-    }
 	 /**
 	  * Cuando un pasajero desea realizar una reserva lo primero que se hace es consultar si 
 	  * en los dias que el pasajero desea hay habitaciones disponibles para la cantidad de personas
@@ -314,11 +246,11 @@ try {
 			
 		}catch(FaltaDisponibilidadException e){
 			
-			e.getMessage();
+			e.printStackTrace();
 			
 		}catch(RuntimeException e) {
 			
-			e.getMessage();
+			e.printStackTrace();
 		}finally {
 			return numerosHabitaciones;
 		}
@@ -368,11 +300,15 @@ try {
 			BaseDeDatos.buscaPasajeroporDni(dni).agregarReservaAlHistorial(nuevaReserva);
 		}catch(HabitacionNulaException h)
 		{
-			h.getLocalizedMessage();
+			h.printStackTrace();
 		}catch(RuntimeException r)
 		{
-			r.getMessage();
+			r.printStackTrace();
 		}
+		
+		
+				
+	}
 	/**
 	 * Cuando el pasajero llega al hotel, realiza el Check in. El método comprueba si ese número de reserva
 	 * existe. Hace efectiva la reserva, atributo de la clase Reserva. Y luego la incorpora a Base de Datos.
@@ -390,10 +326,10 @@ try {
 			BaseDeDatos.agragarReservaAlIndice(indice, reser);
 		}catch(ReservaNulaException r)
 		{
-			r.getMessage();
+			r.printStackTrace();
 		}catch(IndiceIncorrectoException i)
 		{
-			i.getMessage();
+			i.printStackTrace();
 		}
 		
 	}
@@ -428,17 +364,17 @@ try {
 			}
 		}catch(ReservaNulaException r)
 		{
-			r.getLocalizedMessage();
+			r.printStackTrace();
 		}catch(IndiceIncorrectoException i)
 		{
-			i.getMessage();
+			i.printStackTrace();
 		}
 		catch(HabitacionNulaException h)
 		{
-			h.getMessage();
+			h.printStackTrace();
 		}catch(RuntimeException r)
 		{
-			r.getMessage();
+			r.printStackTrace();
 		}
 		
 	}
@@ -491,16 +427,16 @@ try {
 			}
 			}catch(ReservaNulaException r)
 			{
-				r.getMessage();
+				r.printStackTrace();
 			}catch(HabitacionNulaException h)
 			{
-				h.getMessage();
+				h.printStackTrace();
 			}catch(IndiceIncorrectoException i)
 			{
-				i.getMessage();
+				i.printStackTrace();
 			}catch(RuntimeException r)
 		    {
-				r.getMessage();
+				r.printStackTrace();
 		    }
 		
 	}
@@ -561,19 +497,85 @@ try {
 		ArrayList<String> habitaciones = BaseDeDatos.buscarNumerosDeNoDisponibles();
 		return habitaciones;
 	}
-	/**
-	 * Consulta a la base de datos el estado de una habitación y lo devuelve en forma de String
-	 * @param numeroDeHab Número de la habitación a consultar.
-	 * @return String con el estado de la habitación.
-	 */
-	public String consultarHabitacion(String numeroDeHab) {
-		Habitacion hab = BaseDeDatos.buscarPorNumero(numeroDeHab);
-		if(hab != null) {
-			return hab.mostrarHabitacion();
-		}
-		else return ("La habitación no fue encontrada");
-	}
 	
+	 public void gestionarReserva(){
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.println("Ingrese DNI del pasajero");
+	        String dniAux = scanner.next();
+	        Pasajero auxPass = BaseDeDatos.buscaPasajeroporDni(dniAux);
+	        if(auxPass != null){
+	            System.out.println("Ingrese anio de llegada");
+	            int anyo = scanner.nextInt();
+	            System.out.println("Ingrese mes de llegada");
+	            int mes = scanner.nextInt();
+	            System.out.println("Ingrese dia de llegada");
+	            int dia = scanner.nextInt();
+	            PlainDate aux = PlainDate.of(anyo,mes ,dia );
+
+	            System.out.println("Ingrese anio de salida");
+	            int anyosalida = scanner.nextInt();
+	            System.out.println("Ingrese mes de salida");
+	            int mesSalida = scanner.nextInt();
+	            System.out.println("Ingrese dia de salida");
+	            int diaSalida = scanner.nextInt();
+	            PlainDate aux2 = PlainDate.of(anyosalida,mesSalida ,diaSalida);
+
+	            System.out.println("Ingrese cantidad de pasajeros");
+	            int cantPasajeros = scanner.nextInt();
+	            ArrayList<String> arregloHabitaciones;
+	            try {
+	                arregloHabitaciones = asignarHabitaciones(aux, aux2, cantPasajeros);
+	                reservar(dniAux,aux ,aux2 ,arregloHabitaciones );
+	            }
+
+	            catch (FaltaDisponibilidadException e){
+	                e.printStackTrace();
+	            }
+	            catch (RuntimeException e){
+	                e.printStackTrace();
+	            }
+	        }
+	        else
+	            darDeAltaUsuario();
+	    }
+		
+		  public void consultarTelefonicamente(){
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.println("Ingrese anio de llegada");
+	        int anyo = scanner.nextInt();
+	        System.out.println("Ingrese mes de llegada");
+	        int mes = scanner.nextInt();
+	        System.out.println("Ingrese dia de llegada");
+	        int dia = scanner.nextInt();
+	        PlainDate aux = PlainDate.of(anyo,mes ,dia );
+
+	        System.out.println("Ingrese anio de salida");
+	        int anyosalida = scanner.nextInt();
+	        System.out.println("Ingrese mes de salida");
+	        int mesSalida = scanner.nextInt();
+	        System.out.println("Ingrese dia de salida");
+	        int diaSalida = scanner.nextInt();
+	        PlainDate aux2 = PlainDate.of(anyosalida,mesSalida,diaSalida);
+	        ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(aux,aux2 );
+	        for(Habitacion habitacion: libres){
+	            System.out.println("------------------");
+	            habitacion.mostrarHabitacion();
+	            System.out.println("------------------");
+	        }
+	    }
+		  /**
+			 * Consulta a la base de datos el estado de una habitación y lo devuelve en forma de String
+			 * @param numeroDeHab Número de la habitación a consultar.
+			 * @return String con el estado de la habitación.
+			 */
+			public String consultarHabitacion(String numeroDeHab) {
+				Habitacion hab = BaseDeDatos.buscarPorNumero(numeroDeHab);
+				if(hab != null) {
+					return hab.mostrarHabitacion();
+				}
+				else return ("La habitación no fue encontrada");
+			}
 	
 	
 	
