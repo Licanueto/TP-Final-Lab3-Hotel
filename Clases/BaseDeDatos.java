@@ -375,5 +375,8 @@ public final class BaseDeDatos {
     public static HashMap<String, Administrador> obtenerAdministradores() {
         return administradores;
     }
+    public static Administrador obtenerAdministrador(String dni){
+        return administradores.get(dni);
+    }
     //FALTA TERMINAR.............
 }
