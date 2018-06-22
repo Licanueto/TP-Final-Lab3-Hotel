@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import net.time4j.PlainDate;
 /**
- * Esta clase contiene la información básica de un gerente de hotel, que forma parte de sus atributos,
+ * Esta clase contiene la información básica de un concerje de hotel, que forma parte de sus atributos,
  * su comportamiento y todas las tareas que realiza. Esta clase hereda de la clase Usuario que integra tanto
  * los atributos como los comportamientos comunes que hay entre los tres tipos de usuarios que tiene el 
  * programa: Administrador / Conserje / Pasajero.
