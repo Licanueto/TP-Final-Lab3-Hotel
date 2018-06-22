@@ -10,9 +10,10 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * FALTA LA DESCRIPCION DE LA CLASE !!!, los métodos ya están todos.
- * @author Li
- *
+ * Esta clase representa a un administrador del hotel, que cumple el rol de gerente general. Tiene la funcion de crear las habitaciones,
+ * darlas de baja, crear y dar de alta o baja a los concerjes, y realizar un backup del sistema (guarda en archivos la informacion que
+ * toma de la base de datos. Para que cualquier cambio quede en memoria secundaria, el administrador debe realizar un backup.
+ *  Tambien puede consultar las habitaciones, reservas, pasajeros y gerentes.
  */
 public final class BaseDeDatos {
 
