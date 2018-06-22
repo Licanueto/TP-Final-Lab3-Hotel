@@ -26,6 +26,11 @@ public abstract class  Usuario {
         this.estadoDeAlta = true;
 
     }
+
+    public boolean isEstadoDeAlta() {
+        return estadoDeAlta;
+    }
+
     public void setDni(String dni)
     {
         this.dni = dni;
@@ -38,6 +43,11 @@ public abstract class  Usuario {
     {
         this.nombre = nombre;
     }
+
+    public void setEstadoDeAlta(boolean estadoDeAlta) {
+        this.estadoDeAlta = estadoDeAlta;
+    }
+
     public String getNombre()
     {
         return nombre;
