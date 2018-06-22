@@ -163,7 +163,7 @@ public class LoginMenu {
                     submenuAbmConcerje(doc);
                     break;
                 case 2:
-                    //
+                    submenuAbmHabitacion(doc);
                     break;
                 case 3:
                     administrador.backUp();
