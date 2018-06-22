@@ -565,6 +565,13 @@ try {
 		return habitaciones;
 	}
 	
+	public String consultarHabitacion(String numeroDeHab) {
+		Habitacion hab = BaseDeDatos.buscarPorNumero(numeroDeHab);
+		if(hab != null) {
+			return hab.mostrarHabitacion();
+		}
+		else return ("La habitación no fue encontrada");
+	}
 	
 	
 	
