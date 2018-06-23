@@ -304,6 +304,7 @@ public class LoginMenu {
                         Map.Entry passengers = (Map.Entry) iterador.next();
                         System.out.println(passengers.getValue().toString());
                     }
+                    break;
                 case 0:
                     return;
             }
