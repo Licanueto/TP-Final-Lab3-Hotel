@@ -9,6 +9,7 @@ public abstract class  Usuario {
     private String nombre;
     private String apellido;
     private boolean estadoDeAlta;
+    private String password;
 
     public Usuario()
     {
@@ -18,17 +19,22 @@ public abstract class  Usuario {
     }
 
 
-    public Usuario(String dni, String nombre, String apellido)
+    public Usuario(String dni, String nombre, String apellido,String password)
     {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.estadoDeAlta = true;
+        this.password = password;
 
     }
 
     public boolean isEstadoDeAlta() {
         return estadoDeAlta;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setDni(String dni)

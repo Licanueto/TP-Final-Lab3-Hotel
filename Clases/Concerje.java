@@ -4,9 +4,9 @@ import net.time4j.PlainDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 /**
  * Esta clase contiene la información básica de un concerje de hotel, que forma parte de sus atributos,
@@ -17,8 +17,8 @@ import java.util.Scanner;
  *
  *
  */
-public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
-    private Scanner scanner;
+public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Serializable {
+
 
     /**
      * Constructor de Concerje que recibe los atributos por parámetro y que serán
@@ -34,7 +34,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
     {
         super(dni, nombre, apellido,password);
         this.turno = "Rotativo";
-        scanner = new Scanner(System.in);
+
     }
 
     /**
@@ -81,26 +81,26 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
         while(correcto == 'n' || correcto == 'N') {
             System.out.println("**Alta de nuevo Pasajero**");
             System.out.println("Ingrese nombre(s): ");
-            nombrePasajero = scanner.next();
+            nombrePasajero = LoginMenu.scanner.next();
             System.out.println("Ingrese Apellido(s)");
-            apellidoPasajero = scanner.next();
+            apellidoPasajero = LoginMenu.scanner.next();
             System.out.println("Ingrese DNI");
-            dniPasajero = scanner.next();
+            dniPasajero = LoginMenu.scanner.next();
             System.out.println("Ingrese numero de telefono");
-            celular = scanner.next();
+            celular = LoginMenu.scanner.next();
             System.out.println("Ingrese e-mail");
-            eMail = scanner.next();
+            eMail = LoginMenu.scanner.next();
             System.out.println("Ingrese ciudad de origen");
-            ciudadOrigen = scanner.next();
+            ciudadOrigen = LoginMenu.scanner.next();
             System.out.println("Ingrese domicilio");
-            domicilio = scanner.next();
+            domicilio = LoginMenu.scanner.next();
             System.out.println("Ingrese password");
-            pass = scanner.next();
+            pass = LoginMenu.scanner.next();
             System.out.println("Los datos ingresados son: \nNombre: " + nombrePasajero + "\nApellido: " + apellidoPasajero +
                     "\nDNI: " + dniPasajero + "\nCelular: " + celular + "\nE-Mail: " + eMail +
                     "Ciudad de origen: " + ciudadOrigen + "\nDomicilio: " + domicilio +
                     "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
-            correcto = scanner.next().charAt(0);
+            correcto = LoginMenu.scanner.next().charAt(0);
         }
 
 
@@ -517,30 +517,30 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
     }
 
     public void gestionarReserva(){
-        Scanner scanner = new Scanner(System.in);
+
 
         System.out.println("Ingrese DNI del pasajero");
-        String dniAux = scanner.next();
+        String dniAux = LoginMenu.scanner.next();
         Pasajero auxPass = BaseDeDatos.buscaPasajeroporDni(dniAux);
         if(auxPass != null){
             System.out.println("Ingrese anio de llegada");
-            int anyo = scanner.nextInt();
+            int anyo = LoginMenu.scanner.nextInt();
             System.out.println("Ingrese mes de llegada");
-            int mes = scanner.nextInt();
+            int mes = LoginMenu.scanner.nextInt();
             System.out.println("Ingrese dia de llegada");
-            int dia = scanner.nextInt();
+            int dia = LoginMenu.scanner.nextInt();
             PlainDate aux = PlainDate.of(anyo,mes ,dia );
 
             System.out.println("Ingrese anio de salida");
-            int anyosalida = scanner.nextInt();
+            int anyosalida = LoginMenu.scanner.nextInt();
             System.out.println("Ingrese mes de salida");
-            int mesSalida = scanner.nextInt();
+            int mesSalida = LoginMenu.scanner.nextInt();
             System.out.println("Ingrese dia de salida");
-            int diaSalida = scanner.nextInt();
+            int diaSalida = LoginMenu.scanner.nextInt();
             PlainDate aux2 = PlainDate.of(anyosalida,mesSalida ,diaSalida);
 
             System.out.println("Ingrese cantidad de pasajeros");
-            int cantPasajeros = scanner.nextInt();
+            int cantPasajeros = LoginMenu.scanner.nextInt();
             ArrayList<String> arregloHabitaciones;
             try {
                 arregloHabitaciones = asignarHabitaciones(aux, aux2, cantPasajeros);
@@ -559,21 +559,21 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion {
     }
 
     public void consultarTelefonicamente(){
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Ingrese anio de llegada");
-        int anyo = scanner.nextInt();
+        int anyo = LoginMenu.scanner.nextInt();
         System.out.println("Ingrese mes de llegada");
-        int mes = scanner.nextInt();
+        int mes = LoginMenu.scanner.nextInt();
         System.out.println("Ingrese dia de llegada");
-        int dia = scanner.nextInt();
+        int dia = LoginMenu.scanner.nextInt();
         PlainDate aux = PlainDate.of(anyo,mes ,dia );
 
         System.out.println("Ingrese anio de salida");
-        int anyosalida = scanner.nextInt();
+        int anyosalida = LoginMenu.scanner.nextInt();
         System.out.println("Ingrese mes de salida");
-        int mesSalida = scanner.nextInt();
+        int mesSalida = LoginMenu.scanner.nextInt();
         System.out.println("Ingrese dia de salida");
-        int diaSalida = scanner.nextInt();
+        int diaSalida = LoginMenu.scanner.nextInt();
         PlainDate aux2 = PlainDate.of(anyosalida,mesSalida,diaSalida);
         ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(aux,aux2 );
         for(Habitacion habitacion: libres){

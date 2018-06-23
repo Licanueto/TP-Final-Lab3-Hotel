@@ -6,7 +6,7 @@ import java.util.*;
 
 public class LoginMenu {
     private HashMap<String,Usuario> logueo;
-    private Scanner scanner;
+    public static Scanner scanner;
 
     public LoginMenu(){
         logueo = new HashMap<>();

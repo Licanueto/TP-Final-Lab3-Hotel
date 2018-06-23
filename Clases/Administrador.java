@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Esta clase representa a un administrador del hotel, que cumple el rol de gerente general. Tiene la funcion de crear las habitaciones,
@@ -17,12 +17,14 @@ import java.util.Scanner;
  *  Tambien puede consultar las habitaciones, reservas, pasajeros y gerentes.
  */
 
-public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion{
-    private Scanner scanner;
+public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion,Serializable{
+    public Administrador(){
+
+    }
 
     public Administrador(String dni,String nombre,String apellido,String password) {
         super(dni,nombre,apellido,password);
-        scanner = new Scanner(System.in);
+
     }
 
 
@@ -36,17 +38,17 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             escritura.writeObject(auxiliar);
         }
         catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         finally {
             try {
                 escritura.close();
             }
             catch(IOException e) {
-                //hacer algo
+                e.printStackTrace();
             }
         }
     }
@@ -58,20 +60,23 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
 
         try {
             escritura = new ObjectOutputStream(new FileOutputStream("habitaciones.dat"));
-            escritura.writeObject(auxiliar);
+
+                escritura.writeObject(auxiliar);
+
+
         }
         catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         finally {
             try {
                 escritura.close();
             }
             catch(IOException e) {
-                //hacer algo
+                e.printStackTrace();
             }
         }
     }
@@ -86,17 +91,17 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             escritura.writeObject(auxiliar);
         }
         catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         finally {
             try {
                 escritura.close();
             }
             catch(IOException e) {
-                //hacer algo
+                e.printStackTrace();
             }
         }
     }
@@ -111,17 +116,41 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             escritura.writeObject(auxiliar);
         }
         catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         finally {
             try {
                 escritura.close();
             }
             catch(IOException e) {
-                //hacer algo
+                e.printStackTrace();
+            }
+        }
+    }
+    public void serializarAdministradores () {
+
+        ObjectOutputStream escritura = null;
+        HashMap<String,Administrador> auxiliar  = BaseDeDatos.obtenerAdministradores();
+
+        try {
+            escritura = new ObjectOutputStream(new FileOutputStream("administradores.dat"));
+            escritura.writeObject(auxiliar);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                escritura.close();
+            }
+            catch(IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -131,13 +160,14 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
         char seguir;
 
         System.out.println("Desea realizar un Back Up de la informacion del sistema? s/n");
-        seguir = scanner.next().charAt(0);
+        seguir = LoginMenu.scanner.next().charAt(0);
         if(seguir == 's' || seguir == 'S') {
 
             serializarHabitaciones();
             serializarPasajeros();
             serializarReservas();
             serializarConcerjes();
+            serializarAdministradores();
         }
 
     }
@@ -158,16 +188,16 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
         while(correcto == 'n' || correcto == 'N') {
             System.out.println("**Alta de nuevo concerje**");
             System.out.println("Ingrese nombre(s): ");
-            nombreConcerje = scanner.next();
+            nombreConcerje = LoginMenu.scanner.next();
             System.out.println("Ingrese Apellido(s)");
-            apellidoConcerje = scanner.next();
+            apellidoConcerje = LoginMenu.scanner.next();
             System.out.println("Ingrese DNI");
-            dniConcerje = scanner.next();
+            dniConcerje = LoginMenu.scanner.next();
             System.out.println("Ingrese password");
-            pass = scanner.next();
+            pass = LoginMenu.scanner.next();
             System.out.println("Los datos ingresados son: \nNombre: " + nombreConcerje + "\nApellido: " + apellidoConcerje +
                     "\nDNI: " + dniConcerje + "\nEs correcta la informacion? oprimir 's' para guardar... 'n' para modificar... ");
-            correcto = scanner.next().charAt(0);
+            correcto = LoginMenu.scanner.next().charAt(0);
         }
 
 
@@ -207,11 +237,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
 
 
         System.out.println("Ingrese la capacidad de la habitacion");
-        byte capacity = scanner.nextByte();
+        byte capacity = LoginMenu.scanner.nextByte();
         System.out.println("Ingrese el tipo de habitacion (descripcion)");
-        String type = scanner.next();
+        String type = LoginMenu.scanner.next();
         System.out.println("Ingrese precio diario para la habitacion");
-        double price = scanner.nextDouble();
+        double price = LoginMenu.scanner.nextDouble();
 
         if(!BaseDeDatos.existeHabitacion(numeroHab)) {
             Habitacion habitacion = new Habitacion(numeroHab,capacity,type,price);
@@ -227,7 +257,7 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
     public void darBajaHab(String numeroHab) {
 
         System.out.println("Ingrese numero de la habitacion a eliminar");
-        String numero = scanner.next();
+        String numero = LoginMenu.scanner.next();
         if(BaseDeDatos.existeHabitacion(numero)){
             BaseDeDatos.eliminarHabitacion(numero);
         }

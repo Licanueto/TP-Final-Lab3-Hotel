@@ -3,10 +3,7 @@ package Clases;
 
 import net.time4j.PlainDate;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -16,17 +13,18 @@ import java.util.HashMap;
  * La clase es final, su constructor privado y sus atributos y metodos son estaticos.
  * Al momento de comenzar el programa la informacion se levanta desde los archivos correspondientes.
  */
-public final class BaseDeDatos {
+public final class BaseDeDatos implements Serializable{
 
 
     //CON EL CONSTRUCTOR PRIVADO, ESTO HACE QUE NO PUEDA SER INSTANCIADA
 
-    private static ArrayList<Habitacion> habitaciones;
-    private static HashMap<String,Pasajero> pasajeros;
-    private static ArrayList<Reserva> reservas;
-    private static HashMap<String,Concerje> concerjes;
-    private static HashMap<String,Administrador> administradores;
-    
+    private static ArrayList<Habitacion> habitaciones = new ArrayList<>();
+    private static HashMap<String,Pasajero> pasajeros = new HashMap<>();
+    private static ArrayList<Reserva> reservas = new ArrayList<>();
+    private static HashMap<String,Concerje> concerjes = new HashMap<>();
+    private static HashMap<String,Administrador> administradores = new HashMap<>();
+
+
     /**
      * Constructor de BaseDeDatos. Notese que es privado y por ende la clase no puede ser instanciada.
      */
@@ -44,34 +42,37 @@ public final class BaseDeDatos {
     // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
     public static void levantarHabitaciones() {
         ObjectInputStream lectura = null;
-        Habitacion auxiliar;
-        try {
-            lectura = new ObjectInputStream(new FileInputStream("habitaciones.dat"));
 
-            while(lectura.read() != -1) {
-                auxiliar = (Habitacion) lectura.readObject();
-                agregarHabitacion(auxiliar);
+        try {
+            File file = new File("habitaciones.dat");
+            if(file.exists()) {
+
+                lectura = new ObjectInputStream(new FileInputStream(file));
+                habitaciones = (ArrayList<Habitacion>) lectura.readObject();
             }
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         finally {
-            try {
-                lectura.close();
-            }
-            catch (IOException e) {
-                // TODO: handle exception
-            }
+                try {
+                     lectura.close();
+                 }
+                 catch (NullPointerException e){
+                    e.printStackTrace();
+                 }
+                catch (IOException e) {
+                      e.printStackTrace();
+                 }
         }
 
     }
@@ -80,75 +81,158 @@ public final class BaseDeDatos {
      */
     public static void levantarPasajeros() {
         ObjectInputStream lectura = null;
-        Pasajero auxiliar;
-        try {
-            lectura = new ObjectInputStream(new FileInputStream("pasajeros.dat"));
 
-            while(lectura.read() != -1) {
-                auxiliar = (Pasajero) lectura.readObject();
-                agregarPasajero(auxiliar);
+        try {
+            File file = new File("pasajeros.dat");
+            if(file.exists()) {
+
+                lectura = new ObjectInputStream(new FileInputStream(file));
+                pasajeros = (HashMap<String, Pasajero>) lectura.readObject();
             }
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         finally {
             try {
                 lectura.close();
             }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
             catch (IOException e) {
-                // TODO: handle exception
+                e.printStackTrace();
             }
         }
+
     }
+
+    public static void levantarConcerjes() {
+        ObjectInputStream lectura = null;
+
+        try {
+            File file = new File("concerjes.dat");
+            if(file.exists()) {
+
+                lectura = new ObjectInputStream(new FileInputStream(file));
+                concerjes = (HashMap<String, Concerje>) lectura.readObject();
+            }
+        }
+        catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                lectura.close();
+            }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
     /**
      * Lee un archivo "reservas.dat" y carga sus objetos - las reservas - en memoria, más específicamente a Base de datos.
      */
     public static void levantarReservas() {
         ObjectInputStream lectura = null;
-        Reserva auxiliar;
+
         try {
-            lectura = new ObjectInputStream(new FileInputStream("reservas.dat"));
-            while (lectura.read() != -1) {
-                auxiliar = (Reserva) lectura.readObject();
-                agregarReserva(auxiliar);
+            File file = new File("reservas.dat");
+            if(file.exists()) {
+
+                lectura = new ObjectInputStream(new FileInputStream(file));
+                reservas = (ArrayList<Reserva>) lectura.readObject();
             }
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         finally {
             try {
                 lectura.close();
             }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
             catch (IOException e) {
-                // TODO: handle exception
+                e.printStackTrace();
             }
         }
 
     }
 
+    public static void levantarAdministradores() {
+        ObjectInputStream lectura = null;
+
+        try {
+            File file = new File("administradores.dat");
+            if(file.exists()) {
+
+                lectura = new ObjectInputStream(new FileInputStream(file));
+                administradores = (HashMap<String, Administrador>) lectura.readObject();
+            }
+        }
+        catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                lectura.close();
+            }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     /////////// METODOS PARA HABITACIONES //////////////////////////////////////////////////////
-    
+
     /**
      * Agrega un objeto de tipo Habitacion a BaseDeDatos.
      * @param habitacion objeto de tipo Habitacion.
@@ -156,7 +240,7 @@ public final class BaseDeDatos {
     public static void agregarHabitacion(Habitacion habitacion){
         habitaciones.add(habitacion);
     }
-     
+
     public static void eliminarHabitacion(String numero){
         int index;
         for(int i = 0; i < habitaciones.size(); i++){
@@ -165,9 +249,9 @@ public final class BaseDeDatos {
                 habitaciones.remove(i);
                 return;
             }
-        } 
+        }
     }
-    
+
     /**
      * Busca y devuelve una habitación en la base de datos por número.
      * @param numHab Número de la habitación a buscar.
@@ -182,7 +266,7 @@ public final class BaseDeDatos {
         return null;
     }
     /**
-     * Produce una lista de todas las habitaciones del hotel 
+     * Produce una lista de todas las habitaciones del hotel
      * @return Lista en forma de ArrayList de objetos de tipo Habitacion.
      */
     public static ArrayList<Habitacion> obtenerHabitaciones(){
@@ -244,7 +328,7 @@ public final class BaseDeDatos {
         }
         return precioBuscado;
     }
-    
+
     public static boolean existeHabitacion(String numero){
         boolean estaOno = false;
         for(int i = 0; i < habitaciones.size(); i++){
@@ -342,10 +426,10 @@ public final class BaseDeDatos {
         }
         return aptas;
     }
-   /**
-    * Produce una lista con el número de todas las habitaciones disponibles para ser ocupadas en el momento actual.
-    * @return Lista en forma de ArrayList de Strings.
-    */
+    /**
+     * Produce una lista con el número de todas las habitaciones disponibles para ser ocupadas en el momento actual.
+     * @return Lista en forma de ArrayList de Strings.
+     */
     public static ArrayList<String> buscarNumerosDeDisponibles(){
         ArrayList<String> lista = new ArrayList<>();
         for(int i = 0; i < habitaciones.size();i++){
@@ -356,8 +440,8 @@ public final class BaseDeDatos {
         return lista;
     }
     /**
-    * Produce una lista con el número de todas las habitaciones que no están disponibles para ser ocupadas en el momento actual.
-    * @return Lista en forma de ArrayList de Strings.
+     * Produce una lista con el número de todas las habitaciones que no están disponibles para ser ocupadas en el momento actual.
+     * @return Lista en forma de ArrayList de Strings.
      */
     public static ArrayList<String> buscarNumerosDeNoDisponibles(){
         ArrayList<String> lista = new ArrayList<>();
@@ -448,7 +532,7 @@ public final class BaseDeDatos {
     }
 
 //////////////        METODOS DE RESERVAS   ////////////////////////////
-    
+
     /**
      * Agrega una reserva a la Base de datos.
      * @param elemento Objeto de tipo Reserva a agregar.
@@ -539,6 +623,7 @@ public final class BaseDeDatos {
      * @param administrador Objeto de tipo Administrador a agregar.
      */
     public static void agregarAdministrador(Administrador administrador){
+        //System.out.println(administrador.getDni());
         administradores.put(administrador.getDni(),administrador );
     }
     /**
@@ -554,7 +639,7 @@ public final class BaseDeDatos {
      * @return Objeto de tipo Administrador.
      */
     public static Administrador obtenerAdministrador(String dni){
-    	return administradores.get(dni);
+        return administradores.get(dni);
     }
-    //FALTA TERMINAR.............
+
 }
