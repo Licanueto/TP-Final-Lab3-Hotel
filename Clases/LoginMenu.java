@@ -337,7 +337,7 @@ public class LoginMenu {
                     break;
 
                 case 3:
-                    subMenuEstadiaPasajero(doc);
+                	subMenuConsultas(doc);
                     break;
                 case 4:
                     subMenuGestionHabitaciones(doc);
