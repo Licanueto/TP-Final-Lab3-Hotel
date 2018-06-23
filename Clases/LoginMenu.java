@@ -532,7 +532,7 @@ public class LoginMenu {
                 case 4:
                     System.out.println("Ingrese el numero de habitacion");
                     String numeroHab = scanner.next();
-                    concerje.consultarHabitacion(numeroHab);
+                    System.out.println(concerje.consultarHabitacion(numeroHab));
                     break;
                 case 5:
 
