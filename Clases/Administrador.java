@@ -200,9 +200,9 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             correcto = LoginMenu.scanner.next().charAt(0);
         }
 
+        
 
-
-        concerje1 = new Concerje(nombreConcerje,apellidoConcerje,dniConcerje,pass);
+        concerje1 = new Concerje(dniConcerje,nombreConcerje,apellidoConcerje,pass);
         BaseDeDatos.agregarConcerje(concerje1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
     }
 

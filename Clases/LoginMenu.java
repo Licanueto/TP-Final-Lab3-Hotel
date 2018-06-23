@@ -40,7 +40,7 @@ public class LoginMenu {
     public void login(){
 
         int contador = 0;
-        char quedarse = 'n';
+        char quedarse = 'x';
         String nombreUsuario = "";
         boolean estadoDeUsuario; //ver esto
         do {
@@ -100,8 +100,9 @@ public class LoginMenu {
 
             if(quedarse == 's') {
                 contador = 1;
+
             }
-            else {
+            else if (quedarse == 'n'){
                 contador = 0;
             }
         }while(contador > 0);
@@ -135,9 +136,10 @@ public class LoginMenu {
         if(cosa instanceof Concerje){
             //eliminarMapa();
             Concerje ingresa = (Concerje) cosa;
+            menuConcerje(ingresa.getDni());
             System.out.println("ACCESO AL MENU DE CONCERJES " + ingresa.getApellido() + " " +
                     ingresa.getNombre());
-            menuConcerje(ingresa.getDni());
+
         }
         if(cosa instanceof  Administrador){
             //eliminarMapa();
@@ -303,6 +305,7 @@ public class LoginMenu {
                     while(iterador.hasNext()) {
                         Map.Entry passengers = (Map.Entry) iterador.next();
                         System.out.println(passengers.getValue().toString());
+
                     }
                     break;
                 case 0:
