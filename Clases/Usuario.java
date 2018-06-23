@@ -82,7 +82,8 @@ public abstract class  Usuario {
     @Override
     public String toString() {
 
-        return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido;
+        //return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido;
+        return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido+"\n Password: "+password;
     }
 
     public abstract JSONObject getJson() throws JSONException;
