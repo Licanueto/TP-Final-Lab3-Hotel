@@ -6,6 +6,9 @@ import net.time4j.PlainDate;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Clase que almacena toda la informacion acerca de los usuarios del sistema, habitaciones y reservas en distintas colecciones.
  * La funcionalidad de la clase es agregar, almacenar, buscar segun distintos parametros y retornar diferentes datos, segun lo soliciten
@@ -40,6 +43,15 @@ public final class BaseDeDatos implements Serializable{
      * Lee un archivo "habitaciones.dat" y carga sus objetos - las habitaciones - en memoria, más específicamente a Base de datos.
      */
     // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
+
+    public static void levantarAllCollections(){
+        levantarPasajeros();
+        levantarReservas();
+        levantarConcerjes();
+        levantarHabitaciones();
+        levantarAdministradores();
+    }
+
     public static void levantarHabitaciones() {
         ObjectInputStream lectura = null;
 
@@ -477,7 +489,38 @@ public final class BaseDeDatos implements Serializable{
         habitaciones.add(indice,habitacion );
     }
 
+    public static String listarFrigobar(){
+        StringBuffer stringBuffer = new StringBuffer();
+        Frigobar frigobar = habitaciones.get(0).getFrigobar();
+        HashMap<String,Double> frigo = frigobar.getProductos();
+        Iterator iterator = frigo.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry passengers = (Map.Entry) iterator.next();
+            stringBuffer.append("\nProducto: " + passengers.getKey() + " - Precio: $" +
+            String.valueOf(passengers.getValue()));
+        }
+        String listado = stringBuffer.toString();
+        return listado;
+    }
 
+    public static ArrayList<Habitacion> obtenerHabitacionesDeReserva(String dni){
+        int ultima = obtenerNumeroDeUltimaReserva(dni);
+        ArrayList<Habitacion> habReserva = new ArrayList<>();
+        ArrayList<String> arreNumerosHabitacion = new ArrayList<>();
+        for(int i = 0; i < reservas.size(); i++){
+            if(ultima == reservas.get(i).getNumeroReserva()){
+               arreNumerosHabitacion  = reservas.get(i).getNumerosHabitaciones();
+            }
+        }
+        for(int i = 0; i < arreNumerosHabitacion.size(); i++){
+            for(int j = 0; j < habitaciones.size(); j++){
+                if(arreNumerosHabitacion.get(i).equals(habitaciones.get(j).getNumHabitacion())){
+                    habReserva.add(habitaciones.get(j));
+                }
+            }
+        }
+        return habReserva;
+    }
 
 
     ///////////         METODOS DE PASAJEROS       ////////////////////////////////////////
@@ -531,6 +574,8 @@ public final class BaseDeDatos implements Serializable{
         return telefono;
     }
 
+
+
 //////////////        METODOS DE RESERVAS   ////////////////////////////
 
     /**
@@ -566,8 +611,39 @@ public final class BaseDeDatos implements Serializable{
      * @return Objeto de tipo Reserva.
      */
     public static int obtenerUltimaReserva() {
-        return reservas.get(reservas.size() - 1).getNumeroReserva();
+        if(reservas.size() == 0){
+            return 0;
+        }
+        else {
+            return reservas.get(reservas.size() - 1).getNumeroReserva();
+        }
     }
+
+    public static ArrayList<String> obtenerHistorialPrint(String dni) {
+        ArrayList<Reserva> historialPasajero = pasajeros.get(dni).getHistorial();
+        ArrayList<String> historialParaImprimir = new ArrayList<>();
+        for(Reserva reserva : historialPasajero){
+            historialParaImprimir.add(reserva.toString());
+        }
+        return historialParaImprimir;
+    }
+
+    public static int obtenerNumeroDeUltimaReserva(String dni){
+        Pasajero pasajero = pasajeros.get(dni);
+        ArrayList<Reserva> reser = pasajero.getHistorial();
+        int index = reser.size() - 1;
+        int numeroUltima = reser.get(index).getNumeroReserva();
+        return numeroUltima;
+    }
+    public static double obtenerSaldoUltimaReserva(String dni){
+        Pasajero pasajero = pasajeros.get(dni);
+        ArrayList<Reserva> reser = pasajero.getHistorial();
+        int index = reser.size() - 1;
+        double saldoUltimo = reser.get(index).getSaldo();
+        return saldoUltimo;
+    }
+
+
     /**
      * Devuelve a partir de un número de reserva el indice en el que se la encuentra en el ArrayList de reservas en la base de datos.
      * @param numeroReserva Número de reserva para la cual se desea saber el indice.
