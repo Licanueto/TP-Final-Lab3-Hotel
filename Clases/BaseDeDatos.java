@@ -632,6 +632,7 @@ public final class BaseDeDatos implements Serializable{
         Pasajero pasajero = pasajeros.get(dni);
         ArrayList<Reserva> reser = pasajero.getHistorial();
         int index = reser.size() - 1;
+        
         int numeroUltima = reser.get(index).getNumeroReserva();
         return numeroUltima;
     }
@@ -717,5 +718,3 @@ public final class BaseDeDatos implements Serializable{
     public static Administrador obtenerAdministrador(String dni){
         return administradores.get(dni);
     }
-
-}
