@@ -428,8 +428,10 @@ public class LoginMenu {
                     subMenuEstadiaPasajero(dni);
                     break;
                 case 4:
-                    System.out.println("Por favor, introduzca numero de reserva");
-                    numeroReserva = scanner.nextInt();
+                    System.out.println("Por favor, introduzca numero documento");
+                    
+                    String documento = scanner.next();
+                    numeroReserva = BaseDeDatos.obtenerNumeroDeUltimaReserva(documento);
                     concerje.realizarCheckIn(numeroReserva);
                     break;
                 case 5:
@@ -473,20 +475,24 @@ public class LoginMenu {
                     String numHabitacion = scanner.next();
                     Habitacion hab = BaseDeDatos.buscarPorNumero(numHabitacion);
                     int indice = BaseDeDatos.obtenerIndiceHabitacion(numHabitacion);
+                    System.out.println(BaseDeDatos.listarFrigobar());
                     System.out.println("Introduzca un producto:");
                     String producto = scanner.next();
                     System.out.println("Introduzca la cantidad:");
                     byte cantidad = scanner.nextByte();
                     hab.getFrigobar().consumirProduto(producto, cantidad);
+                    BaseDeDatos.agregarHabitacionAlIndice(hab, indice);
                     break;
                 case 2:
-                    System.out.println("Por favor, introduzca numero de reserva");
-                    int numeroReserva = scanner.nextInt();
+                    System.out.println("Por favor, introduzca el dni del pasajero");
+                    String docu = scanner.next();
+                    int numeroReserva = BaseDeDatos.obtenerNumeroDeUltimaReserva(docu);
                     Reserva reserva = BaseDeDatos.obtenerReserva(numeroReserva);
                     int index = BaseDeDatos.obtenerIndiceReserva(numeroReserva);
                     System.out.println("Introduzca el importe que desea pagar por adelantado");
                     double importe = scanner.nextDouble();
                     reserva.descontarSaldo(importe);
+                    BaseDeDatos.agragarReservaAlIndice(index, reserva);
                     break;
 
                 case 0:
