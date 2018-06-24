@@ -24,6 +24,10 @@ public class Frigobar implements Serializable{
         agregarAlInventario();
     }
 
+    public static HashMap<String, Double> getProductos() {
+        return productos;
+    }
+
     /**
      * Devuelve el saldo acumulado hasta el momento en el Frigobar.
      * @return Saldo acumulado
