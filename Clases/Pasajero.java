@@ -205,10 +205,10 @@ public class Pasajero extends Usuario implements Serializable{
      */
     public void agregarReservaAlHistorial(Reserva reser)
     {
-        if (checkIn == true)
-        {
+               
             historial.add(reser);
-        }
+            
+        
     }
 
     public JSONObject getJson() throws JSONException
