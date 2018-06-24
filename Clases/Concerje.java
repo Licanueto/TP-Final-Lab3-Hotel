@@ -105,7 +105,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
 
 
-        pasajero1 = new Pasajero(nombrePasajero,apellidoPasajero,dniPasajero,celular,eMail,ciudadOrigen,domicilio,pass);
+        pasajero1 = new Pasajero(dniPasajero,nombrePasajero,apellidoPasajero,celular,eMail,ciudadOrigen,domicilio,pass);
         BaseDeDatos.agregarPasajero(pasajero1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
 
 
@@ -303,7 +303,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     {
         int numeroReserva = BaseDeDatos.obtenerUltimaReserva() + 1;
         Reserva nuevaReserva = new Reserva(numeroReserva, dni, fechaIngreso, fechaEgreso, numerosHabitaciones);
-        BaseDeDatos.agregarReserva(nuevaReserva);
+        
 
         try {
             for(int i = 0; i < numerosHabitaciones.size(); i++)
@@ -315,7 +315,11 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
                 BaseDeDatos.agregarHabitacionAlIndice(hab, i);
 
             }
-            BaseDeDatos.buscaPasajeroporDni(dni).agregarReservaAlHistorial(nuevaReserva);
+           
+            Pasajero nuevoPasajero = BaseDeDatos.buscaPasajeroporDni(dni);
+            nuevoPasajero.agregarReservaAlHistorial(nuevaReserva);
+            BaseDeDatos.agregarPasajero(nuevoPasajero);
+            BaseDeDatos.agregarReserva(nuevaReserva);
         }catch(HabitacionNulaException h)
         {
             h.printStackTrace();
@@ -578,7 +582,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         ArrayList<Habitacion> libres = BaseDeDatos.buscarAptas(aux,aux2 );
         for(Habitacion habitacion: libres){
             System.out.println("------------------");
-            habitacion.mostrarHabitacion();
+            habitacion.mostrarHabitacionPorPantalla();
             System.out.println("------------------");
         }
     }
