@@ -470,18 +470,34 @@ public class LoginMenu {
             System.out.println("----------------------");
             opcion = scanner.nextInt();
             switch(opcion) {
+           switch(opcion) {
                 case 1:
                     System.out.println("Por favor, introduzca numero de habitacion");
                     String numHabitacion = scanner.next();
                     Habitacion hab = BaseDeDatos.buscarPorNumero(numHabitacion);
                     int indice = BaseDeDatos.obtenerIndiceHabitacion(numHabitacion);
-                    System.out.println(BaseDeDatos.listarFrigobar());
-                    System.out.println("Introduzca un producto:");
-                    String producto = scanner.next();
-                    System.out.println("Introduzca la cantidad:");
-                    byte cantidad = scanner.nextByte();
-                    hab.getFrigobar().consumirProduto(producto, cantidad);
-                    BaseDeDatos.agregarHabitacionAlIndice(hab, indice);
+                    System.out.println("¿Qué producto desea cargar?");
+                    System.out.println("1- Coca-Cola");
+                    System.out.println("2- Agua Mineral");
+                    System.out.println("3- Chocolate");
+                    System.out.println("4- Cerveza");
+                    int producto = scanner.nextInt();
+                    if(producto>0 && producto<=4) { // sigue si el producto es alguno de los cuatro
+                    	System.out.println("Introduzca la cantidad:"); 
+                    	byte cantidad = scanner.nextByte();
+                    	if(cantidad>0) { // Sigue si la cantidad del producto es mayor a cero
+		                    switch(producto) { // consume el producto
+		                    case 1:	hab.getFrigobar().consumirProduto("coca cola", cantidad);
+		                    		break;
+		                    case 2:	hab.getFrigobar().consumirProduto("agua mineral", cantidad);
+		                    		break;
+		                    case 3:	hab.getFrigobar().consumirProduto("chocolate", cantidad);
+		                    		break;
+		                    case 4:	hab.getFrigobar().consumirProduto("cerveza", cantidad);
+		                    		break;
+		                    }BaseDeDatos.agregarHabitacionAlIndice(hab, indice); // guarda la habitacion con ese producto consumido
+                    	}else System.out.println("La cantidad ingresada debe ser mayor a cero");
+                    }else System.out.println("El producto ingresado es inexistente");
                     break;
                 case 2:
                     System.out.println("Por favor, introduzca el dni del pasajero");
