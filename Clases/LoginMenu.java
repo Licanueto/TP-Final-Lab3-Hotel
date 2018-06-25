@@ -611,6 +611,11 @@ public class LoginMenu {
 
 
     }
+    /**
+    * Este método lee mediante una salida por pantalla una fecha y la devuelve en formato PlainDate.
+    * @param fechaDeQue String, debería ser "ingreso" o "egreso"
+    * @return Fecha en formato PlainDate
+    */
     public static PlainDate pedirFecha(String fechaDeQue) {
 		boolean fechaCorrecta;
 		PlainDate plainDateParseada=null;
