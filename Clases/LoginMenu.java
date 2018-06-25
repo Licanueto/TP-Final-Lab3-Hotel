@@ -408,7 +408,7 @@ public class LoginMenu {
             System.out.println("---------------------------------");
             System.out.println("1- Reservar.");
             System.out.println("2- Cancelar Reserva.");
-            System.out.println("3- Gestionar Estadía Pasajero.");
+            System.out.println("3- Gestionar Estad�a Pasajero.");
             System.out.println("4- Hacer Check In");
             System.out.println("5- Hacer Check Out");
             System.out.println("0- Volver atras");
@@ -419,9 +419,11 @@ public class LoginMenu {
                     concerje.gestionarReserva();
                     break;
                 case 2:
-                    System.out.println("Por favor, introduzca numero de reserva");
-                    int numeroReserva = scanner.nextInt();
+                    System.out.println("Por favor, introduzca numero de documento.");
+                    String numeroDoc = scanner.next();
+                    int numeroReserva = BaseDeDatos.obtenerNumeroDeUltimaReserva(numeroDoc);
                     concerje.cancelarReserva(numeroReserva);
+                    System.out.println("Operacion realizada con �xito.");
                     break;
 
                 case 3:
@@ -435,8 +437,9 @@ public class LoginMenu {
                     concerje.realizarCheckIn(numeroReserva);
                     break;
                 case 5:
-                    System.out.println("Por favor, introduzca numero de reserva");
-                    numeroReserva = scanner.nextInt();
+                    System.out.println("Por favor, introduzca numero de documento");
+                    String identidad = scanner.next();
+                    numeroReserva = BaseDeDatos.obtenerNumeroDeUltimaReserva(identidad);
                     Reserva reserva = BaseDeDatos.obtenerReserva(numeroReserva);
                     System.out.println("Monto a pagar: " + reserva.calcularMonto());
                     System.out.println("Por favor, introduzca importe a pagar");
@@ -470,13 +473,13 @@ public class LoginMenu {
             System.out.println("----------------------");
             opcion = scanner.nextInt();
             switch(opcion) {
-           switch(opcion) {
                 case 1:
-                    System.out.println("Por favor, introduzca numero de habitacion");
+                	
+                	System.out.println("Por favor, introduzca numero de habitacion");
                     String numHabitacion = scanner.next();
                     Habitacion hab = BaseDeDatos.buscarPorNumero(numHabitacion);
                     int indice = BaseDeDatos.obtenerIndiceHabitacion(numHabitacion);
-                    System.out.println("¿Qué producto desea cargar?");
+                    System.out.println("�Qu� producto desea cargar?");
                     System.out.println("1- Coca-Cola");
                     System.out.println("2- Agua Mineral");
                     System.out.println("3- Chocolate");
@@ -535,7 +538,7 @@ public class LoginMenu {
             System.out.println("1- Consultar Disponibilidad.");
             System.out.println("2- Ver todas las habitaciones disponibles.");
             System.out.println("3- Ver todas las habitaciones ocupadas.");
-            System.out.println("4- Consultar por habitación en particular.");
+            System.out.println("4- Consultar por habitaci�n en particular.");
             System.out.println("0- Volver atras");
             System.out.println("---------------------------------");
             opcion = scanner.nextInt();
@@ -580,7 +583,7 @@ public class LoginMenu {
             System.out.println("GESTION DE HABITACIONES.");
             System.out.println("---------------------------------");
             System.out.println("1- Dar de alta habitacion..");
-            System.out.println("2- Dar de baja habitación.");
+            System.out.println("2- Dar de baja habitaci�n.");
             System.out.println("0- Volver atras");
             System.out.println("---------------------------------");
             opcion = scanner.nextInt();
@@ -611,33 +614,5 @@ public class LoginMenu {
 
 
     }
-    /**
-    * Este método lee mediante una salida por pantalla una fecha y la devuelve en formato PlainDate.
-    * @param fechaDeQue String, debería ser "ingreso" o "egreso"
-    * @return Fecha en formato PlainDate
-    */
-    public static PlainDate pedirFecha(String fechaDeQue) {
-		boolean fechaCorrecta;
-		PlainDate plainDateParseada=null;
-		do{
-			try{
-				System.out.println("Ingrese la fecha de "+fechaDeQue+" en formato AñoMesDia");
-				Scanner sca = new Scanner(System.in);
-				String fechaa = sca.next();
-				ChronoFormatter<PlainDate> formateador = ChronoFormatter //construye el objeto que interpretará el String
-					.setUp(PlainDate.class, Locale.GERMAN)
-					.addFixedInteger(PlainDate.YEAR, 4)
-					.addFixedNumerical(PlainDate.MONTH_OF_YEAR,2)
-					.addFixedInteger(PlainDate.DAY_OF_MONTH,2)
-					.build();											
-				plainDateParseada = formateador.parse(fechaa);
-				fechaCorrecta = true; // Si llega acá no saltó la excepcion y por ende puede salir del failCheck
-			}catch (ParseException e){
-				System.out.println("La fecha ingresada es incorrecta, por favor verifique si el formato\ny orden utilizados fueron los correctos y vuelva a ingresarla.\n\nA modo de ejemplo para 2018/04/27 la fecha ingresada debería ser 20180427 \n");
-				fechaCorrecta = false;
-			}
-		}while (fechaCorrecta == false);
-		return plainDateParseada;
-	}
 
 }

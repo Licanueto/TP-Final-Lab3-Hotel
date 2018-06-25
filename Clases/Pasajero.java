@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
- * Esta clase nos permite instanciar Pasajeros, con todos sus datos de procedencia. Adem√°s nos permite crear un
+ * Esta clase nos permite instanciar Pasajeros, con todos sus datos de procedencia. Adem·s nos permite crear un
  * historial con todas las visitas que ha realizado al hotel. Contiene un ArrayList de Reserva y todo el detalle
- * preciso que se necesita para tener un buen dominio de la informaci√≥n.
+ * preciso que se necesita para tener un buen dominio de la informaciÛn.
  */
 
 public class Pasajero extends Usuario implements Serializable{
@@ -20,8 +20,8 @@ public class Pasajero extends Usuario implements Serializable{
     private ArrayList<Reserva>historial;
     private boolean checkIn;
     /**
-     * Constructor vacio para utilizarlo en caso de ser necesario. En realidad est√° hecho siguiendo la
-     * pol√≠tica de mantener nosotros el control del sistema y no derivar a la clase Object las responsabilidades
+     * Constructor vacio para utilizarlo en caso de ser necesario. En realidad est· hecho siguiendo la
+     * polÌtica de mantener nosotros el control del sistema y no derivar a la clase Object las responsabilidades
      * pertinentes a nuestro trabajo.
      */
     public Pasajero()
@@ -36,11 +36,11 @@ public class Pasajero extends Usuario implements Serializable{
     }
 
     /**
-     * Contructor que recibe todos los datos que corresponden a la creaci√≥n de un pasajero.
-     * @param dni - String porque no realizamos operaciones matem√°ticas con √©l.
+     * Contructor que recibe todos los datos que corresponden a la creaciÛn de un pasajero.
+     * @param dni - String porque no realizamos operaciones matem·ticas con Èl.
      * @param nombre -
      * @param apellido -
-     * @param telefonoMovil - String porque no realizamos operaciones matem√°ticas con √©l.
+     * @param telefonoMovil - String porque no realizamos operaciones matem·ticas con Èl.
      * @param email - dato de contacto con el pasajero.
      * @param ciudadDeOrigen - ciudad de donde proviene.
      * @param domicilioOrigen - domicilio donde vive.
@@ -58,7 +58,7 @@ public class Pasajero extends Usuario implements Serializable{
 
 
     /**
-     * En caso de utilizar un constructor vacio podemos cargar por par√°metro el telefono
+     * En caso de utilizar un constructor vacio podemos cargar por par·metro el telefono
      * del pasajero.
      * @param telefonoMovil
      */
@@ -68,16 +68,16 @@ public class Pasajero extends Usuario implements Serializable{
         this.telefonoMovil = telefonoMovil;
     }
     /**
-     * En caso de necesitar el telefono del pasajero podemos recurrir a este m√©todo.
-     * @return - retorna un String con el tel√©fono.
+     * En caso de necesitar el telefono del pasajero podemos recurrir a este mÈtodo.
+     * @return - retorna un String con el telÈfono.
      */
     public String getTelefonoMovil()
     {
         return telefonoMovil;
     }
     /**
-     * En el caso de haber utilizado el constructor vac√≠o y necesitemos cargar a posteriori el email
-     * o en caso de que el pasajero lo haya cambiado, a trav√©s de este m√©todo que recibe un String con
+     * En el caso de haber utilizado el constructor vacÌo y necesitemos cargar a posteriori el email
+     * o en caso de que el pasajero lo haya cambiado, a travÈs de este mÈtodo que recibe un String con
      * el email podemos volver a cargarlo.
      * @param email
      */
@@ -86,8 +86,8 @@ public class Pasajero extends Usuario implements Serializable{
         this.email = email;
     }
     /**
-     * Si algun administrador o el conserje necesita contactarse por email con el pasajero, a trav√©s de
-     * este m√©todo puede acceder al email. Puede cumplir tareas importantes al momento de realizar la
+     * Si algun administrador o el conserje necesita contactarse por email con el pasajero, a travÈs de
+     * este mÈtodo puede acceder al email. Puede cumplir tareas importantes al momento de realizar la
      * reserva on line.
      * @return
      */
@@ -96,7 +96,7 @@ public class Pasajero extends Usuario implements Serializable{
         return email;
     }
     /**
-     * En caso de haber utilizado el constructor vac√≠o podemos ingresar de forma independiente la ciudad de
+     * En caso de haber utilizado el constructor vacÌo podemos ingresar de forma independiente la ciudad de
      * origen del pasajero. Lo mismo para el caso de que el mismo haya cambiado de ciudad y tengamos que
      * actualizar sus datos.
      * @param ciudadDeOrigen - recibimos un String con la ciudad de donde proviene.
@@ -115,7 +115,7 @@ public class Pasajero extends Usuario implements Serializable{
     }
     /**
      * Metodo para ingresar de manera independiente el domicilio previendo que el pasajero pudo haberse mudado
-     * o simplemente hemos utilizado un constructor vac√≠o.
+     * o simplemente hemos utilizado un constructor vacÌo.
      * @param domicilioOrigen - Recibe un String con lel domicilio de origen que debemos registrar.
      */
     public void setDomicilioDeOrigen(String domicilioOrigen)
@@ -123,7 +123,7 @@ public class Pasajero extends Usuario implements Serializable{
         this.domicilioOrigen = domicilioOrigen;
     }
     /**
-     * Si necesitamos el domicilio del pasajero este m√©todo es el correcto para poder acceder a ese
+     * Si necesitamos el domicilio del pasajero este mÈtodo es el correcto para poder acceder a ese
      * atributo privado.
      * @return - Un String con el domicilio pertinente.
      */
@@ -132,8 +132,8 @@ public class Pasajero extends Usuario implements Serializable{
         return domicilioOrigen;
     }
     /**
-     * Este m√©todo permite tener acceso mediante un ArrayList conformado por Reservas al historial del
-     * pasajero en nuestro hotel y de esta manera poder realizar tareas de estad√≠stica o simplemente
+     * Este mÈtodo permite tener acceso mediante un ArrayList conformado por Reservas al historial del
+     * pasajero en nuestro hotel y de esta manera poder realizar tareas de estadÌstica o simplemente
      * averiguar si ha cumplido con las reservas pautadas y si tiene algun saldo que esta adeudando
      * pagar al hotel.
      * @return - Un ArrayList de tipo Reserva.
@@ -153,7 +153,7 @@ public class Pasajero extends Usuario implements Serializable{
     }
     /**
      * Es una forma elegante de retornar el booleano convertido en String con el estado de Check in
-     * @return - Un String que responde si el pasajero realiz√≥ el check in.
+     * @return - Un String que responde si el pasajero realizÛ el check in.
      */
 
     public String obtenerEstadoCheckIn()

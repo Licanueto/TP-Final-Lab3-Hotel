@@ -1,9 +1,11 @@
 package Clases;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class  Usuario {
+public abstract class  Usuario implements Serializable{
 
     private String dni;
     private String nombre;
@@ -82,8 +84,7 @@ public abstract class  Usuario {
     @Override
     public String toString() {
 
-        //return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido;
-        return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido+"\n Password: "+password;
+        return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido;
     }
 
     public abstract JSONObject getJson() throws JSONException;

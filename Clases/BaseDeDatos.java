@@ -40,7 +40,7 @@ public final class BaseDeDatos implements Serializable{
     }
 
     /**
-     * Lee un archivo "habitaciones.dat" y carga sus objetos - las habitaciones - en memoria, mÃ¡s especÃ­ficamente a Base de datos.
+     * Lee un archivo "habitaciones.dat" y carga sus objetos - las habitaciones - en memoria, más específicamente a Base de datos.
      */
     // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
 
@@ -89,7 +89,7 @@ public final class BaseDeDatos implements Serializable{
 
     }
     /**
-     * Lee un archivo "pasajeros.dat" y carga sus objetos - los pasajeros - en memoria, mÃ¡s especÃ­ficamente a Base de datos.
+     * Lee un archivo "pasajeros.dat" y carga sus objetos - los pasajeros - en memoria, más específicamente a Base de datos.
      */
     public static void levantarPasajeros() {
         ObjectInputStream lectura = null;
@@ -167,7 +167,7 @@ public final class BaseDeDatos implements Serializable{
 
 
     /**
-     * Lee un archivo "reservas.dat" y carga sus objetos - las reservas - en memoria, mÃ¡s especÃ­ficamente a Base de datos.
+     * Lee un archivo "reservas.dat" y carga sus objetos - las reservas - en memoria, más específicamente a Base de datos.
      */
     public static void levantarReservas() {
         ObjectInputStream lectura = null;
@@ -265,8 +265,8 @@ public final class BaseDeDatos implements Serializable{
     }
 
     /**
-     * Busca y devuelve una habitaciÃ³n en la base de datos por nÃºmero.
-     * @param numHab NÃºmero de la habitaciÃ³n a buscar.
+     * Busca y devuelve una habitación en la base de datos por número.
+     * @param numHab Número de la habitación a buscar.
      * @return Objeto de tipo Habitacion.
      */
     public static Habitacion buscarPorNumero(String numHab){
@@ -299,8 +299,8 @@ public final class BaseDeDatos implements Serializable{
         return disponibles;
     }
     /**
-     * Realiza una recolecciÃ³n de todas las habitaciones de una determinada capacidad.
-     * @param numero Cantidad de pasajeros que las habitaciones buscadas pueden albergar como mÃ¡ximo.
+     * Realiza una recolección de todas las habitaciones de una determinada capacidad.
+     * @param numero Cantidad de pasajeros que las habitaciones buscadas pueden albergar como máximo.
      * @return Lista en forma de ArrayList de objetos de tipo Habitacion.
      */
     public static ArrayList<Habitacion> buscarPorCapacidad(byte numero){
@@ -314,7 +314,7 @@ public final class BaseDeDatos implements Serializable{
     }
     /**
      * Produce y devuelve una lista de todas las habitaciones de determinado tipo que la base de datos posee.
-     * @param tipoHab Tipo de habitaciÃ³n de la cual se desea generar la lista.
+     * @param tipoHab Tipo de habitación de la cual se desea generar la lista.
      * @return Lista en forma de ArrayList de objetos de tipo Habitacion.
      */
     public static ArrayList<Habitacion> buscarPorTipo(String tipoHab){
@@ -327,8 +327,8 @@ public final class BaseDeDatos implements Serializable{
         return tipoBuscado;
     }
     /**
-     * Genera y devuelve una lista de las habitaciones cuyo precio por noche sea menor o igual a aquel recibido por parÃ¡metro.
-     * @param precioMax Cota mÃ¡xima de precio para realizar la lista.
+     * Genera y devuelve una lista de las habitaciones cuyo precio por noche sea menor o igual a aquel recibido por parámetro.
+     * @param precioMax Cota máxima de precio para realizar la lista.
      * @return Lista en forma de ArrayList de objetos de tipo Habitacion.
      */
     public static ArrayList<Habitacion> buscarPrecioMenorA(double precioMax){
@@ -362,8 +362,8 @@ public final class BaseDeDatos implements Serializable{
         return listaHabitaciones;
     }
     /**
-     * Elimina una habitaciÃ³n de la Base de datos a partir de su nÃºmero de habitaciÃ³n.
-     * @param numero NÃºmero en forma de String de la habitaciÃ³n a ser eliminada.
+     * Elimina una habitación de la Base de datos a partir de su número de habitación.
+     * @param numero Número en forma de String de la habitación a ser eliminada.
      */
     public static void quitarHabitacion(String numero){
         for(int i = 0; i < habitaciones.size(); i++){
@@ -376,16 +376,16 @@ public final class BaseDeDatos implements Serializable{
         }
     }
     /**
-     * Elimina una habitaciÃ³n de la Base de datos a partir de una instancia de Habitacion
+     * Elimina una habitación de la Base de datos a partir de una instancia de Habitacion
      * @param habitacion Objeto de tipo Habitacion.
      */
     public static void quitarHabitacion(Habitacion habitacion){
         habitaciones.remove(habitacion);
     }
     /**
-     * Devuelve la precio por noche de una habitaciÃ³n determinada a partir de su nÃºmero de habitaciÃ³n.
-     * @param numHabitacion NÃºmero en forma de String de la habitaciÃ³n para la cual se desea saber la tarifa.
-     * @return Precio de la habitaciÃ³n por noche. Devuelve '-1' si la habitaciÃ³n no existe.
+     * Devuelve la precio por noche de una habitación determinada a partir de su número de habitación.
+     * @param numHabitacion Número en forma de String de la habitación para la cual se desea saber la tarifa.
+     * @return Precio de la habitación por noche. Devuelve '-1' si la habitación no existe.
      */
     public static double obtenerTarifa(String numHabitacion) {
         for(int i = 0; i < habitaciones.size(); i++) {
@@ -396,9 +396,9 @@ public final class BaseDeDatos implements Serializable{
         return -1;
     }
     /**
-     * Devuelve el saldo acumulado del frigobar de una determinada habitaciÃ³n para un momento dado.
-     * @param numHabitacion NÃºmero de habitaciÃ³n para la cual se desea averiguar el saldo.
-     * @return Saldo de la habitaciÃ³n. Devuelve '-1' si la habitaciÃ³n no existe.
+     * Devuelve el saldo acumulado del frigobar de una determinada habitación para un momento dado.
+     * @param numHabitacion Número de habitación para la cual se desea averiguar el saldo.
+     * @return Saldo de la habitación. Devuelve '-1' si la habitación no existe.
      */
     public static double obtenerSaldoFrigobar(String numHabitacion) {
         for(int i = 0; i < habitaciones.size(); i++) {
@@ -424,9 +424,9 @@ public final class BaseDeDatos implements Serializable{
         return false;
     }
     /**
-     * Produce una lista con las habitaciones disponibles para ser ocupadas dada una estadÃ­a.
-     * @param ingreso Fecha del inicio de la estadÃ­a en formato PlainDate.
-     * @param egreso Fecha del fin de la estadÃ­a en formato PlainDate.
+     * Produce una lista con las habitaciones disponibles para ser ocupadas dada una estadía.
+     * @param ingreso Fecha del inicio de la estadía en formato PlainDate.
+     * @param egreso Fecha del fin de la estadía en formato PlainDate.
      * @return Lista en formato ArrayList de objetos de tipo Habitacion.
      */
     public static ArrayList<Habitacion> buscarAptas(PlainDate ingreso, PlainDate egreso){
@@ -439,7 +439,7 @@ public final class BaseDeDatos implements Serializable{
         return aptas;
     }
     /**
-     * Produce una lista con el nÃºmero de todas las habitaciones disponibles para ser ocupadas en el momento actual.
+     * Produce una lista con el número de todas las habitaciones disponibles para ser ocupadas en el momento actual.
      * @return Lista en forma de ArrayList de Strings.
      */
     public static ArrayList<String> buscarNumerosDeDisponibles(){
@@ -452,7 +452,7 @@ public final class BaseDeDatos implements Serializable{
         return lista;
     }
     /**
-     * Produce una lista con el nÃºmero de todas las habitaciones que no estÃ¡n disponibles para ser ocupadas en el momento actual.
+     * Produce una lista con el número de todas las habitaciones que no están disponibles para ser ocupadas en el momento actual.
      * @return Lista en forma de ArrayList de Strings.
      */
     public static ArrayList<String> buscarNumerosDeNoDisponibles(){
@@ -465,9 +465,9 @@ public final class BaseDeDatos implements Serializable{
         return lista;
     }
     /**
-     * Devuelve el nÃºmero del indice de la lista de habitaciones de Base de datos en donde se encuentra una determinada habitaciÃ³n.
-     * MÃ©todo util al ser usado de forma conjunta con agregarHabitacionAlIndice().
-     * @param numeroHab NÃºmero de la habitaciÃ³n para la cual se desea saber el indice.
+     * Devuelve el número del indice de la lista de habitaciones de Base de datos en donde se encuentra una determinada habitación.
+     * Método util al ser usado de forma conjunta con agregarHabitacionAlIndice().
+     * @param numeroHab Número de la habitación para la cual se desea saber el indice.
      * @return Indice en el ArrayList de habitaciones.
      */
     public static int obtenerIndiceHabitacion(String numeroHab){
@@ -480,10 +480,10 @@ public final class BaseDeDatos implements Serializable{
         return index;
     }
     /**
-     * Agrega una habitaciÃ³n al ArrayList de habitaciones en Base de datos en un determinado indice.
-     * MÃ©todo util al ser usado de forma conjunta con obtenerIndiceHabitacion().
+     * Agrega una habitación al ArrayList de habitaciones en Base de datos en un determinado indice.
+     * Método util al ser usado de forma conjunta con obtenerIndiceHabitacion().
      * @param habitacion Objeto de tipo Habitacion a insertar.
-     * @param indice Indice en el que se desea insertar la habitaciÃ³n,
+     * @param indice Indice en el que se desea insertar la habitación,
      */
     public static void agregarHabitacionAlIndice(Habitacion habitacion,int indice){
         habitaciones.add(indice,habitacion );
@@ -540,7 +540,7 @@ public final class BaseDeDatos implements Serializable{
     }
     /**
      * Elimina un pasajero de la Base de datos de pasajeros a partir de su DNI.
-     * @param numDoc NÃºmero de DNI en forma de String del pasajero a eliminar.
+     * @param numDoc Número de DNI en forma de String del pasajero a eliminar.
      */
     public static  void quitarPasajero(String numDoc){
         pasajeros.remove(numDoc);
@@ -565,9 +565,9 @@ public final class BaseDeDatos implements Serializable{
 
     }
     /**
-     * Busca un pasajero en la Base de datos mediante su DNI y devuelve su nÃºmero de telÃ©fono.
-     * @param dniPasajero DNI del pasajero del cual se quiere saber el nÃºmero de telÃ©fono.
-     * @return NÃºmero de telÃ©fono en forma de String.
+     * Busca un pasajero en la Base de datos mediante su DNI y devuelve su número de teléfono.
+     * @param dniPasajero DNI del pasajero del cual se quiere saber el número de teléfono.
+     * @return Número de teléfono en forma de String.
      */
     public static String buscaTelefonoPorDni(String dniPasajero){
         String telefono = pasajeros.get(dniPasajero).getTelefonoMovil();
@@ -593,8 +593,8 @@ public final class BaseDeDatos implements Serializable{
         return reservas;
     }
     /**
-     * Devuelve una reserva a partir del nÃºmero de reserva.
-     * @param numero NÃºmero de la reserva a retornar.
+     * Devuelve una reserva a partir del número de reserva.
+     * @param numero Número de la reserva a retornar.
      * @return Objeto de tipo Reserva.
      */
     public static Reserva obtenerReserva(int numero) {
@@ -607,7 +607,7 @@ public final class BaseDeDatos implements Serializable{
         //o bien una excepcion custom lanzada desde este metodo
     }
     /**
-     * Devuelve la Ãºltima reserva que haya sido cargada a la base de datos.
+     * Devuelve la última reserva que haya sido cargada a la base de datos.
      * @return Objeto de tipo Reserva.
      */
     public static int obtenerUltimaReserva() {
@@ -646,8 +646,8 @@ public final class BaseDeDatos implements Serializable{
 
 
     /**
-     * Devuelve a partir de un nÃºmero de reserva el indice en el que se la encuentra en el ArrayList de reservas en la base de datos.
-     * @param numeroReserva NÃºmero de reserva para la cual se desea saber el indice.
+     * Devuelve a partir de un número de reserva el indice en el que se la encuentra en el ArrayList de reservas en la base de datos.
+     * @param numeroReserva Número de reserva para la cual se desea saber el indice.
      * @return
      */
     public static int obtenerIndiceReserva(int numeroReserva){
@@ -718,3 +718,5 @@ public final class BaseDeDatos implements Serializable{
     public static Administrador obtenerAdministrador(String dni){
         return administradores.get(dni);
     }
+
+}

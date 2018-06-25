@@ -6,12 +6,12 @@ import net.time4j.range.DateInterval;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
- * Reserva es la clase que nos permite instanciar reservas como su definici√≥n lo dice.
- * Esta clase permite que cada reserva tenga los datos m√°s importantes del pasajero,
- * las fechas en las cuales se realizar√° y las habitaciones que ocupar√°. Adem√°s
- * nos permite conocer los importes generados a partir de la estad√≠a.
+ * Reserva es la clase que nos permite instanciar reservas como su definiciÛn lo dice.
+ * Esta clase permite que cada reserva tenga los datos m·s importantes del pasajero,
+ * las fechas en las cuales se realizar· y las habitaciones que ocupar·. Adem·s
+ * nos permite conocer los importes generados a partir de la estadÌa.
  * Con lo cual, cada vez que instanciamos una reserva, accedemos a la posibilidad de acceder
- * a informaci√≥n muy valiosa para el hotel.
+ * a informaciÛn muy valiosa para el hotel.
  *
  *
  */
@@ -28,12 +28,12 @@ public class Reserva implements Serializable {
     private int cantidadDias;
     private boolean pagoRealizado;
     /**
-     * Constructor de Reserva. Recibe los datos m√°s importantes que necesitamos.
-     * @param numeroReserva - Un n√∫mero de reservas generado incrementalmente, de forma de llevar un orden en la Base De Datos.
+     * Constructor de Reserva. Recibe los datos m·s importantes que necesitamos.
+     * @param numeroReserva - Un n˙mero de reservas generado incrementalmente, de forma de llevar un orden en la Base De Datos.
      * @param dni - Documento del pasajero que lo distingue del resto de los pasajeros del hotel.
-     * @param fechaIngreso - Fecha en la cual har√° su check in.
+     * @param fechaIngreso - Fecha en la cual har· su check in.
      * @param fechaEgreso - Fecha de Check out
-     * @param numerosHabitaciones - ArrayList de String con los n√∫meros de habitaciones que debemos reservar y manejar. Y a su ves sobre
+     * @param numerosHabitaciones - ArrayList de String con los n˙meros de habitaciones que debemos reservar y manejar. Y a su ves sobre
      * las cuales realizaremos recorridos y operaciones a lo largo de todo el sistema.
      */
     public Reserva(int numeroReserva, String dni, PlainDate fechaIngreso, PlainDate fechaEgreso, ArrayList<String> numerosHabitaciones)
@@ -51,15 +51,15 @@ public class Reserva implements Serializable {
     }
     /**
      *
-     * @return - devuelve un entero con el n√∫mero de reserva. Es int porque lo hacemos incremental, es decir que sumamos.
+     * @return - devuelve un entero con el n˙mero de reserva. Es int porque lo hacemos incremental, es decir que sumamos.
      */
     public int getNumeroReserva()
     {
         return numeroReserva;
     }
     /**
-     * Carga por par√°metro el documento del pasajero previamente registrado.
-     * @param dniPasajero - Recibe un String porque no es un dato sobre el que realizamos operaciones matem√°ticas.
+     * Carga por par·metro el documento del pasajero previamente registrado.
+     * @param dniPasajero - Recibe un String porque no es un dato sobre el que realizamos operaciones matem·ticas.
      */
     public void setDni(String dniPasajero)
     {
@@ -67,15 +67,15 @@ public class Reserva implements Serializable {
     }
     /**
      *
-     * @return - retorna el Documento del pasajero que se est√° hospedando o se va a hospedar.
+     * @return - retorna el Documento del pasajero que se est· hospedando o se va a hospedar.
      */
     public String getDniPasajero()
     {
         return dniPasajero;
     }
     /**
-     * Nos regresa la fecha de ingreso, a partir de la cual la o las habitaciones se ocupar√°n.
-     * @return PlainDate es un tipo de la librer√≠a time4j.
+     * Nos regresa la fecha de ingreso, a partir de la cual la o las habitaciones se ocupar·n.
+     * @return PlainDate es un tipo de la librerÌa time4j.
      */
     public PlainDate getFechaIngreso()
     {
@@ -83,7 +83,7 @@ public class Reserva implements Serializable {
     }
     /**
      * Nos regresa la fecha de egreso, a partir de la cual la o las habitaciones se desocuparan.
-     * @return - retirna un PlainDate de la librer√≠a time4j.
+     * @return - retirna un PlainDate de la librerÌa time4j.
      */
     public PlainDate getFechaEgreso()
     {
@@ -91,7 +91,7 @@ public class Reserva implements Serializable {
     }
     /**
      *
-     * @return - Retorna un ArrayList con los n√∫meros de las habitaciones que forman parte de la reserva.
+     * @return - Retorna un ArrayList con los n˙meros de las habitaciones que forman parte de la reserva.
      */
     public ArrayList<String> getNumerosHabitaciones()
     {
@@ -125,7 +125,7 @@ public class Reserva implements Serializable {
     }
     /**
      *
-     * @return - Nos retorna el monto a pagar, permiti√©ndonos conocer cu√°l es la suma de todo el gasto total del pasajero.
+     * @return - Nos retorna el monto a pagar, permitiÈndonos conocer cu·l es la suma de todo el gasto total del pasajero.
      * Y que debe abonar necesariamente cuando realice el check out.
      */
     public double getMonto()
@@ -133,7 +133,7 @@ public class Reserva implements Serializable {
         return monto;
     }
     /**
-     * Este m√©todo s√≥lo es llamado si el pasajero realiz√≥ el check in e ingres√≥ al hotel.
+     * Este mÈtodo sÛlo es llamado si el pasajero realizÛ el check in e ingresÛ al hotel.
      * Podremos tener un registro en caso de que no haya cumplido con la reserva pautada.
      */
     public void hacerEfectiva()
@@ -143,8 +143,8 @@ public class Reserva implements Serializable {
 
     }
     /**
-     * M√©todo que nos informa si se hizo o no efectiva la reserva.
-     * @return - retorna un boolean, true si se efectiviz√≥ y false para el caso contrario.
+     * MÈtodo que nos informa si se hizo o no efectiva la reserva.
+     * @return - retorna un boolean, true si se efectivizÛ y false para el caso contrario.
      */
 
     public boolean getSeHizoEfectiva()
@@ -153,10 +153,10 @@ public class Reserva implements Serializable {
     }
 
     /**
-     * Para que el sistema no imprima por pantalla terminolog√≠a muy de la jerga de la programaci√≥n,
-     * el siguiente m√©todo construye un String con la respuesta del m√©todo getSeHizoEfectiva.
-     * @return - Retorna String para imprimir o simplemente guardar pero con la informaci√≥n clara y no
-     * un true o false sueltos sin saber en la suma de funcionalidades a qu√© se refiere.
+     * Para que el sistema no imprima por pantalla terminologÌa muy de la jerga de la programaciÛn,
+     * el siguiente mÈtodo construye un String con la respuesta del mÈtodo getSeHizoEfectiva.
+     * @return - Retorna String para imprimir o simplemente guardar pero con la informaciÛn clara y no
+     * un true o false sueltos sin saber en la suma de funcionalidades a quÈ se refiere.
      */
 
     public String mostrarEfectiva()
@@ -169,7 +169,7 @@ public class Reserva implements Serializable {
         return respuesta;
     }
     /**
-     * M√©todo que retorna en un String toda la informaci√≥n m√°s importante de la reserva.
+     * MÈtodo que retorna en un String toda la informaciÛn m·s importante de la reserva.
      */
     @Override
     public String toString() {
@@ -178,10 +178,10 @@ public class Reserva implements Serializable {
                 + "\nFecha Egreso: " + fechaEgreso + "\nSaldo: " + saldo + "\nMonto: " + monto + mostrarEfectiva();
     }
     /**
-     * M√©todo que recorre el arreglo de  numeros de habitaciones y de cada una obtiene la tarifa. Utiliza
-     * m√©todos de la Base de Datos. Tambi√©n junta informaci√≥n de lo gastado en los frigobares.
+     * MÈtodo que recorre el arreglo de  numeros de habitaciones y de cada una obtiene la tarifa. Utiliza
+     * mÈtodos de la Base de Datos. TambiÈn junta informaciÛn de lo gastado en los frigobares.
      *
-     * @return - retorna la suma total de todos los d√≠as con los precios de cada habitaci√≥n y lo consumido
+     * @return - retorna la suma total de todos los dÌas con los precios de cada habitaciÛn y lo consumido
      * en los frigobares.
      */
     public double calcularMonto()
@@ -211,9 +211,9 @@ public class Reserva implements Serializable {
         saldo = monto - importe;
     }
     /**
-     * Este m√©todo es muy importante porque es el que nos permite registrar si cuando el cliente deja el hotel
-     * realiz√≥ el pago total de su cuenta, es decir de su reserva. De no se as√≠ quedar√° registrado el monto
-     * adeudado que a futuro deber√° pagar. De hecho queda el registro en el historial del pasajero.
+     * Este mÈtodo es muy importante porque es el que nos permite registrar si cuando el cliente deja el hotel
+     * realizÛ el pago total de su cuenta, es decir de su reserva. De no se asÌ quedar· registrado el monto
+     * adeudado que a futuro deber· pagar. De hecho queda el registro en el historial del pasajero.
      */
 
     public void confirmarPago()
@@ -221,15 +221,15 @@ public class Reserva implements Serializable {
         pagoRealizado = true;
     }
     /**
-     * M√©todo que permite conocer el rango de d√≠as de la reserva seg√∫n las fechas ingresadas. Esto permite realizar
-     * c√°lculos como por ejemplo el de monto.
+     * MÈtodo que permite conocer el rango de dÌas de la reserva seg˙n las fechas ingresadas. Esto permite realizar
+     * c·lculos como por ejemplo el de monto.
      * @param inicio - fecha de ingreso
      * @param fin - fecha de egreso
-     * @return int con la cantidad de d√≠as de ese intervalo de tiempo. Se utilizan m√©todos de la librer√≠a time4j.
+     * @return int con la cantidad de dÌas de ese intervalo de tiempo. Se utilizan mÈtodos de la librerÌa time4j.
      */
-    public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) { // Calcula la cantidad de d√≠as en un intervalo tomando un d√≠a menos, es decir de lunes a miercoles va a contar dos dias (que son los que se cobran en un hotel)
+    public int obtenerCantidadDeDias(PlainDate inicio, PlainDate fin) { // Calcula la cantidad de dÌas en un intervalo tomando un dÌa menos, es decir de lunes a miercoles va a contar dos dias (que son los que se cobran en un hotel)
         DateInterval intervalo = DateInterval.between(inicio, fin);
-        int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo d√≠a
+        int cantidadDeDias = (int)intervalo.getLengthInDays()-1; //resta 1 porque cuando entra un dia y se va al otro cuenta como un solo dÌa
         return cantidadDeDias;
     }
 

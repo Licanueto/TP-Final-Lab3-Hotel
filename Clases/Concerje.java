@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Esta clase contiene la informaci√≥n b√°sica de un concerje de hotel, que forma parte de sus atributos,
+ * Esta clase contiene la informaciÛn b·sica de un concerje de hotel, que forma parte de sus atributos,
  * su comportamiento y todas las tareas que realiza. Esta clase hereda de la clase Usuario que integra tanto
  * los atributos como los comportamientos comunes que hay entre los tres tipos de usuarios que tiene el
  * programa: Administrador / Conserje / Pasajero.
- * Adem√°s implementa interfaces importantes para el buen desempe√±o de su funci√≥n de concerje.
+ * Adem·s implementa interfaces importantes para el buen desempeÒo de su funciÛn de concerje.
  *
  *
  */
@@ -21,7 +21,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
 
     /**
-     * Constructor de Concerje que recibe los atributos por par√°metro y que ser√°n
+     * Constructor de Concerje que recibe los atributos por par·metro y que ser·n
      * llamados en la superclase Usuario.
      * @param dni - simplemente su numero de documento de tipo String
      * @param nombre
@@ -58,7 +58,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
 
     /**
-     * M√©todo de la interfaz IAbmUsuario. Una de las responsabilidades
+     * MÈtodo de la interfaz IAbmUsuario. Una de las responsabilidades
      * del concerje es dar de alta a los pasajeros para poder registrarlos en el sistema.
      */
 
@@ -112,7 +112,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
 
     /**
-     * M√©todo de la interfaz IAmbUsuario. Consiste en dar de baja a un pasajero en el sistema.
+     * MÈtodo de la interfaz IAmbUsuario. Consiste en dar de baja a un pasajero en el sistema.
      *
      */
     @Override
@@ -134,7 +134,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * M√©todo de la interfaz IAmbUsuario que se utiliza cuando un pasajero fue anteriormente
+     * MÈtodo de la interfaz IAmbUsuario que se utiliza cuando un pasajero fue anteriormente
      * dado de baja y se necesita darle el alta nuevamente en el sistema.
      */
     @Override
@@ -154,10 +154,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         }
     }
     /**
-     * M√©todo que permite verificar si en vez de recibir un objeto de tipo Pasajero
-     * recibimos un NULL. En ese caso lanza una excepci√≥n que ser√° capturada en el
+     * MÈtodo que permite verificar si en vez de recibir un objeto de tipo Pasajero
+     * recibimos un NULL. En ese caso lanza una excepciÛn que ser· capturada en el
      * bloque invocante.
-     * @param pasajerito - Es la Reserva que se env√≠a para ser evaluada.
+     * @param pasajerito - Es la Reserva que se envÌa para ser evaluada.
      */
     public void comprobarPasajero(Pasajero pasajerito)
     {
@@ -165,10 +165,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
             throw new PasajeroNullException("El pasajero es inexistente");
     }
     /**
-     * M√©todo de la interfaz IAbmHabitacion. A traves del mismo, podemos habilitar
-     * una determinada habitaci√≥n cuyo n√∫mero es pasado por par√°metro y que
+     * MÈtodo de la interfaz IAbmHabitacion. A traves del mismo, podemos habilitar
+     * una determinada habitaciÛn cuyo n˙mero es pasado por par·metro y que
      * anteriormente fue deshabilitada por algun motivo que puede ser limpieza,
-     * refacci√≥n, etc.
+     * refacciÛn, etc.
      */
 
     @Override
@@ -191,8 +191,8 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * M√©todo perteneciente a la interfaz IAbmHabitacion. Permite deshabilitar una determinada
-     * habitaci√≥n por un motivo que puede ser variado.
+     * MÈtodo perteneciente a la interfaz IAbmHabitacion. Permite deshabilitar una determinada
+     * habitaciÛn por un motivo que puede ser variado.
      */
     @Override
     public void darBajaHab(String numeroHab) {
@@ -215,13 +215,13 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     /**
      * Cuando un pasajero desea realizar una reserva lo primero que se hace es consultar si
      * en los dias que el pasajero desea hay habitaciones disponibles para la cantidad de personas
-     * que quiere hospedarse en el hotel. El m√©todo confecciona un arreglo din√°mico con los n√∫meros
-     * de habitaciones m√°s convenientes de acuerdo a las fechas y a la capacidad de las habitaciones.
-     * Dicho arreglo ser√° enviado al M√©todo Reservar, que es el encargado de concretar e instanciar
+     * que quiere hospedarse en el hotel. El mÈtodo confecciona un arreglo din·mico con los n˙meros
+     * de habitaciones m·s convenientes de acuerdo a las fechas y a la capacidad de las habitaciones.
+     * Dicho arreglo ser· enviado al MÈtodo Reservar, que es el encargado de concretar e instanciar
      * la reserva.
-     * @param fechaIngreso - a partir de qu√© fecha desean hospedarse
-     * @param fechaEgreso - hasta qu√© fecha desean quedarse en el hotel
-     * @param cantPasajeros - variable que nos permite calcular la cantidad de habitaciones y de qu√© tipo.
+     * @param fechaIngreso - a partir de quÈ fecha desean hospedarse
+     * @param fechaEgreso - hasta quÈ fecha desean quedarse en el hotel
+     * @param cantPasajeros - variable que nos permite calcular la cantidad de habitaciones y de quÈ tipo.
      * @return
      */
 
@@ -274,13 +274,13 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         }
     }
     /**
-     * M√©todo que pide informaci√≥n a Base de Datos acerca de la disponibilidad de espacio en el hotel
+     * MÈtodo que pide informaciÛn a Base de Datos acerca de la disponibilidad de espacio en el hotel
      * para contener la cantidad de pasajeros que desea hospedarse. En caso de no haber capacidad hotelera
-     * arroja una excepci√≥n advirtiendo que esa operaci√≥n no podr√° ser realizada y la misma ser√° capturada en
+     * arroja una excepciÛn advirtiendo que esa operaciÛn no podr· ser realizada y la misma ser· capturada en
      * el bloque invocante.
      * @param cantPasajeros - cantidad de personas que desea hospedarse en el hotel.
-     * @return - Devulve una variable booleana que permite evaluar en el m√©todo invocante.
-     * @throws FaltaDisponibilidadException - Anuncio del tipo de excepci√≥n que se manejar√°.
+     * @return - Devulve una variable booleana que permite evaluar en el mÈtodo invocante.
+     * @throws FaltaDisponibilidadException - Anuncio del tipo de excepciÛn que se manejar·.
      */
     public boolean verificarDisponibilidad(int cantPasajeros)throws FaltaDisponibilidadException
     {
@@ -291,11 +291,11 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * En este m√©todo se concreta la reserva. Se instancia y se incorpora a la Base de Datos para que posteriormente
-     * el administrador la guarde en un archivo y nos quede as√≠ la informaci√≥n almacenada de la misma.
-     * @param dni - documento de la persona que har√° la reserva
-     * @param fechaIngreso - fecha en la cual comenzar√°
-     * @param fechaEgreso - fecha de finalizaci√≥n
+     * En este mÈtodo se concreta la reserva. Se instancia y se incorpora a la Base de Datos para que posteriormente
+     * el administrador la guarde en un archivo y nos quede asÌ la informaciÛn almacenada de la misma.
+     * @param dni - documento de la persona que har· la reserva
+     * @param fechaIngreso - fecha en la cual comenzar·
+     * @param fechaEgreso - fecha de finalizaciÛn
      * @param numerosHabitaciones - ArrayList con el numero de habitaciones que debe ocupar para ese rango de fechas.
      * @return
      */
@@ -332,9 +332,9 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * Cuando el pasajero llega al hotel, realiza el Check in. El m√©todo comprueba si ese n√∫mero de reserva
+     * Cuando el pasajero llega al hotel, realiza el Check in. El mÈtodo comprueba si ese n˙mero de reserva
      * existe. Hace efectiva la reserva, atributo de la clase Reserva. Y luego la incorpora a Base de Datos.
-     * @param numeroReserva - String con el que se env√≠a la solicitud a Base de Datos para que se pueda
+     * @param numeroReserva - String con el que se envÌa la solicitud a Base de Datos para que se pueda
      * enviar y recibir la reserva.
      */
     public void realizarCheckIn(int numeroReserva)
@@ -356,11 +356,11 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * Este m√©todo pide la reserva a Base de Datos, comprueba si existe. De se as√≠, pide a Base de Datos
-     * el √≠ndice de la colecci√≥n donde se encuentra. utiliza el m√©todo cobrar y descuenta el importe ingresado
-     * por pantalla. Si el importe es suficiente, la deuda se cancelar√°. Posteriormente, vuelve los Frigobares
-     * de cada una de las habitaciones que conforman la reserva a cero. De esta manera otro pasajero no pagar√°
-     * saldos que no le correspondan. Y posteriormente se vuelve a cargar en Base de Datos en la misma posici√≥n
+     * Este mÈtodo pide la reserva a Base de Datos, comprueba si existe. De se asÌ, pide a Base de Datos
+     * el Ìndice de la colecciÛn donde se encuentra. utiliza el mÈtodo cobrar y descuenta el importe ingresado
+     * por pantalla. Si el importe es suficiente, la deuda se cancelar·. Posteriormente, vuelve los Frigobares
+     * de cada una de las habitaciones que conforman la reserva a cero. De esta manera otro pasajero no pagar·
+     * saldos que no le correspondan. Y posteriormente se vuelve a cargar en Base de Datos en la misma posiciÛn
      * donde se encontraba anteriormente.
      * @param numeroReserva
      * @param importe - double ingresado por el conserje por el importe percibido por parte del pasajero.
@@ -402,10 +402,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
 
     /**
-     * M√©todo utilizado por el m√©todo check out. Toma el importe aportado por el pasajero,
-     * llama a m√©todos propios de la clase Reserva, calcula el monto adeudado y lo resta.
-     * Si el importe fue suficiente confirma el pago total. Si el importe no alcanz√≥ a cubrir
-     * la deuda, quedar√° el registro en el historial de reserva de ese pasajero y no se confirmar√°
+     * MÈtodo utilizado por el mÈtodo check out. Toma el importe aportado por el pasajero,
+     * llama a mÈtodos propios de la clase Reserva, calcula el monto adeudado y lo resta.
+     * Si el importe fue suficiente confirma el pago total. Si el importe no alcanzÛ a cubrir
+     * la deuda, quedar· el registro en el historial de reserva de ese pasajero y no se confirmar·
      * el pago total.
      * @param reserva
      * @param importe - importe ingresado por teclado. Tarea del concerje de turno.
@@ -424,9 +424,9 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
 
     }
     /**
-     * M√©todo que permite cancelar una reserva. Recorre un ArrayList de numeros de habitaciones
-     * y va llamando a Base de Datos para poder acceder a cada habitaci√≥n. A su vez, como siguiente
-     * paso, desocupa y deja libre/s la/s correspondiente/s habitaci√≥n /es para que otro pasajero
+     * MÈtodo que permite cancelar una reserva. Recorre un ArrayList de numeros de habitaciones
+     * y va llamando a Base de Datos para poder acceder a cada habitaciÛn. A su vez, como siguiente
+     * paso, desocupa y deja libre/s la/s correspondiente/s habitaciÛn /es para que otro pasajero
      * pueda reservar en esas fechas. Se realiza el tratamiento de excepciones.
      * @param numeroReserva
      */
@@ -464,9 +464,9 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
 
     /**
-     * M√©todo que lanza una excepci√≥n si la reserva es nula por algun error en
-     * el ingreso de n√∫mero de reserva. En caso de que no exista, avisa de esta
-     * excepci√≥n para que sea capturada en el m√≥dulo invocante.
+     * MÈtodo que lanza una excepciÛn si la reserva es nula por algun error en
+     * el ingreso de n˙mero de reserva. En caso de que no exista, avisa de esta
+     * excepciÛn para que sea capturada en el mÛdulo invocante.
      * @param reservita - reserva que recibe para comprobar.
      */
 
@@ -477,9 +477,9 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
 
     /**
-     * M√©todo que comprueba si una habitaci√≥n devuelta por la Base de Datos es nula.
-     * En ese caso lanza una excepci√≥n para que el m√≥dulo invocante lo capture.
-     * @param hab - habitaci√≥n que debe ser evaluada.
+     * MÈtodo que comprueba si una habitaciÛn devuelta por la Base de Datos es nula.
+     * En ese caso lanza una excepciÛn para que el mÛdulo invocante lo capture.
+     * @param hab - habitaciÛn que debe ser evaluada.
      */
     public void comprobarHabitacion(Habitacion hab)
     {
@@ -487,12 +487,12 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
             throw new HabitacionNulaException("Habitacion no existente. ");
     }
     /**
-     * M√©todo que comprueba si el √≠ndice devuelto desde Base de Datos es igual
-     * a -1, en ese caso, no se debe continuar con la operaci√≥n que se est√° realizando.
-     * Para ello lanza la excepci√≥n que nos indica ese problema en particular
-     * y que ser√° capturada en el m√≥dulo invocante.
-     * @param indice - √≠ndice que tenemos que evaluar y que utilizamos en otro m√©todo y que
-     * nos se√±ala una posici√≥n en un arreglo.
+     * MÈtodo que comprueba si el Ìndice devuelto desde Base de Datos es igual
+     * a -1, en ese caso, no se debe continuar con la operaciÛn que se est· realizando.
+     * Para ello lanza la excepciÛn que nos indica ese problema en particular
+     * y que ser· capturada en el mÛdulo invocante.
+     * @param indice - Ìndice que tenemos que evaluar y que utilizamos en otro mÈtodo y que
+     * nos seÒala una posiciÛn en un arreglo.
      */
     public void comprobarIndice(int indice)
     {
@@ -501,8 +501,8 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
     }
     /**
      * Metodo que devuelve un ArrayList de Strings que puede ser impreso por pantalla. El mismo nos proporciona
-     * los n√∫meros de las habitaciones que en el momento de la consulta est√°n aptas de ser reservadas u ocupadas.
-     * @return - retorna el ArrayList de n√∫meros de habitaciones en String.
+     * los n˙meros de las habitaciones que en el momento de la consulta est·n aptas de ser reservadas u ocupadas.
+     * @return - retorna el ArrayList de n˙meros de habitaciones en String.
      */
     public ArrayList<String> verDisponibles()
     {
@@ -510,9 +510,9 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         return disponibles;
     }
     /**
-     * M√©todo que nos permite ver cuales son las habitaciones que no se pueden ocupar en ese momento dado de
+     * MÈtodo que nos permite ver cuales son las habitaciones que no se pueden ocupar en ese momento dado de
      * la consulta.
-     * @return - Devuelve un ArrayList de String con los n√∫meros de las habitaciones.
+     * @return - Devuelve un ArrayList de String con los n˙meros de las habitaciones.
      */
     public ArrayList<String> verOcupadas()
     {
@@ -587,16 +587,16 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         }
     }
     /**
-     * Consulta a la base de datos el estado de una habitaci√≥n y lo devuelve en forma de String
-     * @param numeroDeHab N√∫mero de la habitaci√≥n a consultar.
-     * @return String con el estado de la habitaci√≥n.
+     * Consulta a la base de datos el estado de una habitaciÛn y lo devuelve en forma de String
+     * @param numeroDeHab N˙mero de la habitaciÛn a consultar.
+     * @return String con el estado de la habitaciÛn.
      */
     public String consultarHabitacion(String numeroDeHab) {
         Habitacion hab = BaseDeDatos.buscarPorNumero(numeroDeHab);
         if(hab != null) {
             return hab.mostrarHabitacion();
         }
-        else return ("La habitaci√≥n no fue encontrada");
+        else return ("La habitaciÛn no fue encontrada");
     }
 
     @Override
