@@ -37,6 +37,14 @@ public class ParseFecha {
         }while (fechaCorrecta == false);
         return plainDateParseada;
     }
+    
+    public static void creaAdminSiNoExiste() {
+    	File fail = new java.io.File("administradores.dat");
+        if(!fail.isFile()){
+        	Administrador administrador1 = new Administrador("4321","Pepe","Sapo","1234");
+	        BaseDeDatos.agregarAdministrador(administrador1);
+        }
+    }
 
 
 }
