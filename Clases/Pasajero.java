@@ -210,7 +210,10 @@ public class Pasajero extends Usuario implements Serializable{
             
         
     }
-
+/**
+ * Implementacion del método abstracto de la clase abstracta usuario que devuelve en formato JSON 
+ * los datos del pasajero en cuestion.
+ */
     public JSONObject getJson() throws JSONException
     {
         JSONObject obj = new JSONObject();

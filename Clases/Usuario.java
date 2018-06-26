@@ -4,7 +4,12 @@ import java.io.Serializable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * 
+ * Clase abastracta usuario que se compone por atributos y métodos que tienen en comun los 
+ * administradores, los concerjes y los pasajeros.
+ *
+ */
 public abstract class  Usuario implements Serializable{
 
     private String dni;
@@ -72,13 +77,13 @@ public abstract class  Usuario implements Serializable{
         if(estadoDeAlta){
             estadoDeAlta = false;
         }
-        //else.... avisar o lanzar excepcion....
+        
     }
     public void ponerEnAlta(){
         if(!estadoDeAlta){
             estadoDeAlta = true;
         }
-        //else...ver que se hace aca
+        
     }
 
     @Override
@@ -86,7 +91,11 @@ public abstract class  Usuario implements Serializable{
 
         return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido;
     }
-
+/**
+ * metodo abstracto que sera implementado en cada una de las subclases.
+ * @return
+ * @throws JSONException
+ */
     public abstract JSONObject getJson() throws JSONException;
 
 

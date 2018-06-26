@@ -219,6 +219,7 @@ public class Reserva implements Serializable {
     public void confirmarPago()
     {
         pagoRealizado = true;
+        saldo = 0;
     }
     /**
      * Método que permite conocer el rango de días de la reserva según las fechas ingresadas. Esto permite realizar

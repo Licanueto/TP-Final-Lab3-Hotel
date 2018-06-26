@@ -122,9 +122,12 @@ public class LoginMenu {
         }
         return true;
     }
-
-    //ACA SEGUN EL TIPO DE INSTANCIA QUE TENGAMOS LE DAMOS ACCESO A DIFERENTES MENUS
-    // EN ESTE METODO IRIAN ANIDADOS LOS 3 MENUS ADMIN, CONCERJE Y PASAJERO
+/**
+ * ACA SEGUN EL TIPO DE INSTANCIA QUE TENGAMOS LE DAMOS ACCESO A DIFERENTES MENUS
+    EN ESTE METODO IRIAN ANIDADOS LOS 3 MENUS ADMIN, CONCERJE Y PASAJERO
+ * @param cosa
+ */
+    
     public void accesoAlSistema(Object cosa){
         if(cosa instanceof Pasajero){
             //eliminarMapa();
@@ -152,6 +155,9 @@ public class LoginMenu {
 
         }
     }
+    /**
+     * Metodo que elimina un hashmap que ya no se usa.
+     */
     public void eliminarMapa(){
         logueo.clear();
     }
@@ -161,7 +167,12 @@ public class LoginMenu {
         }
         return true;
     }
-
+/**
+ * Menu que sera utilizado por el usuario que ingrese como administrador y que le permite tener acceso
+ * a todos los métodos que le son responsabilidad por el rol que cumple en el hotel y dentro de este
+ * sistema.
+ * @param dni del administrador
+ */
     public void menuAdministrador(String dni){
         String doc = dni;
         Administrador administrador = BaseDeDatos.obtenerAdministrador(doc);
@@ -205,6 +216,11 @@ public class LoginMenu {
             }
         }while(opcion < 6 && opcion > -1);
     }
+    /**
+     * Submenu propio de las opciones que maneja aministrador y que pertenecen a las opciones de alta, baja
+     * y modificacion de concerjes como usuarios del sistema.
+     * @param dni del administrador
+     */
     public void submenuAbmConcerje(String dni){
         Administrador administrador = BaseDeDatos.obtenerAdministrador(dni);
 
@@ -237,8 +253,11 @@ public class LoginMenu {
 
         }while(opcion < 4);
     }
-    //HAY QUE VER SI SOBRECARGAR EL DAR DE ALTA HABITACION PARA QUE ADEMAS DE CREAR LA HABITACION
-    //PUEDA SER QUE LA PASE DE DISPONIBLE A NO DISPONBIBLE
+    /**
+     * Metodo que contiene el submenu de administrador con opciones dirigidas al manejo de alta, baja y modificacion
+     * de las habitaciones del hotel.
+     * @param dni
+     */
     public void submenuAbmHabitacion(String dni) {
         Administrador administrador = BaseDeDatos.obtenerAdministrador(dni);
 
@@ -268,6 +287,10 @@ public class LoginMenu {
 
         }while (opcion < 2) ;
     }
+    /**
+     * Submenu del menu del administrador dirigido a la realizacion de consultas.
+     * @param dni
+     */
     public void submenuConsultasAdmin(String dni){
         Administrador administrador = BaseDeDatos.obtenerAdministrador(dni);
 
@@ -313,6 +336,11 @@ public class LoginMenu {
             }
         }while(opcion < 5);
     }
+    /**
+     * Menu de los usuarios que ingresan al sistema como concerjes. Aqui podra acceder a otros submenúes
+     * que le permitirán realizar correctamente y registrar sus operaciones en el hotel.
+     * @param dni del concerje que ingresa al sistema.
+     */
     public void menuConcerje(String dni)
     {
         String doc = dni;
@@ -353,6 +381,11 @@ public class LoginMenu {
         }while(opcion < 5 && opcion > -1);
 
     }
+    /**
+     * Submenu de las opciones de los concerjes relacionado con la implementación de la interfaz de 
+     * IAbmUsuario que maneja a los pasajeros y su registro dentro del hotel.
+     * @param doc
+     */
     public void subMenuABMPasajeros(String doc)
     {
         Concerje concerje = BaseDeDatos.obtenerUnConcerje(doc);
@@ -397,7 +430,11 @@ public class LoginMenu {
 
 
     }
-
+/**
+ * Submenu del concerje dirigido al manejo de reservas. Desde aquí se accede a las operaciones de gestiones
+ * de reservar, check in, check out, cancelar reserva, y gestionar estadía que tendrá su propio menu.
+ * @param dni
+ */
     public void subMenuReservas(String dni)
     {
         Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
@@ -459,6 +496,14 @@ public class LoginMenu {
         }while(opcion < 6 && opcion > -1);
 
     }
+    
+    /**
+     * Este submenu pertenece al submenu de reservas del menu de concerje. Básicamente, permite consumir del frigobar,
+     * realizar pagos parciales. Siempre hablando de realizar registros de estas actividades para que queden en el 
+     * sistema y en el historial de cada pasajero y en la reserva que luego calculara el monto a pagar cuando realice
+     * el correspondiente check out.
+     * @param dni
+     */
     public void subMenuEstadiaPasajero(String dni)
     {
         Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
@@ -478,6 +523,7 @@ public class LoginMenu {
                 	System.out.println("Por favor, introduzca numero de habitacion");
                     String numHabitacion = scanner.next();
                     Habitacion hab = BaseDeDatos.buscarPorNumero(numHabitacion);
+                    
                     int indice = BaseDeDatos.obtenerIndiceHabitacion(numHabitacion);
                     System.out.println("¿Qué producto desea cargar?");
                     System.out.println("1- Coca-Cola");
@@ -512,6 +558,7 @@ public class LoginMenu {
                     double importe = scanner.nextDouble();
                     reserva.descontarSaldo(importe);
                     BaseDeDatos.agragarReservaAlIndice(index, reserva);
+                    
                     break;
 
                 case 0:
@@ -527,6 +574,12 @@ public class LoginMenu {
         }while(opcion < 3 && opcion > -1);
 
     }
+    /**
+     * Submenu del menu de concerje destinado a responder a diferentes consultas que pueden resultar de 
+     * gran utilidad y que a posteiori podrian destinarse a la realización de una estadística
+     * para mejorar el negocio.
+     * @param dni
+     */
     public void subMenuConsultas(String dni)
     {
         Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);
@@ -539,6 +592,8 @@ public class LoginMenu {
             System.out.println("2- Ver todas las habitaciones disponibles.");
             System.out.println("3- Ver todas las habitaciones ocupadas.");
             System.out.println("4- Consultar por habitación en particular.");
+            System.out.println("5 - Consultar historial de un pasajero");
+            System.out.println("6 - Consultar saldo adeudado de un pasajero");
             System.out.println("0- Volver atras");
             System.out.println("---------------------------------");
             opcion = scanner.nextInt();
@@ -560,6 +615,18 @@ public class LoginMenu {
                     System.out.println(concerje.consultarHabitacion(numeroHab));
                     break;
                 case 5:
+                	System.out.println("Ingrese numero de dni del pasajero");
+                	String docIdentidad = scanner.next();
+                	
+                	System.out.println(BaseDeDatos.obtenerHistorialPrint(docIdentidad));
+                	break;
+                	
+                case 6:
+                	System.out.println("Ingrese numero de dni del pasajero");
+                	String docIden = scanner.next();
+                	double saldito = BaseDeDatos.obtenerSaldoUltimaReserva(docIden);
+                	System.out.println("El saldo pendiente es de: " + saldito);
+                
 
                 case 0:
 
@@ -571,9 +638,14 @@ public class LoginMenu {
             }
 
 
-        }while(opcion < 5 && opcion > -1);
+        }while(opcion < 7 && opcion > -1);
 
     }
+    /**
+     * Submenu de concerje destinado a la implementacion de la interfaz IAbmHabitacion que se dedica
+     * a enviar habitaciones a manteniemiento que puede ser de refacción o de limpieza o a darla de alta 
+     * en caso contrario.
+     */
     public void subMenuGestionHabitaciones(String dni)
     {
         Concerje concerje = BaseDeDatos.obtenerUnConcerje(dni);

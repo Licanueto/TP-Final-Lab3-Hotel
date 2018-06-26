@@ -12,7 +12,7 @@ public class Main {
 
 
         Hotel hotel = Hotel.getSingletonInstance("Hotel","calle 123","2222222");
-        Administrador administrador1 = new Administrador("4321","Pepe","Sapo","1234");
+        //Administrador administrador1 = new Administrador("4321","Pepe","Sapo","1234");
 
         BaseDeDatos.levantarHabitaciones();
         BaseDeDatos.levantarAdministradores();
@@ -20,7 +20,7 @@ public class Main {
         BaseDeDatos.levantarReservas();
         BaseDeDatos.levantarPasajeros();
 
-        BaseDeDatos.agregarAdministrador(administrador1);
+       // BaseDeDatos.agregarAdministrador(administrador1);
 
 
 

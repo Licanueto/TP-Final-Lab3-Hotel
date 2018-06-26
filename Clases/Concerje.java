@@ -416,6 +416,7 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         if(importe == reserva.calcularMonto())
         {
             reserva.confirmarPago();
+            
         }else if(importe < reserva.calcularMonto())
         {
             reserva.descontarSaldo(importe);
@@ -519,9 +520,16 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         ArrayList<String> habitaciones = BaseDeDatos.buscarNumerosDeNoDisponibles();
         return habitaciones;
     }
-
-    public void gestionarReserva(){
-
+/**
+ * Método que interactúa con el pasajero y que reune dos métodos muy importantes que podrían actuar de forma
+ * independiente en caso de ser solicitado en otro formato de sistema. Los métodos más importantes llamados son
+ * AsignarHabitaciones y reservar. En uno se elige la mejor opción para el caso que presenta el pasajero y en el
+ * otro se genera la reserva, se genera el primer historial y se registra al pasajero en caso de que no esté registrado
+ * anteriormente.
+ */
+ 
+ 
+  public void gestionarReserva(){
 
         System.out.println("Ingrese DNI del pasajero");
         String dniAux = LoginMenu.scanner.next();
@@ -561,7 +569,11 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         else
             darDeAltaUsuario();
     }
-
+/**
+ * Método que permite saber si para un determinado intervalo de fecha solicitado por el pasajero
+ * se cuenta con capacidad hotelera y con disponibilidad de habitaciones con las combinaciones
+ * necesarias según la cantidad de huespedes que se quieran hospedar.
+ */
     public void consultarTelefonicamente(){
 
         System.out.println("Ingrese anio de llegada");
@@ -598,7 +610,10 @@ public class Concerje extends Usuario implements IAbmUsuario, IAbmHabitacion,Ser
         }
         else return ("La habitación no fue encontrada");
     }
-
+/**
+ * Método abstracto implementado de la clase abstracta usuario que devuelve una lista en formato JSON. 
+ * Dicha lista contiene los datos del concerje en cuestión.
+ */
     @Override
     public JSONObject getJson() throws JSONException {
             JSONObject obj = new JSONObject();

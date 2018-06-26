@@ -42,7 +42,7 @@ public final class BaseDeDatos implements Serializable{
     /**
      * Lee un archivo "habitaciones.dat" y carga sus objetos - las habitaciones - en memoria, más específicamente a Base de datos.
      */
-    // ****VER LUEGO TRATAMIENTO DE EXCEPCIONES EN LOS METODOS QUE LEVANTAN LOS ARCHIVOS****
+    
 
     public static void levantarAllCollections(){
         levantarPasajeros();
@@ -51,7 +51,10 @@ public final class BaseDeDatos implements Serializable{
         levantarHabitaciones();
         levantarAdministradores();
     }
-
+/**
+ * Extrae del archivo habitaciones.dat, en caso de existir tal archivo, los datos guardados y se los proporciona
+ * en tiempo de ejecución al sistema para poder ser utilizados.
+ */
     public static void levantarHabitaciones() {
         ObjectInputStream lectura = null;
 
@@ -127,7 +130,10 @@ public final class BaseDeDatos implements Serializable{
         }
 
     }
-
+/**
+ * Extrae del archivo concerjes.dat - en caso de existir - los datos contenidos para utilizarlos en Base de Datos
+ * en tiempo de ejecución.
+ */
     public static void levantarConcerjes() {
         ObjectInputStream lectura = null;
 
@@ -205,7 +211,10 @@ public final class BaseDeDatos implements Serializable{
         }
 
     }
-
+/**
+ * Lee del archivo administradores.dat - en caso de existir - los administradores que Base de datos
+ * necesita manejar para que el sistema trabaje correctamente.
+ */
     public static void levantarAdministradores() {
         ObjectInputStream lectura = null;
 
@@ -340,7 +349,11 @@ public final class BaseDeDatos implements Serializable{
         }
         return precioBuscado;
     }
-
+/**
+ * El método recibe un numero de habitación y devuelve un boolean si existe o no tal habitación.
+ * @param numero de habitación solicitado
+ * @return
+ */
     public static boolean existeHabitacion(String numero){
         boolean estaOno = false;
         for(int i = 0; i < habitaciones.size(); i++){
@@ -445,10 +458,10 @@ public final class BaseDeDatos implements Serializable{
     public static ArrayList<String> buscarNumerosDeDisponibles(){
         ArrayList<String> lista = new ArrayList<>();
         for(int i = 0; i < habitaciones.size();i++){
-            if(habitaciones.get(i).isDisponible() ){
+
                 lista.add(habitaciones.get(i).getNumHabitacion());
             }
-        }
+        
         return lista;
     }
     /**
@@ -488,7 +501,11 @@ public final class BaseDeDatos implements Serializable{
     public static void agregarHabitacionAlIndice(Habitacion habitacion,int indice){
         habitaciones.add(indice,habitacion );
     }
-
+/**
+ * Este método se encuentra de forma opcional por si se desea en algún momento listar los productos que se encuentran
+ * en el frigobar de una determinada habitación.
+ * @return devuelve un listado de productos
+ */
     public static String listarFrigobar(){
         StringBuffer stringBuffer = new StringBuffer();
         Frigobar frigobar = habitaciones.get(0).getFrigobar();
@@ -502,7 +519,12 @@ public final class BaseDeDatos implements Serializable{
         String listado = stringBuffer.toString();
         return listado;
     }
-
+/**
+ * Método que permite tener acceso a la colección de habitaciones que componen la reserva de un
+ * pasajero en particular
+ * @param dni: pasajero 
+ * @return: colección de habitaciones de la reserva de tal pasajero del cual se ingresó el dni.
+ */
     public static ArrayList<Habitacion> obtenerHabitacionesDeReserva(String dni){
         int ultima = obtenerNumeroDeUltimaReserva(dni);
         ArrayList<Habitacion> habReserva = new ArrayList<>();
@@ -618,7 +640,13 @@ public final class BaseDeDatos implements Serializable{
             return reservas.get(reservas.size() - 1).getNumeroReserva();
         }
     }
-
+/**
+ * Método que al recibir el dni de un pasajero devuelve un String con todo el detalle del historial
+ * de reservas que tiene en su haber. De esta forma podemos visualizar si tiene alguna deuda o si
+ * suele cancelar reservas.
+ * @param dni del pasajero
+ * @return string preparado para ser impreso por pantalla o recibido por algún dispositivo.
+ */
     public static ArrayList<String> obtenerHistorialPrint(String dni) {
         ArrayList<Reserva> historialPasajero = pasajeros.get(dni).getHistorial();
         ArrayList<String> historialParaImprimir = new ArrayList<>();
@@ -627,7 +655,14 @@ public final class BaseDeDatos implements Serializable{
         }
         return historialParaImprimir;
     }
-
+/**
+ * mediante este método ingresando el dni del pasajero podemos acceder al número
+ * de la última reserva que el mismo realizó para poder consultar información o
+ * ejecutar algún cobro o tipo de acción sobre la colección de habitaciones que
+ * la compongan.
+ * @param dni
+ * @return número de la última reserva realizada.
+ */
     public static int obtenerNumeroDeUltimaReserva(String dni){
         Pasajero pasajero = pasajeros.get(dni);
         ArrayList<Reserva> reser = pasajero.getHistorial();
@@ -636,6 +671,12 @@ public final class BaseDeDatos implements Serializable{
         int numeroUltima = reser.get(index).getNumeroReserva();
         return numeroUltima;
     }
+    /**
+     * Método que nos permite conocer si el pasajero la última vez que visitó el hotel
+     * quedó debiendo algún saldo. 
+     * @param dni
+     * @return el último saldo que en caso de haber pagado todo será 0.
+     */
     public static double obtenerSaldoUltimaReserva(String dni){
         Pasajero pasajero = pasajeros.get(dni);
         ArrayList<Reserva> reser = pasajero.getHistorial();

@@ -27,7 +27,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
 
     }
 
-
+/**
+ * Este método descarga en una coleccion auxiliar los concerjes registrados en la base de datos,
+ * para luego transcribirlos en el archivo corcerjes.dat. Posteriormente en un método general será llamado para
+ * realizar el back up junto a otras colecciones. Si el archivo no existe lo crea.
+ */
     public void serializarConcerjes () {
 
         ObjectOutputStream escritura = null;
@@ -52,7 +56,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             }
         }
     }
-
+/**
+ * Método que vuelca en una coleccion auxiliar de tipo Habitacion, las habitaciones que se encuentran en 
+ * la Base de Datos y que reemplazará a la existente en el archivo habitaciones.dat. Si el archivo no 
+ * existe lo crea.
+ */
     public void serializarHabitaciones () {
 
         ObjectOutputStream escritura = null;
@@ -80,7 +88,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             }
         }
     }
-
+/**
+ * Método que vuelca en una colección auxiliar los pasajeros que se encuentran en la Base de Datos
+ * y que serán escritos en el archivo pasajeros.dat, si el archivo no existe lo crea.
+ */
     public void serializarPasajeros () {
 
         ObjectOutputStream escritura = null;
@@ -105,7 +116,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             }
         }
     }
-
+/**
+ * Método que vuelca en una colección auxiliar las reservas existentes en Base de Datos y que
+ * serán luego grabadas en el archivo existente o no - si no existe lo crea - reservas.dat.
+ */
     public void serializarReservas () {
 
         ObjectOutputStream escritura = null;
@@ -130,6 +144,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             }
         }
     }
+    /**
+     * Método que vuelca en una colección auxiliar los administradores existentes en la Base de Datos
+     * que posteriormente serán registrados en el archivo administradores.dat. En caso de no existir
+     * tal archivo lo crea.
+     */
     public void serializarAdministradores () {
 
         ObjectOutputStream escritura = null;
@@ -154,7 +173,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             }
         }
     }
-
+/**
+ * Método que llama a los metodos serializables que se encargan de volcar en colecciones auxiliares
+ * todo lo existente en base de datos y lo graba en los archivos correspondientes permitiendo
+ * la persistencia de los datos.
+ */
     public void backUp() {
 
         char seguir;
@@ -172,7 +195,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
 
     }
 
-
+/**
+ * Método que permite dar de alta a concerjes. Este método proviene de una interfaz implementada en el caso de 
+ * administradores y concerjes de hotel. Cada uno de los cuales da de alta diferentes tipos de usuarios.
+ * En este caso, un administrador da de alta a un concerje, es decir a un empleado del hotel.
+ */
     @Override
     public void darDeAltaUsuario() {
 
@@ -205,7 +232,11 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
         concerje1 = new Concerje(dniConcerje,nombreConcerje,apellidoConcerje,pass);
         BaseDeDatos.agregarConcerje(concerje1);//una vez agregado al arreglo se puede volver a crear otroconcerje con esta variable
     }
-
+/**
+ * Metodo que permite dar de alta a un usuario que por algún motivo ha sido dado de baja en algún momento, impidiéndosele
+ * realizar operaciones en el sistema. A través de este método derivado de la interfaz IAbmUsuario, se reactiva en este caso
+ * a un concerje.
+ */
     @Override
     public void darDeAltaUsuario(String dni) {
         try{
@@ -218,7 +249,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             e.printStackTrace();
         }
     }
-
+    /**
+     * Método derivado de la interfaz IAbmUsuario. En el caso del administrador da de baja a un concerje por despido o por
+     * causa de fallecimiento o renuncia.
+     */
     @Override
     public void darDeBajaUsuario(String dni) {
         try {
@@ -231,7 +265,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             e.printStackTrace();
         }
     }
-
+/**
+ * Método de la interfaz IAbmHabitacion utilizado en este caso para agregar habitaciones al sistema
+ * que han sido construidas recientemente como causa de una ampliación física del hotel.
+ */
     @Override
     public void darAltaHab(String numeroHab) {
 
@@ -252,7 +289,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
         }
 
     }
-
+/**
+ * Método de la interfaz IAbmHabitacion que retira del sistema una habitación que por remodelación
+ * ha sido destruida y ya no será más parte del sistema dado que ya no existe físicamente.
+ */
     @Override
     public void darBajaHab(String numeroHab) {
 
@@ -265,7 +305,10 @@ public class Administrador extends Usuario implements IAbmUsuario,IAbmHabitacion
             System.out.println("Esa habitacion no existe, no puede eliminarse");
         }
     }
-
+/**
+ * JSON que devuelve en dicho formato amigo de todos los programadores, los datos pertenecientes al
+ * administrador.
+ */
     @Override
     public JSONObject getJson() throws JSONException{
         JSONObject obj = new JSONObject();
